@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="description"
+    content="Team Northam curling schedule, player availability and team statistics."
+  >
+
+  <meta name="theme-color" content="#071f3d">
+
+  <title>Team Northam</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- App icons and manifest will be added later -->
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- Header -->
+    <header class="site-header">
+      <a class="logo-link" href="index.html" aria-label="Team Northam home">
+        <img
+          class="team-logo"
+          src="team-northam-logo.png"
+          alt="Team Northam Lorette curling logo"
+        >
+      </a>
+    </header>
+
+    <!-- Main Page Content -->
+    <main class="page-content">
+
+      <section class="welcome-section">
+        <p class="eyebrow">2026–27 Curling Season</p>
+        <h1>Team Northam</h1>
+        <p class="welcome-text">
+          Team schedules, player availability, results and season statistics.
+        </p>
+      </section>
+
+      <!-- Next Game -->
+      <section class="dashboard-card featured-card">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">Coming Up</p>
+            <h2>Next Game</h2>
+          </div>
+
+          <span class="status-badge">Preseason</span>
+        </div>
+
+        <div class="game-details">
+          <div class="detail-item">
+            <span class="detail-label">Date</span>
+            <strong>Schedule coming soon</strong>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Time</span>
+            <strong>—</strong>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Sheet</span>
+            <strong>—</strong>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Opponent</span>
+            <strong>—</strong>
+          </div>
+        </div>
+
+        <a class="card-link" href="team-schedule2026.html">
+          View Team Schedule
+          <span aria-hidden="true">→</span>
+        </a>
+      </section>
+
+      <!-- Player Availability -->
+      <section class="dashboard-card">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">Team Planning</p>
+            <h2>Player Availability</h2>
+          </div>
+        </div>
+
+        <div class="empty-state">
+          <p>No unavailable dates have been added yet.</p>
+        </div>
+
+        <!--
+        Example availability entry:
+
+        <div class="availability-list">
+          <div class="availability-item">
+            <div>
+              <strong>October 8</strong>
+              <span>Mike unavailable</span>
+            </div>
+
+            <span class="availability-status">Unavailable</span>
+          </div>
+        </div>
+        -->
+      </section>
+
+      <!-- Team Information -->
+      <section class="dashboard-card">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">Team Details</p>
+            <h2>Team Information</h2>
+          </div>
+        </div>
+
+        <dl class="team-info-list">
+          <div class="team-info-row">
+            <dt>Club</dt>
+            <dd>Lorette Curling Club</dd>
+          </div>
+
+          <div class="team-info-row">
+            <dt>League</dt>
+            <dd>Men’s League</dd>
+          </div>
+
+          <div class="team-info-row">
+            <dt>League Night</dt>
+            <dd>Thursday</dd>
+          </div>
+
+          <div class="team-info-row">
+            <dt>Draw Times</dt>
+            <dd>7:00 PM and 9:15 PM</dd>
+          </div>
+
+          <div class="team-info-row">
+            <dt>Season</dt>
+            <dd>2026–27</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- Team Roster -->
+      <section class="dashboard-card">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">Roster</p>
+            <h2>Team Northam</h2>
+          </div>
+        </div>
+
+        <div class="roster-grid">
+          <div class="player-card">
+            <span class="player-number">01</span>
+            <strong>Jason</strong>
+          </div>
+
+          <div class="player-card">
+            <span class="player-number">02</span>
+            <strong>Jeff</strong>
+          </div>
+
+          <div class="player-card">
+            <span class="player-number">03</span>
+            <strong>Tom</strong>
+          </div>
+
+          <div class="player-card">
+            <span class="player-number">04</span>
+            <strong>Mike</strong>
+          </div>
+
+          <div class="player-card">
+            <span class="player-number">05</span>
+            <strong>Dallas</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- Current Season Snapshot -->
+      <section class="dashboard-card">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">Season Snapshot</p>
+            <h2>2026–27 Statistics</h2>
+          </div>
+        </div>
+
+        <div class="stats-preview">
+          <div class="stat-box">
+            <span class="stat-value">0–0</span>
+            <span class="stat-name">Record</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-value">0</span>
+            <span class="stat-name">Games Played</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-value">0</span>
+            <span class="stat-name">Wins</span>
+          </div>
+        </div>
+
+        <a class="card-link" href="team-stats2026.html">
+          View Team Statistics
+          <span aria-hidden="true">→</span>
+        </a>
+      </section>
+
+    </main>
+
+    <!-- Bottom Tab Bar -->
+    <nav class="bottom-tab-bar" aria-label="Primary navigation">
+
+      <a class="tab-link active" href="index.html" aria-current="page">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 10.8 12 3l9 7.8v9.7a.5.5 0 0 1-.5.5h-5.7v-6.5H9.2V21H3.5a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        </span>
+        <span>Home</span>
+      </a>
+
+      <a class="tab-link" href="team-schedule2026.html">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M6 2v3M18 2v3M3.5 8.5h17M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
+            <path d="M7 12h2M11 12h2M15 12h2M7 16h2M11 16h2M15 16h2"/>
+          </svg>
+        </span>
+        <span>Team</span>
+      </a>
+
+      <a class="tab-link" href="mens-schedule2026.html">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 5h16v15H4zM8 2v5M16 2v5M4 9h16"/>
+            <path d="M8 13h3M13 13h3M8 17h3M13 17h3"/>
+          </svg>
+        </span>
+        <span>League</span>
+      </a>
+
+      <a class="tab-link" href="team-stats2026.html">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 20V10h4v10M10 20V4h4v16M15 20v-7h4v7M3 20h18"/>
+          </svg>
+        </span>
+        <span>Stats</span>
+      </a>
+
+    </nav>
+
+  </div>
+
+</body>
+</html>
