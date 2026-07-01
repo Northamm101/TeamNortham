@@ -807,3 +807,543 @@ textarea {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* =========================================================
+  MEN'S LEAGUE SCHEDULE PAGE
+  ========================================================= */
+
+
+/* ---------- Schedule Page Intro ---------- */
+
+.schedule-page {
+ padding-top: 28px;
+}
+
+.schedule-intro {
+ margin-bottom: 18px;
+}
+
+
+/* =========================================================
+  MONTH NAVIGATION
+  ========================================================= */
+
+.month-navigation {
+ position: sticky;
+ top: 190px;
+ z-index: 80;
+ display: flex;
+ gap: 9px;
+ margin: 0 0 28px;
+ padding: 11px;
+ overflow-x: auto;
+ background: rgba(248, 251, 253, 0.96);
+ border: 1px solid rgba(7, 31, 61, 0.1);
+ border-radius: 15px;
+ box-shadow: var(--shadow-small);
+ scrollbar-width: none;
+ backdrop-filter: blur(12px);
+ -webkit-backdrop-filter: blur(12px);
+}
+
+.month-navigation::-webkit-scrollbar {
+ display: none;
+}
+
+.month-button {
+ flex: 0 0 auto;
+ min-width: 92px;
+ padding: 10px 14px;
+ color: var(--navy-800);
+ background: var(--white);
+ border: 1px solid var(--grey-200);
+ border-radius: 999px;
+ font-size: 0.76rem;
+ font-weight: 800;
+ text-align: center;
+ transition:
+   color 160ms ease,
+   background-color 160ms ease,
+   border-color 160ms ease,
+   transform 160ms ease;
+}
+
+.month-button:hover,
+.month-button:focus-visible {
+ color: var(--white);
+ background: var(--green-700);
+ border-color: var(--green-700);
+ transform: translateY(-1px);
+}
+
+.month-button.active {
+ color: var(--white);
+ background:
+   linear-gradient(
+     135deg,
+     var(--navy-800),
+     var(--green-700)
+   );
+ border-color: transparent;
+ box-shadow: 0 6px 14px rgba(4, 22, 44, 0.16);
+}
+
+.month-button:focus-visible {
+ outline: 3px solid var(--yellow);
+ outline-offset: 3px;
+}
+
+
+/* =========================================================
+  MONTH SECTIONS
+  ========================================================= */
+
+.schedule-month {
+ scroll-margin-top: 285px;
+ margin-bottom: 34px;
+}
+
+.month-heading {
+ display: flex;
+ align-items: baseline;
+ justify-content: space-between;
+ margin: 0 4px 14px;
+ padding-bottom: 10px;
+ border-bottom: 3px solid var(--green-700);
+}
+
+.month-heading span {
+ color: var(--navy-950);
+ font-size: 1.65rem;
+ font-weight: 900;
+ letter-spacing: -0.04em;
+}
+
+.month-heading strong {
+ color: var(--green-700);
+ font-size: 0.78rem;
+ letter-spacing: 0.12em;
+}
+
+
+/* =========================================================
+  WEEKLY SCHEDULE CARDS
+  ========================================================= */
+
+.schedule-card {
+ position: relative;
+ margin-bottom: 22px;
+ padding: 20px;
+ overflow: hidden;
+ background: rgba(255, 255, 255, 0.97);
+ border: 1px solid rgba(7, 31, 61, 0.1);
+ border-radius: var(--card-radius);
+ box-shadow: var(--shadow-medium);
+}
+
+.schedule-card::before {
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 5px;
+ content: "";
+ background:
+   linear-gradient(
+     90deg,
+     var(--green-700),
+     var(--navy-700),
+     var(--ice-300)
+   );
+}
+
+.schedule-card-header {
+ display: flex;
+ gap: 18px;
+ align-items: center;
+ justify-content: space-between;
+ margin-bottom: 17px;
+}
+
+.schedule-week-label {
+ margin: 0 0 5px;
+ color: var(--green-700);
+ font-size: 0.68rem;
+ font-weight: 900;
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+}
+
+.schedule-card-header h2 {
+ margin: 0;
+ color: var(--navy-950);
+ font-size: clamp(1.25rem, 6vw, 1.65rem);
+ line-height: 1.1;
+ letter-spacing: -0.035em;
+}
+
+
+/* ---------- Date Badge ---------- */
+
+.date-badge {
+ display: flex;
+ flex: 0 0 64px;
+ width: 64px;
+ min-height: 69px;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ overflow: hidden;
+ background: var(--white);
+ border: 1px solid var(--grey-200);
+ border-radius: 13px;
+ box-shadow: 0 5px 13px rgba(4, 22, 44, 0.1);
+}
+
+.date-badge span {
+ display: block;
+ width: 100%;
+ padding: 5px;
+ color: var(--white);
+ background: var(--green-700);
+ font-size: 0.64rem;
+ font-weight: 900;
+ letter-spacing: 0.1em;
+ text-align: center;
+}
+
+.date-badge strong {
+ display: grid;
+ flex: 1;
+ width: 100%;
+ place-items: center;
+ color: var(--navy-950);
+ font-size: 1.55rem;
+ line-height: 1;
+}
+
+
+/* =========================================================
+  50/50 TEAM BANNER
+  ========================================================= */
+
+.fifty-fifty-banner {
+ display: flex;
+ gap: 12px;
+ align-items: center;
+ justify-content: space-between;
+ margin-bottom: 19px;
+ padding: 12px 14px;
+ color: var(--white);
+ background:
+   linear-gradient(
+     135deg,
+     var(--navy-950),
+     var(--navy-800)
+   );
+ border-left: 5px solid var(--yellow);
+ border-radius: 11px;
+}
+
+.fifty-fifty-banner span {
+ color: var(--ice-300);
+ font-size: 0.7rem;
+ font-weight: 800;
+ letter-spacing: 0.09em;
+ text-transform: uppercase;
+}
+
+.fifty-fifty-banner strong {
+ font-size: 0.88rem;
+ text-align: right;
+}
+
+
+/* =========================================================
+  DRAW SECTIONS
+  ========================================================= */
+
+.draw-section {
+ margin-top: 18px;
+ padding-top: 18px;
+ border-top: 1px solid var(--grey-200);
+}
+
+.draw-section:first-of-type {
+ margin-top: 0;
+}
+
+.draw-heading {
+ display: flex;
+ gap: 14px;
+ align-items: center;
+ justify-content: space-between;
+ margin-bottom: 12px;
+}
+
+.draw-label {
+ display: block;
+ margin-bottom: 3px;
+ color: var(--grey-600);
+ font-size: 0.66rem;
+ font-weight: 800;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+}
+
+.draw-heading h3 {
+ margin: 0;
+ color: var(--navy-950);
+ font-size: 1.08rem;
+}
+
+.draw-badge {
+ flex-shrink: 0;
+ padding: 7px 11px;
+ border-radius: 999px;
+ font-size: 0.66rem;
+ font-weight: 900;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+}
+
+.early-draw-badge {
+ color: var(--navy-950);
+ background: var(--yellow);
+}
+
+.late-draw-badge {
+ color: var(--white);
+ background: var(--navy-800);
+}
+
+
+/* =========================================================
+  SCHEDULE TABLES
+  ========================================================= */
+
+.schedule-table-wrapper {
+ width: 100%;
+ overflow-x: auto;
+ border: 1px solid var(--grey-200);
+ border-radius: 12px;
+ scrollbar-width: thin;
+}
+
+.schedule-table {
+ width: 100%;
+ min-width: 540px;
+ border-collapse: collapse;
+ background: var(--white);
+}
+
+.schedule-table th,
+.schedule-table td {
+ padding: 12px 10px;
+ border-bottom: 1px solid var(--grey-200);
+ vertical-align: middle;
+}
+
+.schedule-table th {
+ color: var(--white);
+ background: var(--navy-800);
+ font-size: 0.68rem;
+ font-weight: 900;
+ letter-spacing: 0.06em;
+ text-align: left;
+ text-transform: uppercase;
+}
+
+.schedule-table th:first-child,
+.schedule-table td:first-child {
+ width: 58px;
+ text-align: center;
+}
+
+.schedule-table th:last-child,
+.schedule-table td:last-child {
+ width: 130px;
+}
+
+.schedule-table td {
+ color: var(--grey-800);
+ font-size: 0.8rem;
+ line-height: 1.4;
+}
+
+.schedule-table tbody tr:last-child td {
+ border-bottom: 0;
+}
+
+.schedule-table tbody tr:nth-child(even) {
+ background: var(--grey-100);
+}
+
+.sheet-cell {
+ color: var(--navy-950) !important;
+ font-size: 0.9rem !important;
+ font-weight: 900;
+}
+
+
+/* ---------- Team Northam Highlight ---------- */
+
+.team-northam-row {
+ background:
+   linear-gradient(
+     90deg,
+     rgba(7, 130, 99, 0.14),
+     rgba(217, 237, 247, 0.55)
+   ) !important;
+}
+
+.team-northam-row td {
+ color: var(--navy-950);
+ border-top: 2px solid rgba(7, 130, 99, 0.25);
+ border-bottom: 2px solid rgba(7, 130, 99, 0.25);
+}
+
+.team-northam-row td:first-child {
+ box-shadow: inset 5px 0 0 var(--green-700);
+}
+
+
+/* =========================================================
+  BACK TO TOP LINK
+  ========================================================= */
+
+.back-to-top-link {
+ display: flex;
+ gap: 8px;
+ align-items: center;
+ justify-content: flex-end;
+ margin-top: 18px;
+ color: var(--green-700);
+ font-size: 0.76rem;
+ font-weight: 850;
+}
+
+.back-to-top-link span {
+ display: grid;
+ width: 25px;
+ height: 25px;
+ place-items: center;
+ color: var(--white);
+ background: var(--green-700);
+ border-radius: 50%;
+ font-size: 0.8rem;
+}
+
+.back-to-top-link:hover,
+.back-to-top-link:focus-visible {
+ color: var(--navy-800);
+}
+
+.back-to-top-link:focus-visible {
+ outline: 3px solid var(--yellow);
+ outline-offset: 4px;
+ border-radius: 5px;
+}
+
+
+/* =========================================================
+  EMPTY MONTH PLACEHOLDERS
+  ========================================================= */
+
+.schedule-placeholder {
+ padding: 24px 18px;
+ text-align: center;
+ background: rgba(255, 255, 255, 0.82);
+ border: 1px dashed var(--grey-400);
+ border-radius: 14px;
+}
+
+.schedule-placeholder p {
+ margin: 0;
+ color: var(--grey-600);
+ font-size: 0.88rem;
+}
+
+.empty-schedule-month {
+ min-height: 175px;
+}
+
+
+/* =========================================================
+  SCHEDULE RESPONSIVE ADJUSTMENTS
+  ========================================================= */
+
+@media (min-width: 620px) {
+ .month-navigation {
+   top: 220px;
+ }
+
+ .schedule-month {
+   scroll-margin-top: 315px;
+ }
+
+ .schedule-card {
+   padding: 24px;
+ }
+
+ .schedule-table td {
+   font-size: 0.86rem;
+ }
+}
+
+
+@media (max-width: 619px) {
+ .month-navigation {
+   top: 190px;
+ }
+}
+
+
+@media (max-width: 430px) {
+ .schedule-card {
+   padding: 17px;
+ }
+
+ .schedule-card-header {
+   gap: 12px;
+ }
+
+ .date-badge {
+   flex-basis: 58px;
+   width: 58px;
+   min-height: 64px;
+ }
+
+ .date-badge strong {
+   font-size: 1.4rem;
+ }
+
+ .fifty-fifty-banner {
+   align-items: flex-start;
+   flex-direction: column;
+ }
+
+ .fifty-fifty-banner strong {
+   text-align: left;
+ }
+
+ .schedule-table {
+   min-width: 505px;
+ }
+}
+
+
+@media (max-width: 360px) {
+ .month-navigation {
+   top: 170px;
+ }
+
+ .schedule-month {
+   scroll-margin-top: 265px;
+ }
+
+ .month-button {
+   min-width: 84px;
+   padding: 9px 12px;
+ }
+}
