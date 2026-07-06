@@ -54,7 +54,9 @@ html {
 body {
   min-height: 100%;
   margin: 0;
-   overflow-x: hidden;
+  overflow-x: hidden;
+
+  background:
    
    background:
     radial-gradient(
