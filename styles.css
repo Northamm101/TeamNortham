@@ -783,14 +783,6 @@ textarea {
     padding: 17px;
   }
 
-  .site-header {
-    min-height: 170px;
-  }
-
-  .team-logo {
-    width: 215px;
-  }
-
   .team-info-row {
     grid-template-columns: 95px minmax(0, 1fr);
   }
