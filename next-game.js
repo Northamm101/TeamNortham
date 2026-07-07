@@ -1,0 +1,103 @@
+function getWinnipegDateTimeKey() {
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Winnipeg",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
+  });
+
+  const parts = formatter.formatToParts(new Date());
+  const values = {};
+
+  parts.forEach((part) => {
+    if (part.type !== "literal") {
+      values[part.type] = part.value;
+    }
+  });
+
+  return Number(
+    `${values.year}${values.month}${values.day}${values.hour}${values.minute}`
+  );
+}
+
+function getGameStartKey(game) {
+  const [year, month, day] = game.date.split("-").map(Number);
+
+  const timeMatch = game.time.match(/(\d+):(\d+)\s(AM|PM)/i);
+
+  if (!timeMatch) {
+    return 0;
+  }
+
+  let hour = Number(timeMatch[1]);
+  const minute = Number(timeMatch[2]);
+  const period = timeMatch[3].toUpperCase();
+
+  if (period === "PM" && hour !== 12) {
+    hour += 12;
+  }
+
+  if (period === "AM" && hour === 12) {
+    hour = 0;
+  }
+
+  return Number(
+    `${year}` +
+    `${String(month).padStart(2, "0")}` +
+    `${String(day).padStart(2, "0")}` +
+    `${String(hour).padStart(2, "0")}` +
+    `${String(minute).padStart(2, "0")}`
+  );
+}
+
+function updateNextGameCard() {
+  const currentKey = getWinnipegDateTimeKey();
+
+  const nextGame = teamNorthamSchedule.find(
+    (game) => getGameStartKey(game) > currentKey
+  );
+
+  const seasonBadge = document.getElementById("next-game-season");
+  const dateValue = document.getElementById("next-game-date");
+  const timeValue = document.getElementById("next-game-time");
+  const sheetValue = document.getElementById("next-game-sheet");
+  const opponentValue = document.getElementById("next-game-opponent");
+
+  if (
+    !seasonBadge ||
+    !dateValue ||
+    !timeValue ||
+    !sheetValue ||
+    !opponentValue
+  ) {
+    return;
+  }
+
+  if (!nextGame) {
+    seasonBadge.textContent = "Season Complete";
+    dateValue.textContent = "No upcoming games";
+    timeValue.textContent = "—";
+    sheetValue.textContent = "—";
+    opponentValue.textContent = "—";
+    return;
+  }
+
+  seasonBadge.textContent = nextGame.season;
+  dateValue.textContent = nextGame.displayDate;
+  timeValue.textContent = nextGame.time;
+  sheetValue.textContent = `Sheet ${nextGame.sheet}`;
+  opponentValue.textContent = nextGame.opponent;
+}
+
+updateNextGameCard();
+
+/*
+  Recheck once every minute.
+
+  This allows the card to advance automatically when a scheduled
+  Team Northam game begins, even if the app remains open.
+*/
+setInterval(updateNextGameCard, 60000);
