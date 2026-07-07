@@ -1595,3 +1595,54 @@ textarea {
     scroll-margin-top: 105px;
   }
 }
+
+/* Force all schedule month buttons to stay coloured */
+.schedule-header .schedule-month-tab,
+.schedule-header .schedule-month-tab:link,
+.schedule-header .schedule-month-tab:visited {
+  color: var(--white) !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--navy-800),
+      var(--green-700)
+    ) !important;
+
+  border-color: rgba(255, 255, 255, 0.18) !important;
+
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.16) !important;
+}
+
+/* Month currently selected */
+.schedule-header .schedule-month-tab.active {
+  color: var(--white) !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--navy-700),
+      var(--green-600)
+    ) !important;
+
+  border-color: var(--yellow) !important;
+
+  box-shadow:
+    inset 0 4px 0 var(--yellow),
+    0 5px 14px rgba(0, 0, 0, 0.24) !important;
+}
+
+/* Keep tapped or focused buttons coloured */
+.schedule-header .schedule-month-tab:hover,
+.schedule-header .schedule-month-tab:focus,
+.schedule-header .schedule-month-tab:focus-visible {
+  color: var(--white) !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--navy-800),
+      var(--green-700)
+    ) !important;
+}
