@@ -35,5 +35,20 @@ const teamStats = {
     }
   */
 
-  games: []
+  games: [
+  {
+    date: "2026-10-01",
+    displayDate: "October 1, 2026",
+    opponent: 3,
+    result: "W",
+    teamScore: 8,
+    opponentScore: 5,
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 1,
+    rockColor: "Red",
+    lineup: ["Jason", "Jeff", "Tom", "Mike"],
+    notes: "Temporary test game"
+  }
+]
 };
