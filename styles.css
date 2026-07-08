@@ -2245,3 +2245,40 @@ textarea {
 .fifty-fifty-banner.compact-fifty-fifty.team-northam-fifty-fifty strong {
   color: #ffffff !important;
 }
+
+/* =========================================================
+   STATISTICS CARD LINK BUTTON
+   ========================================================= */
+
+.card-footer-link {
+  display: flex;
+  width: 100%;
+  min-height: 56px;
+  margin-top: 18px;
+  padding: 14px 17px;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #ffffff;
+  font-size: 0.93rem;
+  font-weight: 850;
+  line-height: 1.15;
+  text-decoration: none;
+
+  background: #00775f;
+  border: 1px solid #00775f;
+  border-radius: 13px;
+  box-sizing: border-box;
+}
+
+.card-footer-link span {
+  color: #ffffff;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.card-footer-link:active {
+  transform: translateY(1px);
+  background: #006650;
+}
