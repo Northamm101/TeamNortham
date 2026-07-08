@@ -2167,3 +2167,51 @@ textarea {
 .team-northam-fifty-fifty strong {
   color: var(--green-dark);
 }
+
+/* =========================================================
+   COMPACT 50/50 — CONTRAST FIX
+   ========================================================= */
+
+.fifty-fifty-banner.compact-fifty-fifty {
+  min-height: 0;
+  padding: 9px 14px;
+  background: var(--navy-950);
+  border: 1px solid var(--navy-950);
+  border-left: 5px solid var(--yellow);
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.fifty-fifty-banner.compact-fifty-fifty span,
+.fifty-fifty-banner.compact-fifty-fifty strong {
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Team Northam 50/50 week */
+.fifty-fifty-banner.compact-fifty-fifty.team-northam-fifty-fifty {
+  background: var(--green);
+  border-color: var(--green);
+  border-left-color: var(--yellow);
+}
+
+.fifty-fifty-banner.compact-fifty-fifty.team-northam-fifty-fifty span,
+.fifty-fifty-banner.compact-fifty-fifty.team-northam-fifty-fifty strong {
+  color: var(--white);
+}
+
+/* Week with no 50/50 */
+.fifty-fifty-banner.compact-fifty-fifty.no-fifty-fifty {
+  background: var(--grey-100);
+  border-color: var(--grey-200);
+  border-left-color: var(--grey-400);
+}
+
+.fifty-fifty-banner.compact-fifty-fifty.no-fifty-fifty span {
+  color: var(--grey-700);
+  text-transform: none;
+}
