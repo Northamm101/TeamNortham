@@ -1,70 +1,39 @@
 const teamStats = {
-  overall: {
-    wins: 0,
-    losses: 0,
-    ties: 0,
-    points: 0
+  scoring: {
+    win: 10,
+    loss: 5,
+    tie: 7,
+    defaultLoss: 0
   },
 
-  drawRecords: {
-    early: {
-      wins: 0,
-      losses: 0,
-      ties: 0
-    },
+  roster: [
+    { name: "Jason", rosterOrder: 1 },
+    { name: "Jeff", rosterOrder: 2 },
+    { name: "Tom", rosterOrder: 3 },
+    { name: "Mike", rosterOrder: 4 },
+    { name: "Dallas", rosterOrder: 5 }
+  ],
 
-    late: {
-      wins: 0,
-      losses: 0,
-      ties: 0
+  /*
+    Add one object here after each Team Northam game.
+
+    Example:
+
+    {
+      date: "2026-10-01",
+      displayDate: "October 1, 2026",
+      opponent: 3,
+      result: "W",
+      teamScore: 8,
+      opponentScore: 5,
+      draw: "late",
+      time: "9:15 PM",
+      sheet: 1,
+      rockColor: "Red",
+      lineup: ["Jason", "Jeff", "Tom", "Mike"],
+      notes: ""
     }
-  },
+  */
 
-  sheetRecords: {
-    1: {
-      wins: 0,
-      losses: 0,
-      ties: 0
-    },
-
-    2: {
-      wins: 0,
-      losses: 0,
-      ties: 0
-    },
-
-    3: {
-      wins: 0,
-      losses: 0,
-      ties: 0
-    }
-  },
-
-  players: [
-    {
-      name: "Jason",
-      gamesPlayed: 0,
-      rosterOrder: 1
-    },
-    {
-      name: "Jeff",
-      gamesPlayed: 0,
-      rosterOrder: 2
-    },
-    {
-      name: "Tom",
-      gamesPlayed: 0,
-      rosterOrder: 3
-    },
-    {
-      name: "Mike",
-      gamesPlayed: 0,
-      rosterOrder: 4
-    },
-    {
-      name: "Dallas",
-      gamesPlayed: 0,
-      rosterOrder: 5
-    }
-  ]
+  games: []
 };
