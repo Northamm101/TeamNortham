@@ -1723,3 +1723,16 @@ textarea {
     font-size: 0.69rem;
   }
 }
+
+/* =========================================================
+   TEAM SCHEDULE GAME DETAILS
+   ========================================================= */
+
+.team-game-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.team-game-detail {
