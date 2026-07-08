@@ -101,19 +101,25 @@ function createScheduleCard(week, weekNumber) {
       .slice(0, 3)
       .toUpperCase() || "";
 
-  const fiftyFiftyMarkup = week.fiftyFiftyTeam
-    ? `
-      <div class="fifty-fifty-banner">
-        <span>50/50 Team</span>
+  const fiftyFiftyHighlightClass =
+  week.fiftyFiftyTeam === teamNorthamNumber
+    ? " team-northam-fifty-fifty"
+    : "";
+
+const fiftyFiftyMarkup = week.fiftyFiftyTeam
+  ? `
+    <div class="fifty-fifty-banner compact-fifty-fifty${fiftyFiftyHighlightClass}">
+      <span>
+        50/50 Team:
         <strong>Team ${week.fiftyFiftyTeam}</strong>
-      </div>
-    `
-    : `
-      <div class="fifty-fifty-banner no-fifty-fifty">
-        <span>50/50 Team</span>
-        <strong>No 50/50 this week</strong>
-      </div>
-    `;
+      </span>
+    </div>
+  `
+  : `
+    <div class="fifty-fifty-banner compact-fifty-fifty no-fifty-fifty">
+      <span>No 50/50 this week</span>
+    </div>
+  `;
 
   return `
     <article class="schedule-card">
