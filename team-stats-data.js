@@ -1,4 +1,45 @@
 const teamStats = {
+  overall: {
+    wins: 0,
+    losses: 0,
+    ties: 0,
+    points: 0
+  },
+
+  drawRecords: {
+    early: {
+      wins: 0,
+      losses: 0,
+      ties: 0
+    },
+
+    late: {
+      wins: 0,
+      losses: 0,
+      ties: 0
+    }
+  },
+
+  sheetRecords: {
+    1: {
+      wins: 0,
+      losses: 0,
+      ties: 0
+    },
+
+    2: {
+      wins: 0,
+      losses: 0,
+      ties: 0
+    },
+
+    3: {
+      wins: 0,
+      losses: 0,
+      ties: 0
+    }
+  },
+
   players: [
     {
       name: "Jason",
