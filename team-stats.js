@@ -52,6 +52,22 @@ function calculatePoints(game) {
   return 0;
 }
 
+function createLineupKey(lineup) {
+  if (!Array.isArray(lineup) || lineup.length === 0) {
+    return "";
+  }
+
+  return lineup.join("|");
+}
+
+function formatLineupName(lineup) {
+  if (!Array.isArray(lineup) || lineup.length === 0) {
+    return "Lineup not entered";
+  }
+
+  return lineup.join(" – ");
+}
+
 function calculateStatistics() {
   const calculated = {
     overall: createEmptyRecord(),
@@ -64,28 +80,29 @@ function calculateStatistics() {
     },
 
     sheetRecords: {
-  1: createEmptyRecord(),
-  2: createEmptyRecord(),
-  3: createEmptyRecord()
-},
+      1: createEmptyRecord(),
+      2: createEmptyRecord(),
+      3: createEmptyRecord()
+    },
 
-rockRecords: {
-  1: {
-    yellow: createEmptyRecord(),
-    red: createEmptyRecord()
-  },
-  2: {
-    yellow: createEmptyRecord(),
-    red: createEmptyRecord()
-  },
-  3: {
-    yellow: createEmptyRecord(),
-    red: createEmptyRecord()
-  }
-},
+    rockRecords: {
+      1: {
+        yellow: createEmptyRecord(),
+        red: createEmptyRecord()
+      },
+      2: {
+        yellow: createEmptyRecord(),
+        red: createEmptyRecord()
+      },
+      3: {
+        yellow: createEmptyRecord(),
+        red: createEmptyRecord()
+      }
+    },
 
-playerGames: {}
-    playerGames: {}
+    playerGames: {},
+
+    lineupRecords: {}
   };
 
   teamStats.roster.forEach((player) => {
@@ -95,7 +112,9 @@ playerGames: {}
   teamStats.games.forEach((game) => {
     addResultToRecord(calculated.overall, game.result);
 
-    calculated.points += calculatePoints(game);
+    const gamePoints = calculatePoints(game);
+
+    calculated.points += gamePoints;
 
     if (calculated.drawRecords[game.draw]) {
       addResultToRecord(
@@ -105,28 +124,26 @@ playerGames: {}
     }
 
     if (calculated.sheetRecords[game.sheet]) {
-  addResultToRecord(
-    calculated.sheetRecords[game.sheet],
-    game.result
-  );
-}
+      addResultToRecord(
+        calculated.sheetRecords[game.sheet],
+        game.result
+      );
+    }
 
-const normalizedRockColor =
-  typeof game.rockColor === "string"
-    ? game.rockColor.trim().toLowerCase()
-    : "";
+    const normalizedRockColor =
+      typeof game.rockColor === "string"
+        ? game.rockColor.trim().toLowerCase()
+        : "";
 
-if (
-  calculated.rockRecords[game.sheet] &&
-  calculated.rockRecords[game.sheet][normalizedRockColor]
-) {
-  addResultToRecord(
-    calculated.rockRecords[game.sheet][normalizedRockColor],
-    game.result
-  );
-}
-
-const playersInGame = new Set(game.lineup || []);
+    if (
+      calculated.rockRecords[game.sheet] &&
+      calculated.rockRecords[game.sheet][normalizedRockColor]
+    ) {
+      addResultToRecord(
+        calculated.rockRecords[game.sheet][normalizedRockColor],
+        game.result
+      );
+    }
 
     const playersInGame = new Set(game.lineup || []);
 
@@ -140,6 +157,43 @@ const playersInGame = new Set(game.lineup || []);
         calculated.playerGames[playerName] += 1;
       }
     });
+
+    const lineupKey = createLineupKey(game.lineup);
+
+    if (lineupKey) {
+      if (!calculated.lineupRecords[lineupKey]) {
+        calculated.lineupRecords[lineupKey] = {
+          lineup: [...game.lineup],
+          record: createEmptyRecord(),
+          points: 0,
+          gamesPlayed: 0,
+          pointsFor: 0,
+          pointsAgainst: 0,
+          differential: 0
+        };
+      }
+
+      const lineupRecord =
+        calculated.lineupRecords[lineupKey];
+
+      addResultToRecord(
+        lineupRecord.record,
+        game.result
+      );
+
+      lineupRecord.points += gamePoints;
+      lineupRecord.gamesPlayed += 1;
+
+      if (
+        typeof game.teamScore === "number" &&
+        typeof game.opponentScore === "number"
+      ) {
+        lineupRecord.pointsFor += game.teamScore;
+        lineupRecord.pointsAgainst += game.opponentScore;
+        lineupRecord.differential +=
+          game.teamScore - game.opponentScore;
+      }
+    }
   });
 
   return calculated;
@@ -180,40 +234,41 @@ function renderMainStatistics(calculated) {
     "sheet-3-record",
     formatRecord(calculated.sheetRecords[3])
   );
+
+  updateTextContent(
+    "sheet-1-yellow-record",
+    formatRecord(calculated.rockRecords[1].yellow)
+  );
+
+  updateTextContent(
+    "sheet-1-red-record",
+    formatRecord(calculated.rockRecords[1].red)
+  );
+
+  updateTextContent(
+    "sheet-2-yellow-record",
+    formatRecord(calculated.rockRecords[2].yellow)
+  );
+
+  updateTextContent(
+    "sheet-2-red-record",
+    formatRecord(calculated.rockRecords[2].red)
+  );
+
+  updateTextContent(
+    "sheet-3-yellow-record",
+    formatRecord(calculated.rockRecords[3].yellow)
+  );
+
+  updateTextContent(
+    "sheet-3-red-record",
+    formatRecord(calculated.rockRecords[3].red)
+  );
 }
 
-updateTextContent(
-  "sheet-1-yellow-record",
-  formatRecord(calculated.rockRecords[1].yellow)
-);
-
-updateTextContent(
-  "sheet-1-red-record",
-  formatRecord(calculated.rockRecords[1].red)
-);
-
-updateTextContent(
-  "sheet-2-yellow-record",
-  formatRecord(calculated.rockRecords[2].yellow)
-);
-
-updateTextContent(
-  "sheet-2-red-record",
-  formatRecord(calculated.rockRecords[2].red)
-);
-
-updateTextContent(
-  "sheet-3-yellow-record",
-  formatRecord(calculated.rockRecords[3].yellow)
-);
-
-updateTextContent(
-  "sheet-3-red-record",
-  formatRecord(calculated.rockRecords[3].red)
-);
-
 function renderGamesPlayed(calculated) {
-  const container = document.getElementById("player-games-list");
+  const container =
+    document.getElementById("player-games-list");
 
   if (!container) {
     return;
@@ -222,14 +277,24 @@ function renderGamesPlayed(calculated) {
   const sortedPlayers = teamStats.roster
     .map((player) => ({
       ...player,
-      gamesPlayed: calculated.playerGames[player.name] || 0
+      gamesPlayed:
+        calculated.playerGames[player.name] || 0
     }))
     .sort((playerA, playerB) => {
-      if (playerB.gamesPlayed !== playerA.gamesPlayed) {
-        return playerB.gamesPlayed - playerA.gamesPlayed;
+      if (
+        playerB.gamesPlayed !==
+        playerA.gamesPlayed
+      ) {
+        return (
+          playerB.gamesPlayed -
+          playerA.gamesPlayed
+        );
       }
 
-      return playerA.rosterOrder - playerB.rosterOrder;
+      return (
+        playerA.rosterOrder -
+        playerB.rosterOrder
+      );
     });
 
   container.innerHTML = sortedPlayers
@@ -238,6 +303,111 @@ function renderGamesPlayed(calculated) {
         <div class="player-games-row">
           <span>${player.name}</span>
           <strong>${player.gamesPlayed}</strong>
+        </div>
+      `
+    )
+    .join("");
+}
+
+function calculateWinPercentage(lineupRecord) {
+  if (lineupRecord.gamesPlayed === 0) {
+    return 0;
+  }
+
+  return (
+    lineupRecord.record.wins +
+    lineupRecord.record.ties * 0.5
+  ) / lineupRecord.gamesPlayed;
+}
+
+function renderLineupPerformance(calculated) {
+  const container =
+    document.getElementById(
+      "lineup-performance-list"
+    );
+
+  if (!container) {
+    return;
+  }
+
+  const lineups = Object.values(
+    calculated.lineupRecords
+  );
+
+  if (lineups.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <p>No lineups have been recorded yet.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  const sortedLineups = lineups.sort(
+    (lineupA, lineupB) => {
+      if (lineupB.points !== lineupA.points) {
+        return lineupB.points - lineupA.points;
+      }
+
+      const winPercentageDifference =
+        calculateWinPercentage(lineupB) -
+        calculateWinPercentage(lineupA);
+
+      if (winPercentageDifference !== 0) {
+        return winPercentageDifference;
+      }
+
+      if (
+        lineupB.differential !==
+        lineupA.differential
+      ) {
+        return (
+          lineupB.differential -
+          lineupA.differential
+        );
+      }
+
+      if (
+        lineupB.gamesPlayed !==
+        lineupA.gamesPlayed
+      ) {
+        return (
+          lineupB.gamesPlayed -
+          lineupA.gamesPlayed
+        );
+      }
+
+      return formatLineupName(
+        lineupA.lineup
+      ).localeCompare(
+        formatLineupName(lineupB.lineup)
+      );
+    }
+  );
+
+  container.innerHTML = sortedLineups
+    .map(
+      (lineupRecord) => `
+        <div class="lineup-performance-row">
+          <div>
+            <span class="lineup-performance-name">
+              ${formatLineupName(lineupRecord.lineup)}
+            </span>
+
+            <small>
+              ${lineupRecord.points} points ·
+              ${lineupRecord.gamesPlayed} ${
+                lineupRecord.gamesPlayed === 1
+                  ? "game"
+                  : "games"
+              }
+            </small>
+          </div>
+
+          <strong>
+            ${formatRecord(lineupRecord.record)}
+          </strong>
         </div>
       `
     )
@@ -277,7 +447,10 @@ function getResultClass(result) {
 }
 
 function formatLineup(lineup) {
-  if (!Array.isArray(lineup) || lineup.length === 0) {
+  if (
+    !Array.isArray(lineup) ||
+    lineup.length === 0
+  ) {
     return "Not entered";
   }
 
@@ -285,7 +458,10 @@ function formatLineup(lineup) {
 }
 
 function renderWeeklyResults() {
-  const container = document.getElementById("weekly-results-list");
+  const container =
+    document.getElementById(
+      "weekly-results-list"
+    );
 
   if (!container) {
     return;
@@ -301,7 +477,9 @@ function renderWeeklyResults() {
     return;
   }
 
-  const gamesNewestFirst = [...teamStats.games].sort(
+  const gamesNewestFirst = [
+    ...teamStats.games
+  ].sort(
     (gameA, gameB) =>
       new Date(`${gameB.date}T12:00:00`) -
       new Date(`${gameA.date}T12:00:00`)
@@ -309,8 +487,11 @@ function renderWeeklyResults() {
 
   container.innerHTML = gamesNewestFirst
     .map((game) => {
-      const resultClass = getResultClass(game.result);
-      const resultLabel = getResultLabel(game.result);
+      const resultClass =
+        getResultClass(game.result);
+
+      const resultLabel =
+        getResultLabel(game.result);
 
       const score =
         typeof game.teamScore === "number" &&
@@ -326,7 +507,9 @@ function renderWeeklyResults() {
                 ${game.displayDate}
               </span>
 
-              <h3>Team 7 vs Team ${game.opponent}</h3>
+              <h3>
+                Team 7 vs Team ${game.opponent}
+              </h3>
             </div>
 
             <span class="weekly-result-badge">
@@ -343,7 +526,11 @@ function renderWeeklyResults() {
             <div>
               <span>Draw</span>
               <strong>
-                ${game.draw === "early" ? "Early" : "Late"}
+                ${
+                  game.draw === "early"
+                    ? "Early"
+                    : "Late"
+                }
               </strong>
             </div>
 
@@ -361,12 +548,16 @@ function renderWeeklyResults() {
 
             <div>
               <dt>Rock Colour</dt>
-              <dd>${game.rockColor || "Not entered"}</dd>
+              <dd>
+                ${game.rockColor || "Not entered"}
+              </dd>
             </div>
 
             <div>
               <dt>Lineup</dt>
-              <dd>${formatLineup(game.lineup)}</dd>
+              <dd>
+                ${formatLineup(game.lineup)}
+              </dd>
             </div>
 
             ${
@@ -386,8 +577,12 @@ function renderWeeklyResults() {
     .join("");
 }
 
-const calculatedStatistics = calculateStatistics();
+const calculatedStatistics =
+  calculateStatistics();
 
 renderMainStatistics(calculatedStatistics);
 renderGamesPlayed(calculatedStatistics);
+renderLineupPerformance(
+  calculatedStatistics
+);
 renderWeeklyResults();
