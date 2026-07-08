@@ -1646,3 +1646,80 @@ textarea {
       var(--green-700)
     ) !important;
 }
+
+/* =========================================================
+   COMPACT MOBILE SCHEDULE TABLE
+   ========================================================= */
+
+.schedule-table-wrapper {
+  overflow-x: hidden;
+}
+
+.schedule-table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 10px 6px;
+}
+
+.schedule-table th {
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+}
+
+.schedule-table td {
+  font-size: 0.74rem;
+  line-height: 1.25;
+}
+
+/* Sheet column */
+.schedule-table th:nth-child(1),
+.schedule-table td:nth-child(1) {
+  width: 15%;
+  text-align: center;
+}
+
+/* Matchup column */
+.schedule-table th:nth-child(2),
+.schedule-table td:nth-child(2) {
+  width: 55%;
+}
+
+/* Winner column */
+.schedule-table th:nth-child(3),
+.schedule-table td:nth-child(3) {
+  width: 30%;
+  text-align: center;
+}
+
+.schedule-table td:nth-child(2) {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.schedule-table td:nth-child(3) {
+  white-space: nowrap;
+}
+
+@media (max-width: 430px) {
+  .schedule-table {
+    min-width: 0;
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+    padding: 9px 4px;
+  }
+
+  .schedule-table th {
+    font-size: 0.58rem;
+  }
+
+  .schedule-table td {
+    font-size: 0.69rem;
+  }
+}
