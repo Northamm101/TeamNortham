@@ -17,7 +17,7 @@
 
   <title>Team Statistics | Team Northam</title>
 
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 
 <body>
@@ -69,6 +69,20 @@
 </div>
       </section>
 
+      <!-- Games Played -->
+      <section class="dashboard-card">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">Player Rotation</p>
+            <h2>Games Played</h2>
+          </div>
+        </div>
+
+        <div class="player-games-list" id="player-games-list">
+          
+        </div>
+      </section>
+      
       <!-- Draw Time Performance -->
       <section class="dashboard-card">
         <div class="card-heading">
@@ -190,21 +204,28 @@
 
   </div>
 </section>
+
+      <!-- Lineup Performance -->
+<section class="dashboard-card">
+  <div class="card-heading">
+    <div>
+      <p class="card-label">Lineup Performance</p>
+      <h2>Record by Lineup</h2>
+    </div>
+  </div>
+
+  <div class="lineup-performance-list" id="lineup-performance-list">
+    <div class="empty-state">
+      <p>No lineups have been recorded yet.</p>
+    </div>
+  </div>
+
+  <a class="card-footer-link" href="teamlineup2026.html">
+    View Lineup Statistics
+    <span aria-hidden="true">→</span>
+  </a>
+</section>
       
-      <!-- Games Played -->
-      <section class="dashboard-card">
-        <div class="card-heading">
-          <div>
-            <p class="card-label">Player Rotation</p>
-            <h2>Games Played</h2>
-          </div>
-        </div>
-
-        <div class="player-games-list" id="player-games-list">
-          
-        </div>
-      </section>
-
       <!-- Weekly Results -->
       <section class="dashboard-card">
         <div class="card-heading">
