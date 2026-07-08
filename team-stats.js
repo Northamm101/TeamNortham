@@ -64,11 +64,27 @@ function calculateStatistics() {
     },
 
     sheetRecords: {
-      1: createEmptyRecord(),
-      2: createEmptyRecord(),
-      3: createEmptyRecord()
-    },
+  1: createEmptyRecord(),
+  2: createEmptyRecord(),
+  3: createEmptyRecord()
+},
 
+rockRecords: {
+  1: {
+    yellow: createEmptyRecord(),
+    red: createEmptyRecord()
+  },
+  2: {
+    yellow: createEmptyRecord(),
+    red: createEmptyRecord()
+  },
+  3: {
+    yellow: createEmptyRecord(),
+    red: createEmptyRecord()
+  }
+},
+
+playerGames: {}
     playerGames: {}
   };
 
@@ -89,11 +105,28 @@ function calculateStatistics() {
     }
 
     if (calculated.sheetRecords[game.sheet]) {
-      addResultToRecord(
-        calculated.sheetRecords[game.sheet],
-        game.result
-      );
-    }
+  addResultToRecord(
+    calculated.sheetRecords[game.sheet],
+    game.result
+  );
+}
+
+const normalizedRockColor =
+  typeof game.rockColor === "string"
+    ? game.rockColor.trim().toLowerCase()
+    : "";
+
+if (
+  calculated.rockRecords[game.sheet] &&
+  calculated.rockRecords[game.sheet][normalizedRockColor]
+) {
+  addResultToRecord(
+    calculated.rockRecords[game.sheet][normalizedRockColor],
+    game.result
+  );
+}
+
+const playersInGame = new Set(game.lineup || []);
 
     const playersInGame = new Set(game.lineup || []);
 
@@ -148,6 +181,36 @@ function renderMainStatistics(calculated) {
     formatRecord(calculated.sheetRecords[3])
   );
 }
+
+updateTextContent(
+  "sheet-1-yellow-record",
+  formatRecord(calculated.rockRecords[1].yellow)
+);
+
+updateTextContent(
+  "sheet-1-red-record",
+  formatRecord(calculated.rockRecords[1].red)
+);
+
+updateTextContent(
+  "sheet-2-yellow-record",
+  formatRecord(calculated.rockRecords[2].yellow)
+);
+
+updateTextContent(
+  "sheet-2-red-record",
+  formatRecord(calculated.rockRecords[2].red)
+);
+
+updateTextContent(
+  "sheet-3-yellow-record",
+  formatRecord(calculated.rockRecords[3].yellow)
+);
+
+updateTextContent(
+  "sheet-3-red-record",
+  formatRecord(calculated.rockRecords[3].red)
+);
 
 function renderGamesPlayed(calculated) {
   const container = document.getElementById("player-games-list");
