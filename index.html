@@ -43,11 +43,33 @@
       <section class="welcome-section">
         <p class="eyebrow">2026–27 Curling Season</p>
         <h1>Team Northam</h1>
-        <p class="welcome-text">
-          Team schedules, player availability, results and season statistics.
-        </p>
       </section>
 
+<!-- Team Northam Standings Snapshot -->
+<section class="team-standing-snapshot-card">
+  <table class="team-standing-snapshot-table">
+    <thead>
+      <tr>
+        <th scope="col">Rank</th>
+        <th scope="col">Team</th>
+        <th scope="col">GP</th>
+        <th scope="col">Record</th>
+        <th scope="col">Pts</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr class="team-northam-standing">
+        <td id="snapshot-rank">7</td>
+        <td>7</td>
+        <td id="snapshot-games-played">0</td>
+        <td id="snapshot-record">0-0-0</td>
+        <td id="snapshot-points">0</td>
+      </tr>
+    </tbody>
+  </table>
+</section>  
+      
       <!-- Next Game -->
       <section class="dashboard-card featured-card">
         <div class="card-heading">
@@ -116,34 +138,7 @@
         -->
       </section>
 
-      <!-- Current Season Snapshot -->
-      <section class="dashboard-card">
-        <div class="card-heading">
-          <div>
-            <p class="card-label">Season Snapshot</p>
-            <h2>2026–27 Statistics</h2>
-          </div>
-        </div>
-
-<div class="stats-preview">
-  <div class="stat-box">
-    <span class="stat-value">0-0-0</span>
-    <span class="stat-name">Record</span>
-  </div>
-
-  <div class="stat-box">
-    <span class="stat-value">0</span>
-    <span class="stat-name">Points</span>
-  </div>
-</div>
-
-        <a class="card-link" href="team-stats2026.html">
-          View Team Statistics
-          <span aria-hidden="true">→</span>
-        </a>
-      </section>
-
-      <!-- Regular Season Standings -->
+       <!-- Regular Season Standings -->
 <section class="dashboard-card standings-card">
   <div class="card-heading standings-heading">
     <div>
@@ -164,103 +159,11 @@
         </tr>
       </thead>
 
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>1</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr>
-          <td>2</td>
-          <td>2</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr>
-          <td>3</td>
-          <td>3</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr>
-          <td>4</td>
-          <td>4</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr>
-          <td>5</td>
-          <td>5</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr>
-          <td>6</td>
-          <td>6</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr class="team-northam-standing">
-          <td>7</td>
-          <td>7</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr>
-          <td>8</td>
-          <td>8</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr>
-          <td>9</td>
-          <td>9</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr>
-          <td>10</td>
-          <td>10</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr>
-          <td>11</td>
-          <td>11</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-
-        <tr>
-          <td>12</td>
-          <td>12</td>
-          <td>0</td>
-          <td>0-0-0</td>
-          <td>0</td>
-        </tr>
-      </tbody>
+      <tbody id="league-standings-body">
+  <tr>
+    <td colspan="5">Standings are loading.</td>
+  </tr>
+</tbody>
     </table>
     </div>
 
@@ -316,6 +219,9 @@
     </nav>
 
   </div>
+
+<script src="league-schedule-data.js"></script>
+<script src="league-standings.js"></script>
 
 <script src="schedule-data.js"></script>
 <script src="next-game.js"></script>
