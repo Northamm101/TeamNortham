@@ -3069,3 +3069,21 @@ textarea {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
+
+/* =========================================================
+   LINEUP STATISTICS — SUMMARY GRID & RECORD BUBBLE FIX
+   ========================================================= */
+
+/* Restore 2x2 grid for Games / Points / For-Against / Avg Diff */
+.lineup-summary-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  width: 100% !important;
+}
+
+/* Keep card heading as flex so record bubble stays top-right */
+.lineup-statistics-card > .card-heading {
+  display: flex !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
