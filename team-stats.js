@@ -163,14 +163,27 @@ function calculateStatistics() {
     if (lineupKey) {
       if (!calculated.lineupRecords[lineupKey]) {
         calculated.lineupRecords[lineupKey] = {
-          lineup: [...game.lineup],
-          record: createEmptyRecord(),
-          points: 0,
-          gamesPlayed: 0,
-          pointsFor: 0,
-          pointsAgainst: 0,
-          differential: 0
-        };
+  lineup: [...game.lineup],
+  record: createEmptyRecord(),
+  points: 0,
+  gamesPlayed: 0,
+  pointsFor: 0,
+  pointsAgainst: 0,
+  differential: 0,
+
+  drawRecords: {
+    early: createEmptyRecord(),
+    late: createEmptyRecord()
+  },
+
+  sheetRecords: {
+    1: createEmptyRecord(),
+    2: createEmptyRecord(),
+    3: createEmptyRecord()
+  },
+
+  games: []
+};
       }
 
       const lineupRecord =
@@ -182,17 +195,36 @@ function calculateStatistics() {
       );
 
       lineupRecord.points += gamePoints;
-      lineupRecord.gamesPlayed += 1;
+lineupRecord.gamesPlayed += 1;
 
-      if (
-        typeof game.teamScore === "number" &&
-        typeof game.opponentScore === "number"
-      ) {
-        lineupRecord.pointsFor += game.teamScore;
-        lineupRecord.pointsAgainst += game.opponentScore;
-        lineupRecord.differential +=
-          game.teamScore - game.opponentScore;
-      }
+if (lineupRecord.drawRecords[game.draw]) {
+  addResultToRecord(
+    lineupRecord.drawRecords[game.draw],
+    game.result
+  );
+}
+
+if (lineupRecord.sheetRecords[game.sheet]) {
+  addResultToRecord(
+    lineupRecord.sheetRecords[game.sheet],
+    game.result
+  );
+}
+
+if (
+  typeof game.teamScore === "number" &&
+  typeof game.opponentScore === "number"
+) {
+  lineupRecord.pointsFor += game.teamScore;
+  lineupRecord.pointsAgainst += game.opponentScore;
+  lineupRecord.differential +=
+    game.teamScore - game.opponentScore;
+}
+
+lineupRecord.games.push({
+  ...game,
+  pointsEarned: gamePoints
+});
     }
   });
 
@@ -414,6 +446,289 @@ function renderLineupPerformance(calculated) {
     .join("");
 }
 
+function formatSignedNumber(number) {
+  if (number > 0) {
+    return `+${number}`;
+  }
+
+  return `${number}`;
+}
+
+function calculateAverageDifferential(lineupRecord) {
+  if (lineupRecord.gamesPlayed === 0) {
+    return "0.00";
+  }
+
+  const average =
+    lineupRecord.differential /
+    lineupRecord.gamesPlayed;
+
+  return average > 0
+    ? `+${average.toFixed(2)}`
+    : average.toFixed(2);
+}
+
+function sortLineupRecords(lineups) {
+  return lineups.sort((lineupA, lineupB) => {
+    if (lineupB.points !== lineupA.points) {
+      return lineupB.points - lineupA.points;
+    }
+
+    const winPercentageDifference =
+      calculateWinPercentage(lineupB) -
+      calculateWinPercentage(lineupA);
+
+    if (winPercentageDifference !== 0) {
+      return winPercentageDifference;
+    }
+
+    if (
+      lineupB.differential !==
+      lineupA.differential
+    ) {
+      return (
+        lineupB.differential -
+        lineupA.differential
+      );
+    }
+
+    if (
+      lineupB.gamesPlayed !==
+      lineupA.gamesPlayed
+    ) {
+      return (
+        lineupB.gamesPlayed -
+        lineupA.gamesPlayed
+      );
+    }
+
+    return formatLineupName(
+      lineupA.lineup
+    ).localeCompare(
+      formatLineupName(lineupB.lineup)
+    );
+  });
+}
+
+function renderLineupGameRows(games) {
+  const gamesNewestFirst = [...games].sort(
+    (gameA, gameB) =>
+      new Date(`${gameB.date}T12:00:00`) -
+      new Date(`${gameA.date}T12:00:00`)
+  );
+
+  return gamesNewestFirst
+    .map((game) => {
+      const score =
+        typeof game.teamScore === "number" &&
+        typeof game.opponentScore === "number"
+          ? `${game.teamScore}-${game.opponentScore}`
+          : "—";
+
+      return `
+        <div class="lineup-game-row">
+          <div class="lineup-game-heading">
+            <div>
+              <span>${game.displayDate}</span>
+              <strong>
+                vs Team ${game.opponent}
+              </strong>
+            </div>
+
+            <span class="lineup-game-result ${getResultClass(game.result)}">
+              ${getResultLabel(game.result)}
+            </span>
+          </div>
+
+          <div class="lineup-game-details">
+            <div>
+              <span>Score</span>
+              <strong>${score}</strong>
+            </div>
+
+            <div>
+              <span>Draw</span>
+              <strong>
+                ${
+                  game.draw === "early"
+                    ? "Early"
+                    : "Late"
+                }
+              </strong>
+            </div>
+
+            <div>
+              <span>Sheet</span>
+              <strong>${game.sheet}</strong>
+            </div>
+
+            <div>
+              <span>Rocks</span>
+              <strong>
+                ${game.rockColor || "—"}
+              </strong>
+            </div>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function renderLineupStatistics(calculated) {
+  const container =
+    document.getElementById(
+      "lineup-statistics-list"
+    );
+
+  if (!container) {
+    return;
+  }
+
+  const lineups = sortLineupRecords(
+    Object.values(calculated.lineupRecords)
+  );
+
+  if (lineups.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <p>No lineups have been recorded yet.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML = lineups
+    .map(
+      (lineupRecord, index) => `
+        <article class="dashboard-card lineup-statistics-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-label">
+                Lineup ${index + 1}
+              </p>
+
+              <h2>
+                ${formatLineupName(lineupRecord.lineup)}
+              </h2>
+            </div>
+
+            <span class="lineup-record-bubble">
+              ${formatRecord(lineupRecord.record)}
+            </span>
+          </div>
+
+          <div class="lineup-summary-grid">
+            <div>
+              <span>Games</span>
+              <strong>${lineupRecord.gamesPlayed}</strong>
+            </div>
+
+            <div>
+              <span>Points</span>
+              <strong>${lineupRecord.points}</strong>
+            </div>
+
+            <div>
+              <span>For / Against</span>
+              <strong>
+                ${lineupRecord.pointsFor} /
+                ${lineupRecord.pointsAgainst}
+              </strong>
+            </div>
+
+            <div>
+              <span>Differential</span>
+              <strong>
+                ${formatSignedNumber(
+                  lineupRecord.differential
+                )}
+              </strong>
+            </div>
+
+            <div>
+              <span>Average Diff.</span>
+              <strong>
+                ${calculateAverageDifferential(
+                  lineupRecord
+                )}
+              </strong>
+            </div>
+          </div>
+
+          <section class="lineup-breakdown-section">
+            <h3>Draw Performance</h3>
+
+            <div class="lineup-two-column-grid">
+              <div>
+                <span>Early Draw</span>
+                <strong>
+                  ${formatRecord(
+                    lineupRecord.drawRecords.early
+                  )}
+                </strong>
+              </div>
+
+              <div>
+                <span>Late Draw</span>
+                <strong>
+                  ${formatRecord(
+                    lineupRecord.drawRecords.late
+                  )}
+                </strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="lineup-breakdown-section">
+            <h3>Sheet Performance</h3>
+
+            <div class="lineup-sheet-grid">
+              <div>
+                <span>Sheet 1</span>
+                <strong>
+                  ${formatRecord(
+                    lineupRecord.sheetRecords[1]
+                  )}
+                </strong>
+              </div>
+
+              <div>
+                <span>Sheet 2</span>
+                <strong>
+                  ${formatRecord(
+                    lineupRecord.sheetRecords[2]
+                  )}
+                </strong>
+              </div>
+
+              <div>
+                <span>Sheet 3</span>
+                <strong>
+                  ${formatRecord(
+                    lineupRecord.sheetRecords[3]
+                  )}
+                </strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="lineup-breakdown-section">
+            <h3>Games Played</h3>
+
+            <div class="lineup-games-list">
+              ${renderLineupGameRows(
+                lineupRecord.games
+              )}
+            </div>
+          </section>
+        </article>
+      `
+    )
+    .join("");
+}
+
 function getResultLabel(result) {
   if (result === "W") {
     return "Win";
@@ -585,4 +900,9 @@ renderGamesPlayed(calculatedStatistics);
 renderLineupPerformance(
   calculatedStatistics
 );
+
+renderLineupStatistics(
+  calculatedStatistics
+);
+
 renderWeeklyResults();
