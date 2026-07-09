@@ -65,6 +65,9 @@ function formatLineupName(lineup) {
     return "Lineup not entered";
   }
 
+  return lineup.join(" – ");
+}
+
 const teamNames = {
   1: "Team Fouasse",
   2: "Team Audette",
@@ -85,8 +88,6 @@ function getOpponentName(opponentNumber) {
     teamNames[opponentNumber] ||
     `Team ${opponentNumber}`
   );
-}  
-  return lineup.join(" – ");
 }
 
 function calculateStatistics() {
