@@ -235,4 +235,5 @@ function renderLeagueSchedule() {
     .join("");
 }
 
+applyWeeklyResultsToLeagueSchedule();
 renderLeagueSchedule();
