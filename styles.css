@@ -3002,3 +3002,70 @@ textarea {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
+
+/* =========================================================
+   LINEUP STATISTICS — LAYOUT PATCH
+   Fixes: (1) Draw/Sheet Performance side-by-side
+          (2) Games Played cards not full width
+   ========================================================= */
+
+.lineup-statistics-card {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.lineup-statistics-card > .card-heading,
+.lineup-statistics-card > .lineup-summary-grid,
+.lineup-statistics-card > .lineup-breakdown-section {
+  display: block;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
+}
+
+.lineup-breakdown-section {
+  display: block !important;
+  width: 100% !important;
+}
+
+.lineup-two-column-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+.lineup-sheet-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+.lineup-games-list {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+.lineup-game-row {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
+}
+
+.lineup-game-heading,
+.lineup-game-details {
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 520px) {
+  .lineup-game-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
