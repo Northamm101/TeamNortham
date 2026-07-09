@@ -2940,3 +2940,65 @@ textarea {
     padding: 13px;
   }
 }
+
+/* =========================================================
+   LINEUP STATISTICS — FULL-WIDTH SECTION FIX
+   ========================================================= */
+
+.lineup-statistics-card {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  width: 100% !important;
+}
+
+.lineup-statistics-card > .card-heading,
+.lineup-statistics-card > .lineup-summary-grid,
+.lineup-statistics-card > .lineup-breakdown-section {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
+}
+
+.lineup-breakdown-section {
+  display: block !important;
+  clear: both !important;
+}
+
+.lineup-two-column-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  width: 100% !important;
+}
+
+.lineup-sheet-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  width: 100% !important;
+}
+
+.lineup-games-list {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  width: 100% !important;
+}
+
+.lineup-game-row {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
+}
+
+.lineup-game-heading,
+.lineup-game-details {
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 520px) {
+  .lineup-game-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
