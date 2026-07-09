@@ -79,3 +79,16 @@ function applyWeeklyResultsToLeagueSchedule() {
     });
   });
 }
+
+function applyWeeklyResultsToTeamStats() {
+  if (
+    typeof teamStats === "undefined" ||
+    !teamStats ||
+    !Array.isArray(teamStats.games)
+  ) {
+    return;
+  }
+
+  teamStats.games =
+    getTeamNorthamGamesFromWeeklyResults();
+}
