@@ -626,6 +626,11 @@ function renderLineupGameRows(games) {
           ? `${game.teamScore}-${game.opponentScore}`
           : "—";
 
+      const endsText =
+  Number.isInteger(game.ends)
+    ? ` (${game.ends}e)`
+    : "";
+      
       return `
         <div class="lineup-game-row">
           <div class="lineup-game-heading">
@@ -644,7 +649,7 @@ function renderLineupGameRows(games) {
           <div class="lineup-game-details">
             <div>
               <span>Score</span>
-              <strong>${score}</strong>
+              <strong>${score}${endsText}</strong>
             </div>
 
             <div>
@@ -740,23 +745,13 @@ function renderLineupStatistics(calculated) {
             </div>
 
             <div>
-              <span>Differential</span>
-              <strong>
-                ${formatSignedNumber(
-                  lineupRecord.differential
-                )}
-              </strong>
-            </div>
-
-            <div>
-              <span>Average Diff.</span>
-              <strong>
-                ${calculateAverageDifferential(
-                  lineupRecord
-                )}
-              </strong>
-            </div>
-          </div>
+            <span>Average Diff.</span>
+            <strong>
+              ${calculateAverageDifferential(
+              lineupRecord
+            )}
+  </strong>
+</div>
 
           <section class="lineup-breakdown-section">
             <h3>Draw Performance</h3>
@@ -845,19 +840,10 @@ function renderHeadToHeadGameRows(games) {
           ? `${game.teamScore}-${game.opponentScore}`
           : "—";
 
-      const differential =
-        typeof game.teamScore === "number" &&
-        typeof game.opponentScore === "number"
-          ? game.teamScore -
-            game.opponentScore
-          : null;
-
-      const differentialText =
-        differential === null
-          ? ""
-          : ` (${formatSignedNumber(
-              differential
-            )})`;
+      const endsText =
+  Number.isInteger(game.ends)
+    ? ` (${game.ends}e)`
+    : "";
 
       return `
         <div class="head-to-head-game-row">
@@ -879,7 +865,7 @@ function renderHeadToHeadGameRows(games) {
             <div>
               <span>Score</span>
               <strong>
-                ${score}${differentialText}
+                ${score}${endsText}
               </strong>
             </div>
 
@@ -949,11 +935,11 @@ function renderHeadToHeadStatistics(calculated) {
           <div class="card-heading">
             <div>
               <p class="card-label">
-                Team ${headToHead.opponent}
+                Opponent
               </p>
 
               <h2>
-                ${headToHead.opponentName}
+               Team ${headToHead.opponent}
               </h2>
             </div>
 
