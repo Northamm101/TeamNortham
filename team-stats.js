@@ -751,6 +751,7 @@ function renderLineupStatistics(calculated) {
               lineupRecord
             )}
   </strong>
+  </div>
 </div>
 
           <section class="lineup-breakdown-section">
