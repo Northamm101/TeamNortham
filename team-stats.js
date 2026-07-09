@@ -65,6 +65,27 @@ function formatLineupName(lineup) {
     return "Lineup not entered";
   }
 
+const teamNames = {
+  1: "Team Fouasse",
+  2: "Team Audette",
+  3: "Team M. Rondeau",
+  4: "Team Messner",
+  5: "Team Brunette",
+  6: "Team G. Rondeau",
+  7: "Team Northam",
+  8: "Team Bjarnason",
+  9: "Team Lyle",
+  10: "Team Ridge",
+  11: "Team Stevenson",
+  12: "Team Hallonquist"
+};
+
+function getOpponentName(opponentNumber) {
+  return (
+    teamNames[opponentNumber] ||
+    `Team ${opponentNumber}`
+  );
+}  
   return lineup.join(" – ");
 }
 
@@ -102,7 +123,9 @@ function calculateStatistics() {
 
     playerGames: {},
 
-    lineupRecords: {}
+lineupRecords: {},
+
+headToHeadRecords: {}
   };
 
   teamStats.roster.forEach((player) => {
@@ -225,6 +248,83 @@ lineupRecord.games.push({
   ...game,
   pointsEarned: gamePoints
 });
+    }
+
+    const opponentNumber = Number(game.opponent);
+
+    if (
+      Number.isInteger(opponentNumber) &&
+      opponentNumber !== 7
+    ) {
+      if (!calculated.headToHeadRecords[opponentNumber]) {
+        calculated.headToHeadRecords[opponentNumber] = {
+          opponent: opponentNumber,
+          opponentName: getOpponentName(opponentNumber),
+
+          overall: createEmptyRecord(),
+          regularSeason: createEmptyRecord(),
+          playoffs: createEmptyRecord(),
+
+          gamesPlayed: 0,
+          pointsFor: 0,
+          pointsAgainst: 0,
+          differential: 0,
+
+          games: []
+        };
+      }
+
+      const headToHead =
+        calculated.headToHeadRecords[opponentNumber];
+
+      const normalizedPhase =
+        typeof game.phase === "string"
+          ? game.phase.trim().toLowerCase()
+          : "regular";
+
+      addResultToRecord(
+        headToHead.overall,
+        game.result
+      );
+
+      if (
+        normalizedPhase === "playoff" ||
+        normalizedPhase === "playoffs"
+      ) {
+        addResultToRecord(
+          headToHead.playoffs,
+          game.result
+        );
+      } else {
+        addResultToRecord(
+          headToHead.regularSeason,
+          game.result
+        );
+      }
+
+      headToHead.gamesPlayed += 1;
+
+      if (
+        typeof game.teamScore === "number" &&
+        typeof game.opponentScore === "number"
+      ) {
+        headToHead.pointsFor += game.teamScore;
+        headToHead.pointsAgainst +=
+          game.opponentScore;
+
+        headToHead.differential +=
+          game.teamScore -
+          game.opponentScore;
+      }
+
+      headToHead.games.push({
+        ...game,
+        phase:
+          normalizedPhase === "playoff" ||
+          normalizedPhase === "playoffs"
+            ? "Playoffs"
+            : "Regular Season"
+      });
     }
   });
 
@@ -729,6 +829,208 @@ function renderLineupStatistics(calculated) {
     .join("");
 }
 
+function renderHeadToHeadGameRows(games) {
+  const gamesNewestFirst = [...games].sort(
+    (gameA, gameB) =>
+      new Date(`${gameB.date}T12:00:00`) -
+      new Date(`${gameA.date}T12:00:00`)
+  );
+
+  return gamesNewestFirst
+    .map((game) => {
+      const score =
+        typeof game.teamScore === "number" &&
+        typeof game.opponentScore === "number"
+          ? `${game.teamScore}-${game.opponentScore}`
+          : "—";
+
+      const differential =
+        typeof game.teamScore === "number" &&
+        typeof game.opponentScore === "number"
+          ? game.teamScore -
+            game.opponentScore
+          : null;
+
+      const differentialText =
+        differential === null
+          ? ""
+          : ` (${formatSignedNumber(
+              differential
+            )})`;
+
+      return `
+        <div class="head-to-head-game-row">
+          <div class="head-to-head-game-heading">
+            <div>
+              <span>${game.displayDate}</span>
+
+              <strong>${game.phase}</strong>
+            </div>
+
+            <span class="lineup-game-result ${getResultClass(
+              game.result
+            )}">
+              ${getResultLabel(game.result)}
+            </span>
+          </div>
+
+          <div class="head-to-head-game-details">
+            <div>
+              <span>Score</span>
+              <strong>
+                ${score}${differentialText}
+              </strong>
+            </div>
+
+            <div>
+              <span>Draw</span>
+              <strong>
+                ${
+                  game.draw === "early"
+                    ? "Early"
+                    : "Late"
+                }
+              </strong>
+            </div>
+
+            <div>
+              <span>Sheet</span>
+              <strong>${game.sheet}</strong>
+            </div>
+
+            <div>
+              <span>Rocks</span>
+              <strong>
+                ${game.rockColor || "—"}
+              </strong>
+            </div>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function renderHeadToHeadStatistics(calculated) {
+  const container =
+    document.getElementById(
+      "head-to-head-list"
+    );
+
+  if (!container) {
+    return;
+  }
+
+  const opponents = Object.values(
+    calculated.headToHeadRecords
+  ).sort(
+    (opponentA, opponentB) =>
+      opponentA.opponent -
+      opponentB.opponent
+  );
+
+  if (opponents.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <p>
+          No head-to-head results have been recorded yet.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML = opponents
+    .map(
+      (headToHead) => `
+        <article class="dashboard-card head-to-head-card">
+          <div class="card-heading">
+            <div>
+              <p class="card-label">
+                Team ${headToHead.opponent}
+              </p>
+
+              <h2>
+                ${headToHead.opponentName}
+              </h2>
+            </div>
+
+            <span class="lineup-record-bubble">
+              ${formatRecord(
+                headToHead.overall
+              )}
+            </span>
+          </div>
+
+          <div class="head-to-head-summary-grid">
+            <div>
+              <span>Games</span>
+              <strong>
+                ${headToHead.gamesPlayed}
+              </strong>
+            </div>
+
+            <div>
+              <span>Overall</span>
+              <strong>
+                ${formatRecord(
+                  headToHead.overall
+                )}
+              </strong>
+            </div>
+
+            <div>
+              <span>Regular Season</span>
+              <strong>
+                ${formatRecord(
+                  headToHead.regularSeason
+                )}
+              </strong>
+            </div>
+
+            <div>
+              <span>Playoffs</span>
+              <strong>
+                ${formatRecord(
+                  headToHead.playoffs
+                )}
+              </strong>
+            </div>
+
+            <div>
+              <span>For / Against</span>
+              <strong>
+                ${headToHead.pointsFor} /
+                ${headToHead.pointsAgainst}
+              </strong>
+            </div>
+
+            <div>
+              <span>Differential</span>
+              <strong>
+                ${formatSignedNumber(
+                  headToHead.differential
+                )}
+              </strong>
+            </div>
+          </div>
+
+          <section class="head-to-head-games-section">
+            <h3>Games Played</h3>
+
+            <div class="head-to-head-games-list">
+              ${renderHeadToHeadGameRows(
+                headToHead.games
+              )}
+            </div>
+          </section>
+        </article>
+      `
+    )
+    .join("");
+}
+
 function getResultLabel(result) {
   if (result === "W") {
     return "Win";
@@ -902,6 +1204,10 @@ renderLineupPerformance(
 );
 
 renderLineupStatistics(
+  calculatedStatistics
+);
+
+renderHeadToHeadStatistics(
   calculatedStatistics
 );
 
