@@ -2361,3 +2361,233 @@ textarea {
     font-size: 0.84rem;
   }
 }
+
+/* =========================================================
+   DETAILED LINEUP STATISTICS
+   ========================================================= */
+
+#lineup-statistics-list {
+  display: grid;
+  gap: 18px;
+}
+
+.lineup-statistics-card h2 {
+  max-width: 235px;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.lineup-record-bubble {
+  flex: 0 0 auto;
+  min-width: 70px;
+  padding: 11px 10px;
+
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+
+  background: #071f3d;
+  border-radius: 999px;
+}
+
+.lineup-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lineup-summary-grid > div {
+  min-height: 72px;
+  padding: 12px 10px;
+
+  text-align: center;
+
+  background: #f4f7f9;
+  border: 1px solid #d7e0e5;
+  border-radius: 12px;
+}
+
+.lineup-summary-grid > div:last-child {
+  grid-column: 1 / -1;
+}
+
+.lineup-summary-grid span,
+.lineup-two-column-grid span,
+.lineup-sheet-grid span,
+.lineup-game-details span {
+  display: block;
+  color: #667d89;
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.lineup-summary-grid strong {
+  display: block;
+  margin-top: 7px;
+  color: #071f3d;
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.lineup-breakdown-section {
+  margin-top: 18px;
+}
+
+.lineup-breakdown-section h3 {
+  margin: 0 0 10px;
+  color: #071f3d;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.lineup-two-column-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lineup-two-column-grid > div,
+.lineup-sheet-grid > div {
+  padding: 12px 9px;
+
+  text-align: center;
+
+  background: #f4f7f9;
+  border: 1px solid #d7e0e5;
+  border-radius: 11px;
+}
+
+.lineup-two-column-grid strong,
+.lineup-sheet-grid strong {
+  display: block;
+  margin-top: 7px;
+  color: #071f3d;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.lineup-sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.lineup-games-list {
+  display: grid;
+  gap: 10px;
+}
+
+.lineup-game-row {
+  padding: 13px;
+
+  background: #f4f7f9;
+  border: 1px solid #d7e0e5;
+  border-radius: 12px;
+}
+
+.lineup-game-heading {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lineup-game-heading > div {
+  min-width: 0;
+}
+
+.lineup-game-heading > div > span {
+  display: block;
+  color: #667d89;
+  font-size: 0.66rem;
+  font-weight: 800;
+}
+
+.lineup-game-heading > div > strong {
+  display: block;
+  margin-top: 3px;
+  color: #071f3d;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.lineup-game-result {
+  flex: 0 0 auto;
+  min-width: 58px;
+  padding: 8px 9px;
+
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+
+  background: #071f3d;
+  border-radius: 999px;
+}
+
+.lineup-game-result.weekly-result-win {
+  background: #00775f;
+}
+
+.lineup-game-result.weekly-result-loss {
+  background: #a93636;
+}
+
+.lineup-game-result.weekly-result-tie {
+  background: #8b6a00;
+}
+
+.lineup-game-details {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.lineup-game-details > div {
+  padding: 9px 5px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 9px;
+}
+
+.lineup-game-details strong {
+  display: block;
+  margin-top: 5px;
+  color: #071f3d;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+@media (max-width: 360px) {
+  .lineup-statistics-card h2 {
+    max-width: 190px;
+    font-size: 0.9rem;
+  }
+
+  .lineup-record-bubble {
+    min-width: 62px;
+    padding: 10px 8px;
+    font-size: 0.86rem;
+  }
+
+  .lineup-summary-grid,
+  .lineup-two-column-grid {
+    gap: 8px;
+  }
+
+  .lineup-sheet-grid {
+    gap: 6px;
+  }
+
+  .lineup-game-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
