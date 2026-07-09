@@ -2409,10 +2409,6 @@ textarea {
   border-radius: 12px;
 }
 
-.lineup-summary-grid > div:last-child {
-  grid-column: 1 / -1;
-}
-
 .lineup-summary-grid span,
 .lineup-two-column-grid span,
 .lineup-sheet-grid span,
@@ -2727,5 +2723,164 @@ textarea {
 
   .head-to-head-game-details {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   WEEKLY RESULTS PAGE
+   ========================================================= */
+
+#weekly-results-list {
+  display: grid;
+  gap: 18px;
+}
+
+.weekly-result-card {
+  padding: 18px;
+
+  background: #ffffff;
+  border: 1px solid #d7e0e5;
+  border-left: 6px solid #0b6f58;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(7, 31, 61, 0.08);
+}
+
+.weekly-result-card.weekly-result-win {
+  border-left-color: #00775f;
+}
+
+.weekly-result-card.weekly-result-loss {
+  border-left-color: #a93636;
+}
+
+.weekly-result-card.weekly-result-tie {
+  border-left-color: #b48900;
+}
+
+.weekly-result-header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.weekly-result-header > div {
+  min-width: 0;
+}
+
+.weekly-result-date {
+  display: block;
+  color: #667d89;
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.weekly-result-header h3 {
+  margin: 5px 0 0;
+  color: #071f3d;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.weekly-result-badge {
+  flex: 0 0 auto;
+  min-width: 62px;
+  padding: 9px 10px;
+
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+
+  background: #071f3d;
+  border-radius: 999px;
+}
+
+.weekly-result-win .weekly-result-badge {
+  background: #00775f;
+}
+
+.weekly-result-loss .weekly-result-badge {
+  background: #a93636;
+}
+
+.weekly-result-tie .weekly-result-badge {
+  background: #8b6a00;
+}
+
+.weekly-result-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.weekly-result-summary > div {
+  padding: 11px 6px;
+  text-align: center;
+
+  background: #f4f7f9;
+  border: 1px solid #d7e0e5;
+  border-radius: 11px;
+}
+
+.weekly-result-summary span,
+.weekly-result-details dt {
+  display: block;
+  color: #667d89;
+  font-size: 0.61rem;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.weekly-result-summary strong {
+  display: block;
+  margin-top: 6px;
+  color: #071f3d;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.weekly-result-details {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+}
+
+.weekly-result-details > div {
+  padding: 11px 12px;
+
+  background: #f4f7f9;
+  border-radius: 11px;
+}
+
+.weekly-result-details dd {
+  margin: 5px 0 0;
+  color: #071f3d;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+@media (max-width: 360px) {
+  .weekly-result-card {
+    padding: 15px;
+  }
+
+  .weekly-result-header h3 {
+    font-size: 0.95rem;
+  }
+
+  .weekly-result-summary {
+    gap: 6px;
+  }
+
+  .weekly-result-summary strong {
+    font-size: 0.82rem;
   }
 }
