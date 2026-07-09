@@ -26,6 +26,7 @@ const teamStats = {
       result: "W",
       teamScore: 8,
       opponentScore: 5,
+      ends: 7,
       draw: "late",
       time: "9:15 PM",
       sheet: 1,
