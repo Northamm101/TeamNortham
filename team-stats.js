@@ -1103,6 +1103,11 @@ function renderWeeklyResults() {
           ? `${game.teamScore}-${game.opponentScore}`
           : "—";
 
+      const endsText =
+      Number.isInteger(game.ends)
+      ? ` (${game.ends}e)`
+      : "";
+      
       return `
         <article class="weekly-result-card ${resultClass}">
           <div class="weekly-result-header">
@@ -1124,7 +1129,7 @@ function renderWeeklyResults() {
           <div class="weekly-result-summary">
             <div>
               <span>Score</span>
-              <strong>${score}</strong>
+              <strong>${score}${endsText}</strong>
             </div>
 
             <div>
