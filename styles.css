@@ -2884,3 +2884,59 @@ textarea {
     font-size: 0.82rem;
   }
 }
+
+/* =========================================================
+   LINEUP PAGE MOBILE LAYOUT FIX
+   ========================================================= */
+
+.lineup-statistics-card {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lineup-statistics-card .card-heading,
+.lineup-statistics-card .lineup-summary-grid,
+.lineup-statistics-card .lineup-breakdown-section {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lineup-breakdown-section {
+  display: block;
+  clear: both;
+}
+
+.lineup-games-list {
+  display: grid;
+  width: 100%;
+  gap: 10px;
+}
+
+.lineup-game-row {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 520px) {
+  .lineup-two-column-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lineup-sheet-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lineup-game-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lineup-game-heading {
+    width: 100%;
+  }
+
+  .lineup-game-row {
+    padding: 13px;
+  }
+}
