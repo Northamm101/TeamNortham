@@ -2591,3 +2591,141 @@ textarea {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* =========================================================
+   HEAD-TO-HEAD STATISTICS
+   ========================================================= */
+
+#head-to-head-list {
+  display: grid;
+  gap: 18px;
+}
+
+.head-to-head-card h2 {
+  max-width: 220px;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.head-to-head-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.head-to-head-summary-grid > div {
+  min-height: 72px;
+  padding: 12px 9px;
+  text-align: center;
+
+  background: #f4f7f9;
+  border: 1px solid #d7e0e5;
+  border-radius: 12px;
+}
+
+.head-to-head-summary-grid span,
+.head-to-head-game-details span {
+  display: block;
+  color: #667d89;
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.head-to-head-summary-grid strong {
+  display: block;
+  margin-top: 7px;
+  color: #071f3d;
+  font-size: 0.93rem;
+  font-weight: 900;
+}
+
+.head-to-head-games-section {
+  margin-top: 18px;
+}
+
+.head-to-head-games-section h3 {
+  margin: 0 0 10px;
+  color: #071f3d;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.head-to-head-games-list {
+  display: grid;
+  gap: 10px;
+}
+
+.head-to-head-game-row {
+  padding: 13px;
+
+  background: #f4f7f9;
+  border: 1px solid #d7e0e5;
+  border-radius: 12px;
+}
+
+.head-to-head-game-heading {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.head-to-head-game-heading > div {
+  min-width: 0;
+}
+
+.head-to-head-game-heading > div > span {
+  display: block;
+  color: #667d89;
+  font-size: 0.66rem;
+  font-weight: 800;
+}
+
+.head-to-head-game-heading > div > strong {
+  display: block;
+  margin-top: 3px;
+  color: #071f3d;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.head-to-head-game-details {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.head-to-head-game-details > div {
+  padding: 9px 5px;
+  text-align: center;
+
+  background: #ffffff;
+  border-radius: 9px;
+}
+
+.head-to-head-game-details strong {
+  display: block;
+  margin-top: 5px;
+  color: #071f3d;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+@media (max-width: 360px) {
+  .head-to-head-card h2 {
+    max-width: 180px;
+    font-size: 0.9rem;
+  }
+
+  .head-to-head-summary-grid {
+    gap: 8px;
+  }
+
+  .head-to-head-game-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
