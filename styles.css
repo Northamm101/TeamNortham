@@ -3087,3 +3087,26 @@ textarea {
   width: 100% !important;
   box-sizing: border-box;
 }
+
+/* =========================================================
+   LINEUP BREAKDOWN — STACK DRAW & SHEET VERTICALLY
+   ========================================================= */
+
+/* Make the breakdown sections container stack vertically */
+#lineup-statistics-list .lineup-breakdown-section {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  width: 100% !important;
+}
+
+/* Each h3 + grid pair inside takes full width */
+#lineup-statistics-list .lineup-breakdown-section > h3 {
+  width: 100% !important;
+  margin-bottom: 0 !important;
+}
+
+#lineup-statistics-list .lineup-two-column-grid,
+#lineup-statistics-list .lineup-sheet-grid {
+  width: 100% !important;
+}
