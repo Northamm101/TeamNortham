@@ -470,7 +470,7 @@ function renderLineupPerformance(calculated) {
   if (lineups.length === 0) {
     container.innerHTML = `
       <div class="empty-state">
-        <p>No lineups have been recorded yet.</p>
+        <p>Lineup statistics will appear here after the first game of the 2026–27 season.</p>
       </div>
     `;
 
@@ -921,7 +921,7 @@ function renderHeadToHeadStatistics(calculated) {
     container.innerHTML = `
       <div class="empty-state">
         <p>
-          No head-to-head results have been recorded yet.
+          Head-to-head records will appear here after the first game of the 2026–27 season.
         </p>
       </div>
     `;
