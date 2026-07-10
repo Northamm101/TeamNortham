@@ -3230,3 +3230,20 @@ textarea {
  color: #ffffff !important;
  background: linear-gradient(135deg, #0b2d55, #006b4f) !important;
 }
+
+/* Men’s Schedule month buttons only */
+.mens-schedule-page .month-button,
+.mens-schedule-page .month-button:link,
+.mens-schedule-page .month-button:visited {
+  background: #0b7a5f !important;
+  border-color: #0b7a5f !important;
+  color: #ffffff !important;
+}
+
+.mens-schedule-page .month-button.active,
+.mens-schedule-page .month-button.active:link,
+.mens-schedule-page .month-button.active:visited {
+  background: #ffca28 !important;
+  border-color: #ffca28 !important;
+  color: #071f3d !important;
+}
