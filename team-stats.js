@@ -1073,10 +1073,10 @@ function renderWeeklyResults() {
   }
 
   if (teamStats.games.length === 0) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <p>No games have been played yet.</p>
-      </div>
+  container.innerHTML = `
+    <div class="empty-state">
+      <p>Weekly game results will appear here after the first game of the 2026–27 season.</p>
+    </div>
     `;
 
     return;
