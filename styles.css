@@ -3221,3 +3221,23 @@ textarea {
   background: #ffca22 !important;
   border-color: #ffca22 !important;
 }
+
+/* =========================================================
+   SCHEDULE MONTH TAB COLOUR FIX
+   ========================================================= */
+
+.schedule-header .schedule-month-tab,
+.schedule-header .schedule-month-tab:link,
+.schedule-header .schedule-month-tab:visited {
+  color: #ffffff !important;
+  background: #0b6f58 !important;
+  border-color: #0b6f58 !important;
+}
+
+.schedule-header .schedule-month-tab.active,
+.schedule-header .schedule-month-tab.active:link,
+.schedule-header .schedule-month-tab.active:visited {
+  color: #071f3d !important;
+  background: #ffca22 !important;
+  border-color: #ffca22 !important;
+}
