@@ -3203,41 +3203,30 @@ textarea {
 }
 
 /* =========================================================
-   SCHEDULE MONTH TAB COLOUR FIX
-   ========================================================= */
+  SCHEDULE MONTH TAB COLOUR FIX
+  ========================================================= */
 
 .schedule-header .schedule-month-tab,
 .schedule-header .schedule-month-tab:link,
 .schedule-header .schedule-month-tab:visited {
-  color: #ffffff !important;
-  background: #0b6f58 !important;
-  border-color: #0b6f58 !important;
+ color: #ffffff !important;
+ background: linear-gradient(135deg, #0b2d55, #006b4f) !important;
+ border-color: rgba(255, 255, 255, 0.18) !important;
+ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16) !important;
 }
 
 .schedule-header .schedule-month-tab.active,
 .schedule-header .schedule-month-tab.active:link,
 .schedule-header .schedule-month-tab.active:visited {
-  color: #071f3d !important;
-  background: #ffca22 !important;
-  border-color: #ffca22 !important;
+ color: #071f3d !important;
+ background: #f5c928 !important;
+ border-color: #f5c928 !important;
+ box-shadow: 0 5px 14px rgba(0, 0, 0, 0.24) !important;
 }
 
-/* =========================================================
-   SCHEDULE MONTH TAB COLOUR FIX
-   ========================================================= */
-
-.schedule-header .schedule-month-tab,
-.schedule-header .schedule-month-tab:link,
-.schedule-header .schedule-month-tab:visited {
-  color: #ffffff !important;
-  background: #0b6f58 !important;
-  border-color: #0b6f58 !important;
-}
-
-.schedule-header .schedule-month-tab.active,
-.schedule-header .schedule-month-tab.active:link,
-.schedule-header .schedule-month-tab.active:visited {
-  color: #071f3d !important;
-  background: #ffca22 !important;
-  border-color: #ffca22 !important;
+.schedule-header .schedule-month-tab:hover,
+.schedule-header .schedule-month-tab:focus,
+.schedule-header .schedule-month-tab:focus-visible {
+ color: #ffffff !important;
+ background: linear-gradient(135deg, #0b2d55, #006b4f) !important;
 }
