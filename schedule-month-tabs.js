@@ -1,6 +1,6 @@
 function setActiveMonthTab(selectedTab) {
   const monthTabs = document.querySelectorAll(
-    ".schedule-month-tab"
+    ".schedule-month-tab, .month-button"
   );
 
   monthTabs.forEach((tab) => {
@@ -14,7 +14,7 @@ function setActiveMonthTab(selectedTab) {
 
 function initializeScheduleMonthTabs() {
   const monthTabs = document.querySelectorAll(
-    ".schedule-month-tab"
+    ".schedule-month-tab, .month-button"
   );
 
   monthTabs.forEach((tab) => {
