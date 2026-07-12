@@ -1,41 +1,22 @@
 const playerAvailability = [
-  /*
-    Add one object only when there is at least one
-    availability issue for a game.
+  {
+    date: "2026-10-01",
+    displayDate: "October 1",
 
-    Example:
+    unavailable: [
+      "Mike"
+    ],
 
-    {
-      date: "2026-10-01",
-      displayDate: "October 1",
+    availableIfNeeded: [
+      "Dallas"
+    ],
 
-      unavailable: [
-        "Mike"
-      ],
+    lastResort: [
+      "Jeff"
+    ],
 
-      availableIfNeeded: [
-        "Dallas"
-      ],
-
-      lastResort: [
-        "Jeff"
-      ]
-    }
-
-    Status meanings:
-
-    unavailable
-      Player cannot play.
-
-    availableIfNeeded
-      Player is available if the team is short players.
-
-    lastResort
-      Player should only be contacted if absolutely necessary.
-
-    If everyone is available for a game,
-    do not add an object.
-
-    Delete the object once the game has been played.
-  */
+    spares: [
+      "Richard"
+    ]
+  }
 ];
