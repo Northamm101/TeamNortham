@@ -3247,3 +3247,18 @@ textarea {
   border-color: #ffca28 !important;
   color: #071f3d !important;
 }
+
+/* Tighter spacing for availability details */
+.availability-item-details p,
+.next-game-availability p,
+.team-schedule-availability-list p {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.availability-item-details,
+.next-game-availability-list,
+.team-schedule-availability-list {
+  display: grid;
+  gap: 2px;
+}
