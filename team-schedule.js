@@ -177,6 +177,9 @@ const fiftyFiftyMarkup = week.fiftyFiftyTeam
     </div>
   `;
 
+  const availabilityMarkup =
+    createTeamScheduleAvailabilityMarkup(week.date);
+  
   return `
     <article class="schedule-card team-game-card${resultClass}">
       <div class="schedule-card-header">
@@ -222,6 +225,8 @@ const fiftyFiftyMarkup = week.fiftyFiftyTeam
           </div>
         </div>
       </section>
+
+      ${availabilityMarkup}
 
       <a class="back-to-top-link" href="#top">
         Back to top
