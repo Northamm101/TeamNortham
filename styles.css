@@ -57,13 +57,12 @@ body {
   overflow-x: hidden;
 
   background:
-   
-   background:
     radial-gradient(
       circle at top,
       rgba(185, 220, 235, 0.65),
       transparent 330px
     ),
+     
     linear-gradient(
       180deg,
       var(--ice-100) 0%,
