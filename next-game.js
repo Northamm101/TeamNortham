@@ -79,29 +79,37 @@ function renderNextGameAvailability(nextGame) {
     return;
   }
 
-  const availabilityLines = [];
+    const availabilityLines = [];
 
-  (availabilityEntry.unavailable || []).forEach((player) => {
+  const spares = availabilityEntry.spares || [];
+  const unavailable = availabilityEntry.unavailable || [];
+  const availableIfNeeded =
+    availabilityEntry.availableIfNeeded || [];
+  const lastResort = availabilityEntry.lastResort || [];
+
+  spares.forEach((player) => {
+    availabilityLines.push(
+      `<p><strong>${player}</strong> — Spare</p>`
+    );
+  });
+
+  unavailable.forEach((player) => {
     availabilityLines.push(
       `<p><strong>${player}</strong> — Unavailable</p>`
     );
   });
 
-  (availabilityEntry.availableIfNeeded || []).forEach((player) => {
-    availabilityLines.push(
-      `<p><strong>${player}</strong> — Available if Needed</p>`
-    );
-  });
+  if (spares.length === 0) {
+    availableIfNeeded.forEach((player) => {
+      availabilityLines.push(
+        `<p><strong>${player}</strong> — Available if Needed</p>`
+      );
+    });
+  }
 
-  (availabilityEntry.lastResort || []).forEach((player) => {
+  lastResort.forEach((player) => {
     availabilityLines.push(
       `<p><strong>${player}</strong> — Last Resort</p>`
-    );
-  });
-
-  (availabilityEntry.spares || []).forEach((player) => {
-    availabilityLines.push(
-      `<p><strong>${player}</strong> — Spare</p>`
     );
   });
 
