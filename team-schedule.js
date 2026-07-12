@@ -60,6 +60,70 @@ function getOpponentNumber(game) {
     : game.teamA;
 }
 
+function createTeamScheduleAvailabilityMarkup(date) {
+  if (
+    typeof playerAvailability === "undefined" ||
+    !Array.isArray(playerAvailability)
+  ) {
+    return "";
+  }
+
+  const availabilityEntry = playerAvailability.find(
+    (entry) => entry.date === date
+  );
+
+  if (!availabilityEntry) {
+    return "";
+  }
+
+  const spares = availabilityEntry.spares || [];
+  const unavailable = availabilityEntry.unavailable || [];
+  const availableIfNeeded =
+    availabilityEntry.availableIfNeeded || [];
+  const lastResort = availabilityEntry.lastResort || [];
+
+  const availabilityLines = [];
+
+  spares.forEach((player) => {
+    availabilityLines.push(
+      `<p><strong>${player}</strong> — Spare</p>`
+    );
+  });
+
+  unavailable.forEach((player) => {
+    availabilityLines.push(
+      `<p><strong>${player}</strong> — Unavailable</p>`
+    );
+  });
+
+  if (spares.length === 0) {
+    availableIfNeeded.forEach((player) => {
+      availabilityLines.push(
+        `<p><strong>${player}</strong> — Available if Needed</p>`
+      );
+    });
+  }
+
+  lastResort.forEach((player) => {
+    availabilityLines.push(
+      `<p><strong>${player}</strong> — Last Resort</p>`
+    );
+  });
+
+  if (availabilityLines.length === 0) {
+    return "";
+  }
+
+  return `
+    <div class="team-schedule-availability">
+      <p class="detail-label">Player Availability</p>
+      <div class="team-schedule-availability-list">
+        ${availabilityLines.join("")}
+      </div>
+    </div>
+  `;
+}
+
 function createTeamScheduleCard(week, weekNumber) {
   const game = findTeamNorthamGame(week);
 
