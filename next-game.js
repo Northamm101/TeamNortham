@@ -53,6 +53,68 @@ function getGameStartKey(game) {
   );
 }
 
+function renderNextGameAvailability(nextGame) {
+  const availabilitySection = document.getElementById(
+    "next-game-availability"
+  );
+
+  const availabilityList = document.getElementById(
+    "next-game-availability-list"
+  );
+
+  if (!availabilitySection || !availabilityList) {
+    return;
+  }
+
+  const availabilityEntry =
+    typeof playerAvailability !== "undefined"
+      ? playerAvailability.find(
+          (entry) => entry.date === nextGame.date
+        )
+      : null;
+
+  if (!availabilityEntry) {
+    availabilitySection.hidden = true;
+    availabilityList.innerHTML = "";
+    return;
+  }
+
+  const availabilityLines = [];
+
+  (availabilityEntry.unavailable || []).forEach((player) => {
+    availabilityLines.push(
+      `<p><strong>${player}</strong> — Unavailable</p>`
+    );
+  });
+
+  (availabilityEntry.availableIfNeeded || []).forEach((player) => {
+    availabilityLines.push(
+      `<p><strong>${player}</strong> — Available if Needed</p>`
+    );
+  });
+
+  (availabilityEntry.lastResort || []).forEach((player) => {
+    availabilityLines.push(
+      `<p><strong>${player}</strong> — Last Resort</p>`
+    );
+  });
+
+  (availabilityEntry.spares || []).forEach((player) => {
+    availabilityLines.push(
+      `<p><strong>${player}</strong> — Spare</p>`
+    );
+  });
+
+  if (availabilityLines.length === 0) {
+    availabilitySection.hidden = true;
+    availabilityList.innerHTML = "";
+    return;
+  }
+
+  availabilityList.innerHTML = availabilityLines.join("");
+  availabilitySection.hidden = false;
+}
+
 function updateNextGameCard() {
   const currentKey = getWinnipegDateTimeKey();
 
@@ -65,6 +127,9 @@ function updateNextGameCard() {
   const timeValue = document.getElementById("next-game-time");
   const sheetValue = document.getElementById("next-game-sheet");
   const opponentValue = document.getElementById("next-game-opponent");
+  const availabilitySection = document.getElementById(
+    "next-game-availability"
+  );
 
   if (
     !seasonBadge ||
@@ -82,6 +147,11 @@ function updateNextGameCard() {
     timeValue.textContent = "—";
     sheetValue.textContent = "—";
     opponentValue.textContent = "—";
+
+    if (availabilitySection) {
+      availabilitySection.hidden = true;
+    }
+
     return;
   }
 
@@ -90,6 +160,8 @@ function updateNextGameCard() {
   timeValue.textContent = nextGame.time;
   sheetValue.textContent = `Sheet ${nextGame.sheet}`;
   opponentValue.textContent = nextGame.opponent;
+
+  renderNextGameAvailability(nextGame);
 }
 
 updateNextGameCard();
