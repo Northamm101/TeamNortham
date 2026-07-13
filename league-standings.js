@@ -41,6 +41,12 @@ function recordLoss(standing) {
   standing.points += standingsScoring.loss;
 }
 
+function recordDefaultLoss(standing) {
+  standing.losses += 1;
+  standing.gamesPlayed += 1;
+  standing.points += standingsScoring.defaultLoss;
+}
+
 function recordTie(standing) {
   standing.ties += 1;
   standing.gamesPlayed += 1;
@@ -55,6 +61,41 @@ function processStandingGame(standings, game) {
     return;
   }
 
+  /*
+    A rescheduled game does not count in the standings
+    until a winner or tie is entered later.
+  */
+  if (
+    game.resultType === "rescheduled" &&
+    !game.winner
+  ) {
+    return;
+  }
+
+  if (game.resultType === "tie") {
+    recordTie(teamA);
+    recordTie(teamB);
+    return;
+  }
+
+  if (
+    game.resultType === "default" &&
+    game.winner === game.teamA
+  ) {
+    recordWin(teamA);
+    recordDefaultLoss(teamB);
+    return;
+  }
+
+  if (
+    game.resultType === "default" &&
+    game.winner === game.teamB
+  ) {
+    recordDefaultLoss(teamA);
+    recordWin(teamB);
+    return;
+  }
+
   if (game.winner === game.teamA) {
     recordWin(teamA);
     recordLoss(teamB);
@@ -64,20 +105,6 @@ function processStandingGame(standings, game) {
   if (game.winner === game.teamB) {
     recordLoss(teamA);
     recordWin(teamB);
-    return;
-  }
-
-  const normalizedWinner =
-    typeof game.winner === "string"
-      ? game.winner.trim().toLowerCase()
-      : "";
-
-  if (
-    normalizedWinner === "tie" ||
-    normalizedWinner === "t"
-  ) {
-    recordTie(teamA);
-    recordTie(teamB);
   }
 }
 
