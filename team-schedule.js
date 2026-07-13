@@ -141,9 +141,12 @@ function createTeamScheduleCard(week, weekNumber) {
       .slice(0, 3)
       .toUpperCase() || "";
 
-  const winnerText = game.winner
-    ? `Team ${game.winner}`
-    : "—";
+  const winnerText =
+  game.resultType === "tie"
+    ? "Tie"
+    : game.winner
+      ? `Team ${game.winner}`
+      : "—";
 
   const resultClass =
     game.winner === null
