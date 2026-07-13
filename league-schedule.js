@@ -40,9 +40,21 @@ function createGameRow(game) {
     ? ' class="team-northam-row"'
     : "";
 
-  const winnerText = game.winner
-    ? `Team ${game.winner}`
-    : "—";
+  let winnerText = "—";
+
+  if (game.resultType === "tie") {
+    winnerText = "Tie";
+  } else if (game.resultType === "rescheduled") {
+    winnerText = game.winner
+      ? `Team ${game.winner}*`
+      : "—*";
+  } else if (game.resultType === "default") {
+    winnerText = game.winner
+      ? `Team ${game.winner}*`
+      : "—";
+  } else if (game.winner) {
+    winnerText = `Team ${game.winner}`;
+  }
 
   return `
     <tr${rowClass}>
