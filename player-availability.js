@@ -1,86 +1,113 @@
-const playerAvailability = [
-  {
-    date: "2026-10-01",
-    displayDate: "October 1",
+function getWinnipegDateKey() {
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Winnipeg",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  });
 
-    unavailable: [
-      "Dallas"
-    ],
+  const parts = formatter.formatToParts(new Date());
+  const values = {};
 
-    availableIfNeeded: [],
+  parts.forEach((part) => {
+    if (part.type !== "literal") {
+      values[part.type] = part.value;
+    }
+  });
 
-    lastResort: [],
+  return `${values.year}-${values.month}-${values.day}`;
+}
 
-    spares: []
-  },
+function createAvailabilityLines(entry) {
+  const lines = [];
 
-  {
-    date: "2026-10-08",
-    displayDate: "October 8",
+  const spares = entry.spares || [];
+  const unavailable = entry.unavailable || [];
+  const availableIfNeeded = entry.availableIfNeeded || [];
+  const lastResort = entry.lastResort || [];
 
-    unavailable: [],
+  spares.forEach((player) => {
+    lines.push(
+      `<p><strong>${player}</strong> — Spare</p>`
+    );
+  });
 
-    availableIfNeeded: [
-      "Jason"
-    ],
+  unavailable.forEach((player) => {
+    lines.push(
+      `<p><strong>${player}</strong> — Unavailable</p>`
+    );
+  });
 
-    lastResort: [],
-
-    spares: []
-  },
-
-  {
-    date: "2026-10-15",
-    displayDate: "October 15",
-
-    unavailable: [
-      "Tom",
-      "Jeff"
-    ],
-
-    availableIfNeeded: [],
-
-    lastResort: [],
-
-    spares: [
-      "Richard"
-    ]
-  },
-
-  {
-    date: "2026-10-22",
-    displayDate: "October 22",
-
-    unavailable: [
-      "Tom"
-    ],
-
-    availableIfNeeded: [],
-
-    lastResort: [
-      "Mike"
-    ],
-
-    spares: []
-  },
-
-  {
-    date: "2026-10-29",
-    displayDate: "October 29",
-
-    unavailable: [
-      "Dallas",
-      "Jason",
-      "Jeff"
-    ],
-
-    availableIfNeeded: [],
-
-    lastResort: [],
-
-    spares: [
-      "Richard",
-      "Liam"
-    ]
+  if (spares.length === 0) {
+    availableIfNeeded.forEach((player) => {
+      lines.push(
+        `<p><strong>${player}</strong> — Available if Needed</p>`
+      );
+    });
   }
-];
+
+  lastResort.forEach((player) => {
+    lines.push(
+      `<p><strong>${player}</strong> — Last Resort</p>`
+    );
+  });
+
+  return lines;
+}
+
+function renderPlayerAvailability() {
+  const container = document.getElementById(
+    "player-availability-container"
+  );
+
+  if (!container) {
+    return;
+  }
+
+  if (
+    typeof playerAvailability === "undefined" ||
+    !Array.isArray(playerAvailability)
+  ) {
+    return;
+  }
+
+  const today = getWinnipegDateKey();
+
+  const upcomingEntries = playerAvailability
+    .filter((entry) => entry.date >= today)
+    .sort((entryA, entryB) =>
+      entryA.date.localeCompare(entryB.date)
+    );
+
+  if (upcomingEntries.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <p>No upcoming availability updates have been added.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = upcomingEntries
+    .map((entry) => {
+      const lines = createAvailabilityLines(entry);
+
+      if (lines.length === 0) {
+        return "";
+      }
+
+      return `
+        <div class="availability-item">
+          <div>
+            <strong>${entry.displayDate}</strong>
+            <div class="availability-item-details">
+              ${lines.join("")}
+            </div>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+renderPlayerAvailability();
