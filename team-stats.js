@@ -171,16 +171,18 @@ headToHeadRecords: {}
 
     const playersInGame = new Set(game.lineup || []);
 
-    playersInGame.forEach((playerName) => {
-      if (
-        Object.prototype.hasOwnProperty.call(
-          calculated.playerGames,
-          playerName
-        )
-      ) {
-        calculated.playerGames[playerName] += 1;
-      }
-    });
+playersInGame.forEach((playerName) => {
+  if (
+    !Object.prototype.hasOwnProperty.call(
+      calculated.playerGames,
+      playerName
+    )
+  ) {
+    calculated.playerGames[playerName] = 0;
+  }
+
+  calculated.playerGames[playerName] += 1;
+});
 
     const lineupKey = createLineupKey(game.lineup);
 
@@ -407,28 +409,68 @@ function renderGamesPlayed(calculated) {
     return;
   }
 
-  const sortedPlayers = teamStats.roster
-    .map((player) => ({
-      ...player,
-      gamesPlayed:
-        calculated.playerGames[player.name] || 0
-    }))
-    .sort((playerA, playerB) => {
-      if (
-        playerB.gamesPlayed !==
-        playerA.gamesPlayed
-      ) {
-        return (
-          playerB.gamesPlayed -
-          playerA.gamesPlayed
-        );
-      }
+  const regularPlayerNames = new Set(
+  teamStats.roster.map((player) => player.name)
+);
 
-      return (
-        playerA.rosterOrder -
-        playerB.rosterOrder
-      );
-    });
+const regularPlayers = teamStats.roster.map((player) => ({
+  ...player,
+  playerType: "Regular",
+  gamesPlayed:
+    calculated.playerGames[player.name] || 0
+}));
+
+const sparePlayers = Object.keys(
+  calculated.playerGames
+)
+  .filter(
+    (playerName) =>
+      !regularPlayerNames.has(playerName)
+  )
+  .map((playerName) => ({
+    name: playerName,
+    playerType: "Spare",
+    rosterOrder: 999,
+    gamesPlayed:
+      calculated.playerGames[playerName] || 0
+  }));
+
+const sortedPlayers = [
+  ...regularPlayers,
+  ...sparePlayers
+].sort((playerA, playerB) => {
+  if (
+    playerB.gamesPlayed !==
+    playerA.gamesPlayed
+  ) {
+    return (
+      playerB.gamesPlayed -
+      playerA.gamesPlayed
+    );
+  }
+
+  if (
+    playerA.playerType !==
+    playerB.playerType
+  ) {
+    return playerA.playerType === "Regular"
+      ? -1
+      : 1;
+  }
+
+  if (
+    playerA.playerType === "Regular"
+  ) {
+    return (
+      playerA.rosterOrder -
+      playerB.rosterOrder
+    );
+  }
+
+  return playerA.name.localeCompare(
+    playerB.name
+  );
+});
 
   container.innerHTML = sortedPlayers
     .map(
