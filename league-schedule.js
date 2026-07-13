@@ -65,6 +65,50 @@ function createGameRow(game) {
   `;
 }
 
+function createSpecialGameNotes(week) {
+  const allGames = [
+    ...(week.earlyGames || []),
+    ...(week.lateGames || [])
+  ];
+
+  const notes = [];
+
+  allGames.forEach((game) => {
+    if (
+      game.resultType === "default" &&
+      game.winner
+    ) {
+      notes.push(
+        `* Team ${game.winner} winner by Default`
+      );
+    }
+
+    if (game.resultType === "rescheduled") {
+      if (game.rescheduledDisplayDate) {
+        notes.push(
+          `* Game Rescheduled to ${game.rescheduledDisplayDate}`
+        );
+      } else {
+        notes.push(
+          "* Game to be Rescheduled"
+        );
+      }
+    }
+  });
+
+  if (notes.length === 0) {
+    return "";
+  }
+
+  return `
+    <div class="schedule-special-notes">
+      ${notes
+        .map((note) => `<p>${note}</p>`)
+        .join("")}
+    </div>
+  `;
+}
+
 function createDrawSection(drawName, drawTime, games, drawType) {
   const badgeClass =
     drawType === "early"
@@ -133,6 +177,9 @@ const fiftyFiftyMarkup = week.fiftyFiftyTeam
     </div>
   `;
 
+  const specialGameNotes =
+    createSpecialGameNotes(week);
+
   return `
     <article class="schedule-card">
       <div class="schedule-card-header">
@@ -162,6 +209,8 @@ const fiftyFiftyMarkup = week.fiftyFiftyTeam
         week.lateGames,
         "late"
       )}
+      
+      ${specialGameNotes}
 
       <a class="back-to-top-link" href="#top">
         Back to top
