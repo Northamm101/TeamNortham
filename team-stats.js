@@ -473,15 +473,20 @@ const sortedPlayers = [
 });
 
   container.innerHTML = sortedPlayers
-    .map(
-      (player) => `
-        <div class="player-games-row">
-          <span>${player.name}</span>
-          <strong>${player.gamesPlayed}</strong>
-        </div>
-      `
-    )
-    .join("");
+  .map((player) => {
+    const playerLabel =
+      player.playerType === "Spare"
+        ? `${player.name} (Spare)`
+        : player.name;
+
+    return `
+      <div class="player-games-row">
+        <span>${playerLabel}</span>
+        <strong>${player.gamesPlayed}</strong>
+      </div>
+    `;
+  })
+  .join("");
 }
 
 function calculateWinPercentage(lineupRecord) {
