@@ -41,7 +41,7 @@ function createAvailabilityLines(entry) {
   if (spares.length === 0) {
     availableIfNeeded.forEach((player) => {
       lines.push(
-        `<p><strong>${player}</strong> — Available if Needed</p>`
+        `<p><strong>${player}</strong> — Sitting - Available if Needed</p>`
       );
     });
   }
