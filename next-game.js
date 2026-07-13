@@ -102,7 +102,7 @@ function renderNextGameAvailability(nextGame) {
   if (spares.length === 0) {
     availableIfNeeded.forEach((player) => {
       availabilityLines.push(
-        `<p><strong>${player}</strong> — Available if Needed</p>`
+        `<p><strong>${player}</strong> — Sitting - Available if Needed</p>`
       );
     });
   }
