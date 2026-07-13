@@ -1,0 +1,19 @@
+{
+  "name": "Team Northam",
+  "short_name": "Team Northam",
+  "description": "Team Northam curling schedule, availability and statistics.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071f3d",
+  "theme_color": "#071f3d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "team-northam-app-logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
