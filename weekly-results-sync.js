@@ -76,6 +76,16 @@ function applyWeeklyResultsToLeagueSchedule() {
       }
 
       scheduledGame.winner = resultGame.winner;
+scheduledGame.resultType =
+  resultGame.resultType || "win";
+scheduledGame.forfeitingTeam =
+  resultGame.forfeitingTeam || null;
+scheduledGame.rescheduled =
+  resultGame.rescheduled === true;
+scheduledGame.rescheduledDate =
+  resultGame.rescheduledDate || null;
+scheduledGame.rescheduledDisplayDate =
+  resultGame.rescheduledDisplayDate || null;
     });
   });
 }
