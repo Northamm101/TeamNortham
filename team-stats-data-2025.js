@@ -172,5 +172,65 @@ const teamStats2025 = {
       "Jeff",
       "Tom"
     ]
-  }]
+  },
+    {
+    date: "2025-12-04",
+    displayDate: "December 4, 2025",
+    phase: "Regular Season",
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 3,
+    opponent: 9,
+    result: "W",
+    teamScore: 9,
+    opponentScore: 3,
+    lineup: [
+      "Dallas",
+      "Jeff",
+      "Tom",
+      "Mike"
+    ]
+  },
+  {
+    date: "2025-12-11",
+    displayDate: "December 11, 2025",
+    phase: "Regular Season",
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 1,
+    opponent: 4,
+    result: "L",
+    teamScore: 5,
+    opponentScore: 8,
+    lineup: [
+      "Cory",
+      "Dallas",
+      "Tom",
+      "Mike"
+    ]
+  },
+  {
+    date: "2025-12-12",
+    displayDate: "December 12, 2025",
+    phase: "Regular Season",
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 3,
+    opponent: 12,
+    result: "W",
+    teamScore: 6,
+    opponentScore: 3,
+    lineup: [
+      "Jason",
+      "Tom",
+      "Mike"
+    ],
+    notes: "Rescheduled from October 30, 2025."
+  },
+
+  // December 18, 2025
+  // Regular-season game against Team 11.
+  // Originally scheduled for the early draw at 7:00 PM on Sheet 3.
+  // Rescheduled and played on January 23, 2026.
+  ]
 };
