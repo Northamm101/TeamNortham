@@ -232,5 +232,97 @@ const teamStats2025 = {
   // Regular-season game against Team 11.
   // Originally scheduled for the early draw at 7:00 PM on Sheet 3.
   // Rescheduled and played on January 23, 2026.
+
+  {
+    date: "2026-01-06",
+    displayDate: "January 6, 2026",
+    phase: "Regular Season",
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 1,
+    opponent: 9,
+    result: "W",
+    teamScore: 7,
+    opponentScore: 1,
+    lineup: [
+      "Dallas",
+      "Jason",
+      "Jeff",
+      "Tom"
+    ],
+    notes: "Played early after being rescheduled from January 15, 2026."
+  },
+  {
+    date: "2026-01-08",
+    displayDate: "January 8, 2026",
+    phase: "Regular Season",
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 1,
+    opponent: 1,
+    result: "L",
+    teamScore: 4,
+    opponentScore: 7,
+    lineup: [
+      "Dallas",
+      "Jeff",
+      "Tom",
+      "Mike"
+    ]
+  },
+  {
+    date: "2026-01-22",
+    displayDate: "January 22, 2026",
+    phase: "Regular Season",
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 2,
+    opponent: 7,
+    result: "W",
+    teamScore: 7,
+    opponentScore: 6,
+    lineup: [
+      "Dallas",
+      "Jason",
+      "Jeff",
+      "Mike"
+    ]
+  },
+  {
+    date: "2026-01-23",
+    displayDate: "January 23, 2026",
+    phase: "Regular Season",
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 3,
+    opponent: 11,
+    result: "W",
+    teamScore: 9,
+    opponentScore: 6,
+    lineup: [
+      "Jeff",
+      "Tom",
+      "Mike"
+    ],
+    notes: "Rescheduled from December 18, 2025."
+  },
+  {
+    date: "2026-01-29",
+    displayDate: "January 29, 2026",
+    phase: "Regular Season",
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 2,
+    opponent: 5,
+    result: "L",
+    teamScore: 6,
+    opponentScore: 9,
+    lineup: [
+      "Dallas",
+      "Tom",
+      "Mike"
+    ],
+    notes: "Moved from the late draw to the early draw because of sheet availability."
+  }
   ]
 };
