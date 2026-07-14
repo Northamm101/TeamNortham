@@ -1,6 +1,7 @@
 const teamStats2025 = {
   season: "2025–26",
   teamNumber: 3,
+  trackRockColors: false,
 
   scoring: {
     win: 10,
