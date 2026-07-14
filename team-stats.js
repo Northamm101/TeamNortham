@@ -1188,7 +1188,7 @@ function renderWeeklyResults() {
               </span>
 
               <h3>
-                Team 7 vs Team ${game.opponent}
+              Team ${teamStats.teamNumber} vs Team ${game.opponent}
               </h3>
             </div>
 
