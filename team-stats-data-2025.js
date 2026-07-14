@@ -1,5 +1,6 @@
 const teamStats2025 = {
   season: "2025–26",
+  teamNumber: 3,
 
   scoring: {
     win: 10,
