@@ -108,6 +108,163 @@ function processStandingGame(standings, game) {
   }
 }
 
+function getCompletedLeagueGames() {
+  const completedGames = [];
+
+  leagueSchedule.forEach((week) => {
+    const games = [
+      ...(week.earlyGames || []),
+      ...(week.lateGames || [])
+    ];
+
+    games.forEach((game) => {
+      const isCompletedTie =
+        game.resultType === "tie";
+
+      const hasWinner =
+        game.winner === game.teamA ||
+        game.winner === game.teamB;
+
+      if (isCompletedTie || hasWinner) {
+        completedGames.push(game);
+      }
+    });
+  });
+
+  return completedGames;
+}
+
+function createHeadToHeadStanding(teamNumber) {
+  return {
+    team: teamNumber,
+    wins: 0,
+    losses: 0,
+    ties: 0,
+    gamesPlayed: 0,
+    points: 0
+  };
+}
+
+function calculateHeadToHeadStandings(
+  tiedTeams,
+  completedGames
+) {
+  const tiedTeamNumbers = new Set(
+    tiedTeams.map((standing) => standing.team)
+  );
+
+  const headToHeadStandings = {};
+
+  tiedTeams.forEach((standing) => {
+    headToHeadStandings[standing.team] =
+      createHeadToHeadStanding(standing.team);
+  });
+
+  completedGames.forEach((game) => {
+    if (
+      !tiedTeamNumbers.has(game.teamA) ||
+      !tiedTeamNumbers.has(game.teamB)
+    ) {
+      return;
+    }
+
+    processStandingGame(
+      headToHeadStandings,
+      game
+    );
+  });
+
+  return headToHeadStandings;
+}
+
+function sortTiedStandings(
+  tiedStandings,
+  completedGames
+) {
+  if (tiedStandings.length <= 1) {
+    return tiedStandings;
+  }
+
+  const headToHeadStandings =
+    calculateHeadToHeadStandings(
+      tiedStandings,
+      completedGames
+    );
+
+  const totalHeadToHeadGames =
+    Object.values(headToHeadStandings)
+      .reduce(
+        (total, standing) =>
+          total + standing.gamesPlayed,
+        0
+      ) / 2;
+
+  /*
+    If none of the tied teams have played one another,
+    use Games Played and then Wins.
+  */
+  if (totalHeadToHeadGames === 0) {
+    return [...tiedStandings].sort(
+      (standingA, standingB) => {
+        if (
+          standingB.gamesPlayed !==
+          standingA.gamesPlayed
+        ) {
+          return (
+            standingB.gamesPlayed -
+            standingA.gamesPlayed
+          );
+        }
+
+        if (
+          standingB.wins !== standingA.wins
+        ) {
+          return (
+            standingB.wins -
+            standingA.wins
+          );
+        }
+
+        return standingA.team - standingB.team;
+      }
+    );
+  }
+
+  /*
+    When tied teams have played one another,
+    rank them using the mini head-to-head table.
+  */
+  return [...tiedStandings].sort(
+    (standingA, standingB) => {
+      const headToHeadA =
+        headToHeadStandings[standingA.team];
+
+      const headToHeadB =
+        headToHeadStandings[standingB.team];
+
+      if (
+        headToHeadB.points !==
+        headToHeadA.points
+      ) {
+        return (
+          headToHeadB.points -
+          headToHeadA.points
+        );
+      }
+
+      /*
+        Teams that remain tied after head-to-head
+        stay in numerical order for display only.
+
+        The team number is not an official tiebreaker.
+        A draw-to-the-button may later determine the
+        A-Side/B-Side cutoff.
+      */
+      return standingA.team - standingB.team;
+    }
+  );
+}
+
 function calculateLeagueStandings() {
   const standings = createAllStandings();
 
@@ -122,26 +279,44 @@ function calculateLeagueStandings() {
     });
   });
 
-  const sortedStandings = Object.values(standings)
-    .sort((standingA, standingB) => {
-      if (standingB.points !== standingA.points) {
-        return standingB.points - standingA.points;
+  const completedGames =
+    getCompletedLeagueGames();
+
+  const standingsByPoints = {};
+
+  Object.values(standings).forEach(
+    (standing) => {
+      if (!standingsByPoints[standing.points]) {
+        standingsByPoints[standing.points] = [];
       }
 
-      if (standingB.wins !== standingA.wins) {
-        return standingB.wins - standingA.wins;
-      }
+      standingsByPoints[standing.points].push(
+        standing
+      );
+    }
+  );
 
-      /*
-        Until head-to-head tiebreaking is added, teams that
-        remain tied stay in numerical team order.
-      */
-      return standingA.team - standingB.team;
-    });
+  const pointTotals = Object.keys(
+    standingsByPoints
+  )
+    .map(Number)
+    .sort((pointsA, pointsB) =>
+      pointsB - pointsA
+    );
 
-  sortedStandings.forEach((standing, index) => {
-    standing.rank = index + 1;
-  });
+  const sortedStandings = pointTotals.flatMap(
+    (points) =>
+      sortTiedStandings(
+        standingsByPoints[points],
+        completedGames
+      )
+  );
+
+  sortedStandings.forEach(
+    (standing, index) => {
+      standing.rank = index + 1;
+    }
+  );
 
   return sortedStandings;
 }
