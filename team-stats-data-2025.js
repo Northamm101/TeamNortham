@@ -324,5 +324,80 @@ const teamStats2025 = {
     ],
     notes: "Moved from the late draw to the early draw because of sheet availability."
   },
+  {
+    date: "2026-02-05",
+    displayDate: "February 5, 2026",
+    phase: "Regular Season",
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 1,
+    opponent: 10,
+    result: "L",
+    teamScore: 6,
+    opponentScore: 8,
+    lineup: [
+      "Dallas",
+      "Jeff",
+      "Tom",
+      "Mike"
+    ]
+  },
+  {
+    date: "2026-02-12",
+    displayDate: "February 12, 2026",
+    phase: "Playoffs",
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 1,
+    opponent: 12,
+    result: "W",
+    teamScore: 9,
+    opponentScore: 4,
+    lineup: [
+      "Dallas",
+      "Jason",
+      "Tom",
+      "Mike"
+    ],
+    notes: "B-Side playoffs."
+  },
+  {
+    date: "2026-02-19",
+    displayDate: "February 19, 2026",
+    phase: "Playoffs",
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 3,
+    opponent: 11,
+    result: "W",
+    teamScore: 11,
+    opponentScore: 7,
+    lineup: [
+      "Dallas",
+      "Jason",
+      "Jeff",
+      "Mike"
+    ],
+    notes: "B-Side playoffs."
+  },
+  {
+    date: "2026-02-26",
+    displayDate: "February 26, 2026",
+    phase: "Playoffs",
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 1,
+    opponent: 7,
+    result: "W",
+    teamScore: 8,
+    opponentScore: 6,
+    lineup: [
+      "Richard",
+      "Liam",
+      "Jeff",
+      "Mike"
+    ],
+    notes: "B-Side playoffs. Richard and Liam played as spares."
+  },
   ]
 };
