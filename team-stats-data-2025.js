@@ -93,7 +93,7 @@ const teamStats2025 = {
     result: "L",
     teamScore: 4,
     opponentScore: 9,
-    lineup: [
+        lineup: [
       "Cory",
       "Dallas",
       "Tom",
@@ -101,3 +101,4 @@ const teamStats2025 = {
     ]
   }
 ]
+};
