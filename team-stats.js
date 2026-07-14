@@ -271,10 +271,13 @@ lineupRecord.games.push({
 
     const opponentNumber = Number(game.opponent);
 
-    if (
-      Number.isInteger(opponentNumber) &&
-      opponentNumber !== 7
-    ) {
+    const currentTeamNumber =
+  Number(teamStats.teamNumber);
+
+if (
+  Number.isInteger(opponentNumber) &&
+  opponentNumber !== currentTeamNumber
+) {
       if (!calculated.headToHeadRecords[opponentNumber]) {
         calculated.headToHeadRecords[opponentNumber] = {
           opponent: opponentNumber,
