@@ -1,4 +1,7 @@
 const teamStats = {
+  season: "2026–27",
+  teamNumber: 7,
+
   scoring: {
     win: 10,
     loss: 5,
