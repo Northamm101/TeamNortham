@@ -106,6 +106,10 @@ function getOpponentName(opponentNumber) {
   );
 }
 
+function shouldTrackRockColors() {
+  return teamStats.trackRockColors !== false;
+}
+
 function calculateStatistics() {
   const calculated = {
     overall: createEmptyRecord(),
