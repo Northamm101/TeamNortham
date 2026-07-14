@@ -738,12 +738,18 @@ function renderLineupGameRows(games) {
               <strong>${game.sheet}</strong>
             </div>
 
-            <div>
-              <span>Rocks</span>
-              <strong>
-                ${game.rockColor || "—"}
-              </strong>
-            </div>
+            ${
+  shouldTrackRockColors()
+    ? `
+      <div>
+        <span>Rocks</span>
+        <strong>
+          ${game.rockColor || "—"}
+        </strong>
+      </div>
+    `
+    : ""
+}
           </div>
         </div>
       `;
