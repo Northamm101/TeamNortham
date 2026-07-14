@@ -52,6 +52,18 @@ function calculatePoints(game) {
   return 0;
 }
 
+function isRegularPlayer(playerName) {
+  return teamStats.roster.some(
+    (player) => player.name === playerName
+  );
+}
+
+function formatPlayerName(playerName) {
+  return isRegularPlayer(playerName)
+    ? playerName
+    : `${playerName} (Spare)`;
+}
+
 function createLineupKey(lineup) {
   if (!Array.isArray(lineup) || lineup.length === 0) {
     return "";
@@ -65,7 +77,11 @@ function formatLineupName(lineup) {
     return "Lineup not entered";
   }
 
-  return lineup.join(" – ");
+  return lineup
+    .map((playerName) =>
+      formatPlayerName(playerName)
+    )
+    .join(" – ");
 }
 
 const teamNames = {
@@ -1106,7 +1122,11 @@ function formatLineup(lineup) {
     return "Not entered";
   }
 
-  return lineup.join(", ");
+  return lineup
+    .map((playerName) =>
+      formatPlayerName(playerName)
+    )
+    .join(", ");
 }
 
 function renderWeeklyResults() {
