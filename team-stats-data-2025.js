@@ -399,5 +399,42 @@ const teamStats2025 = {
     ],
     notes: "B-Side playoffs. Richard and Liam played as spares."
   },
+  {
+    date: "2026-03-05",
+    displayDate: "March 5, 2026",
+    phase: "Playoffs",
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 3,
+    opponent: 8,
+    result: "W",
+    teamScore: 9,
+    opponentScore: 5,
+    lineup: [
+      "Jeff",
+      "Tom",
+      "Mike"
+    ],
+    notes: "B-Side playoffs. Team Northam came back after trailing 5-1 through three ends."
+  },
+  {
+    date: "2026-03-19",
+    displayDate: "March 19, 2026",
+    phase: "Playoffs",
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 3,
+    opponent: 9,
+    result: "W",
+    teamScore: 8,
+    opponentScore: 3,
+    lineup: [
+      "Dallas",
+      "Jason",
+      "Jeff",
+      "Tom"
+    ],
+    notes: "B-Side playoffs. This win completed a perfect 5-0 playoff record and secured the B-Side championship."
+  },
   ]
 };
