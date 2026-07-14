@@ -435,6 +435,6 @@ const teamStats2025 = {
       "Tom"
     ],
     notes: "B-Side playoffs. This win completed a perfect 5-0 playoff record and secured the B-Side championship."
-  },
+  }
   ]
 };
