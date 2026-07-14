@@ -1230,12 +1230,18 @@ function renderWeeklyResults() {
               <dd>${game.time || "—"}</dd>
             </div>
 
-            <div>
-              <dt>Rock Colour</dt>
-              <dd>
-                ${game.rockColor || "Not entered"}
-              </dd>
-            </div>
+            ${
+  shouldTrackRockColors()
+    ? `
+      <div>
+        <dt>Rock Colour</dt>
+        <dd>
+          ${game.rockColor || "Not entered"}
+        </dd>
+      </div>
+    `
+    : ""
+}
 
             <div>
               <dt>Lineup</dt>
