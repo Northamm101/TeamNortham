@@ -415,5 +415,141 @@ const weeklyResults = [
       ],
       notes: "Dallas, Jason and Jeff unavailable. Richard and Liam spared."
     }
+    }
+
+  /*
+  ==========================================================
+  COPY THIS TEMPLATE FOR EACH NEW WEEK
+  ==========================================================
+
+  Before using it:
+
+  1. Add a comma after the previous week's closing brace.
+  2. Copy the object below.
+  3. Remove the opening and closing comment markers.
+  4. Fill in all six league games.
+  5. Fill in Team Northam's detailed result.
+
+  {
+    week: 6,
+    date: "2026-11-05",
+    displayDate: "November 5, 2026",
+    phase: "regular",
+
+    games: [
+      {
+        draw: "early",
+        time: "7:00 PM",
+        sheet: 1,
+        teamA: 1,
+        teamB: 2,
+        resultType: "win",
+        winner: 1
+      },
+      {
+        draw: "early",
+        time: "7:00 PM",
+        sheet: 2,
+        teamA: 3,
+        teamB: 4,
+        resultType: "win",
+        winner: 3
+      },
+      {
+        draw: "early",
+        time: "7:00 PM",
+        sheet: 3,
+        teamA: 5,
+        teamB: 6,
+        resultType: "tie",
+        winner: null
+      },
+      {
+        draw: "late",
+        time: "9:15 PM",
+        sheet: 1,
+        teamA: 7,
+        teamB: 8,
+        resultType: "win",
+        winner: 7
+      },
+      {
+        draw: "late",
+        time: "9:15 PM",
+        sheet: 2,
+        teamA: 9,
+        teamB: 10,
+        resultType: "default",
+        winner: 9,
+        forfeitingTeam: 10
+      },
+      {
+        draw: "late",
+        time: "9:15 PM",
+        sheet: 3,
+        teamA: 11,
+        teamB: 12,
+        resultType: "rescheduled",
+        winner: null,
+        rescheduled: true,
+        rescheduledDate: null,
+        rescheduledDisplayDate: null
+      }
+    ],
+
+    teamNortham: {
+      opponent: 8,
+      result: "W",
+      teamScore: 8,
+      opponentScore: 5,
+      ends: 7,
+      draw: "late",
+      time: "9:15 PM",
+      sheet: 1,
+      rockColor: "Red",
+
+      lineup: [
+        "Jason",
+        "Jeff",
+        "Tom",
+        "Mike"
+      ],
+
+      notes: ""
+    }
   }
+
+  resultType options:
+
+  "win"
+    winner must be Team A or Team B.
+
+  "tie"
+    winner must be null.
+
+  "default"
+    include winner and forfeitingTeam.
+
+  "rescheduled"
+    winner must be null until the game is completed.
+
+  Team Northam result options:
+
+  "W"
+  "L"
+  "T"
+
+  Lineup order:
+
+  Lead,
+  Second,
+  Third,
+  Skip
+
+  Three-player lineup order:
+
+  First thrower,
+  Second thrower,
+  Skip
+  */
 ];
