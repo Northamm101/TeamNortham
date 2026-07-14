@@ -323,6 +323,6 @@ const teamStats2025 = {
       "Mike"
     ],
     notes: "Moved from the late draw to the early draw because of sheet availability."
-  }
+  },
   ]
 };
