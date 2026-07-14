@@ -99,6 +99,77 @@ const teamStats2025 = {
       "Tom",
       "Mike"
     ]
-  }
-]
+  },
+
+  // October 30, 2025
+  // Regular-season game against Team 12.
+  // Originally scheduled for the late draw at 9:15 PM on Sheet 1.
+  // Rescheduled and played on December 12, 2025.
+     
+    {
+    date: "2025-11-06",
+    displayDate: "November 6, 2025",
+    phase: "Regular Season",
+    draw: "early",
+    sheet: 1,
+    opponent: 8,
+    result: "W",
+    teamScore: 5,
+    opponentScore: 3,
+    lineup: [
+      "Jason",
+      "Jeff",
+      "Tom"
+    ]
+  },
+  {
+    date: "2025-11-13",
+    displayDate: "November 13, 2025",
+    phase: "Regular Season",
+    draw: "early",
+    sheet: 2,
+    opponent: 1,
+    result: "W",
+    teamScore: 8,
+    opponentScore: 5,
+    lineup: [
+      "Jeff",
+      "Tom",
+      "Mike"
+    ]
+  },
+  {
+    date: "2025-11-20",
+    displayDate: "November 20, 2025",
+    phase: "Regular Season",
+    draw: "late",
+    sheet: 3,
+    opponent: 10,
+    result: "L",
+    teamScore: 3,
+    opponentScore: 9,
+    lineup: [
+      "Dallas",
+      "Jason",
+      "Jeff",
+      "Mike"
+    ]
+  },
+  {
+    date: "2025-11-27",
+    displayDate: "November 27, 2025",
+    phase: "Regular Season",
+    draw: "late",
+    sheet: 2,
+    opponent: 5,
+    result: "L",
+    teamScore: 3,
+    opponentScore: 8,
+    lineup: [
+      "Dallas",
+      "Jason",
+      "Jeff",
+      "Tom"
+    ]
+  }]
 };
