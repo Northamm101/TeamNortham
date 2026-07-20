@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="description"
+    content="Team Northam's 2024–25 curling statistics."
+  >
+
+ <meta name="theme-color" content="#071f3d">
+  
+  <link rel="manifest" href="manifest.json">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Team Northam">
+
+<link rel="apple-touch-icon" href="team-northam-app-logo.jpg">
+
+  <title>2024-25 Team Statistics | Team Northam</title>
+
+  <link rel="stylesheet" href="styles.css?v=22">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- Team Northam Header -->
+    <header class="site-header">
+      <a class="logo-link" href="index.html" aria-label="Team Northam home">
+        <img
+          class="team-logo"
+          src="team-northam-logo.jpg"
+          alt="Team Northam Lorette curling logo"
+        >
+      </a>
+    </header>
+
+    <main class="page-content stats-page">
+
+      <!-- Page Introduction -->
+      <section class="welcome-section stats-intro">
+        <p class="eyebrow">2024-25 Curling Season</p>
+        <h1>Team Statistics</h1>
+
+<div class="season-selector">
+  <label for="season-select">Season</label>
+
+  <select
+    id="season-select"
+    onchange="window.location.href=this.value"
+  >
+    <option value="team-stats2026.html">
+      2026–27
+    </option>
+
+    <option value="team-stats2025.html" selected>
+      2025–26
+    </option>
+  </select>
+</div>       
+        
+        <p class="welcome-text">
+          Team Northam results, draw performance, sheet records and games played.
+        </p>
+      </section>
+
+      <!-- Season Record -->
+      <section class="dashboard-card stats-summary-card">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">Season Snapshot</p>
+            <h2>Overall Record</h2>
+          </div>
+        </div>
+
+        <div class="stats-preview">
+  <div class="stat-box">
+    <span class="stat-value" id="overall-record">0-0-0</span>
+    <span class="stat-name">Record</span>
+  </div>
+
+  <div class="stat-box">
+    <span class="stat-value" id="overall-points">0</span>
+    <span class="stat-name">Points</span>
+  </div>
+</div>
+
+        <a class="card-footer-link" href="weeklyresults2025.html">
+  View Weekly Results
+  <span aria-hidden="true">→</span>
+</a>        
+      </section>
+
+<!-- 2025–26 Regular Season Standings -->
+<section class="dashboard-card standings-card">
+  <div class="card-heading standings-heading">
+    <div>
+      <p class="card-label">2025–26 Men’s League</p>
+      <h2>Regular Season Standings</h2>
+    </div>
+  </div>
+
+  <div class="standings-table-wrapper">
+    <table class="standings-table">
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Team</th>
+          <th scope="col">GP</th>
+          <th scope="col">Record</th>
+          <th scope="col">Pts</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Team 1</td>
+          <td>17</td>
+          <td>15-2-0</td>
+          <td>160</td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>Team 2</td>
+          <td>17</td>
+          <td>12-4-1</td>
+          <td>147</td>
+        </tr>
+
+        <tr>
+          <td>3</td>
+          <td>Team 5</td>
+          <td>17</td>
+          <td>12-5-0</td>
+          <td>145</td>
+        </tr>
+
+        <tr>
+          <td>4</td>
+          <td>Team 10</td>
+          <td>17</td>
+          <td>11-6-0</td>
+          <td>140</td>
+        </tr>
+
+        <tr>
+          <td>5</td>
+          <td>Team 6</td>
+          <td>17</td>
+          <td>10-7-0</td>
+          <td>135</td>
+        </tr>
+
+        <tr>
+          <td>6</td>
+          <td>Team 4</td>
+          <td>17</td>
+          <td>10-7-0</td>
+          <td>135</td>
+        </tr>
+
+        <tr class="team-northam-standing">
+          <td>7</td>
+          <td>Team 3</td>
+          <td>17</td>
+          <td>9-8-0</td>
+          <td>130</td>
+        </tr>
+
+        <tr>
+          <td>8</td>
+          <td>Team 9</td>
+          <td>17</td>
+          <td>6-11-0</td>
+          <td>115</td>
+        </tr>
+
+        <tr>
+          <td>9</td>
+          <td>Team 7</td>
+          <td>17</td>
+          <td>6-11-0</td>
+          <td>115</td>
+        </tr>
+
+        <tr>
+          <td>10</td>
+          <td>Team 11</td>
+          <td>17</td>
+          <td>5-12-0</td>
+          <td>110</td>
+        </tr>
+
+        <tr>
+          <td>11</td>
+          <td>Team 8</td>
+          <td>17</td>
+          <td>4-13-0</td>
+          <td>105</td>
+        </tr>
+
+        <tr>
+          <td>12</td>
+          <td>Team 12</td>
+          <td>17</td>
+          <td>1-15-1</td>
+          <td>92</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <a class="card-footer-link" href="headtohead2025.html">
+    View Head-to-Head Statistics
+    <span aria-hidden="true">→</span>
+  </a>
+</section>
+
+<!-- 2025–26 A-Side Playoff Standings -->
+<section class="dashboard-card standings-card">
+  <div class="card-heading standings-heading">
+    <div>
+      <p class="card-label">2025–26 Playoffs</p>
+      <h2>A-Side Final Standings</h2>
+    </div>
+  </div>
+
+  <div class="standings-table-wrapper">
+    <table class="standings-table">
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Team</th>
+          <th scope="col">GP</th>
+          <th scope="col">Record</th>
+          <th scope="col">Pts</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Team 1</td>
+          <td>5</td>
+          <td>3-1-1</td>
+          <td>42</td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>Team 5</td>
+          <td>5</td>
+          <td>3-1-1</td>
+          <td>42</td>
+        </tr>
+
+        <tr>
+          <td>3</td>
+          <td>Team 10</td>
+          <td>5</td>
+          <td>2-2-1</td>
+          <td>37</td>
+        </tr>
+
+        <tr>
+          <td>4</td>
+          <td>Team 6</td>
+          <td>5</td>
+          <td>2-2-1</td>
+          <td>37</td>
+        </tr>
+
+        <tr>
+          <td>5</td>
+          <td>Team 2</td>
+          <td>5</td>
+          <td>2-3-0</td>
+          <td>35</td>
+        </tr>
+
+        <tr>
+          <td>6</td>
+          <td>Team 4</td>
+          <td>5</td>
+          <td>1-4-0</td>
+          <td>30</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 2025–26 B-Side Playoff Standings -->
+<section class="dashboard-card standings-card">
+  <div class="card-heading standings-heading">
+    <div>
+      <p class="card-label">2025–26 Playoffs</p>
+      <h2>B-Side Final Standings</h2>
+    </div>
+  </div>
+
+  <div class="standings-table-wrapper">
+    <table class="standings-table">
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Team</th>
+          <th scope="col">GP</th>
+          <th scope="col">Record</th>
+          <th scope="col">Pts</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="team-northam-standing">
+          <td>1</td>
+          <td>Team 3</td>
+          <td>5</td>
+          <td>5-0-0</td>
+          <td>50</td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>Team 8</td>
+          <td>5</td>
+          <td>3-1-1</td>
+          <td>42</td>
+        </tr>
+
+        <tr>
+          <td>3</td>
+          <td>Team 11</td>
+          <td>5</td>
+          <td>2-3-0</td>
+          <td>35</td>
+        </tr>
+
+        <tr>
+          <td>4</td>
+          <td>Team 12</td>
+          <td>5</td>
+          <td>1-3-1</td>
+          <td>32</td>
+        </tr>
+
+        <tr>
+          <td>5</td>
+          <td>Team 7</td>
+          <td>5</td>
+          <td>2-3-0</td>
+          <td>30</td>
+        </tr>
+
+        <tr>
+          <td>6</td>
+          <td>Team 9</td>
+          <td>5</td>
+          <td>0-3-2</td>
+          <td>29</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>   
+            
+      <!-- Draw Time Performance -->
+      <section class="dashboard-card">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">Draw Performance</p>
+            <h2>Early vs Late</h2>
+          </div>
+        </div>
+
+        <div class="stats-record-grid">
+          <div class="stats-record-box">
+            <span class="stats-record-label">Early Draw</span>
+            <strong id="early-record">0-0-0</strong>
+            <small>7:00 PM</small>
+          </div>
+
+          <div class="stats-record-box">
+            <span class="stats-record-label">Late Draw</span>
+            <strong id="late-record">0-0-0</strong>
+            <small>9:15 PM</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sheet Performance -->
+      <section class="dashboard-card">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">Ice Performance</p>
+            <h2>Record by Sheet</h2>
+          </div>
+        </div>
+
+        <div class="sheet-record-grid">
+          <div class="sheet-record-box">
+            <span class="sheet-number">1</span>
+            <strong id="sheet-1-record">0-0-0</strong>
+            <small>Sheet 1</small>
+          </div>
+
+          <div class="sheet-record-box">
+            <span class="sheet-number">2</span>
+            <strong id="sheet-2-record">0-0-0</strong>
+            <small>Sheet 2</small>
+          </div>
+
+          <div class="sheet-record-box">
+            <span class="sheet-number">3</span>
+            <strong id="sheet-3-record">0-0-0</strong>
+            <small>Sheet 3</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Games Played -->
+      <section class="dashboard-card">
+        <div class="card-heading">
+          <div>
+            <p class="card-label">Player Rotation</p>
+            <h2>Games Played</h2>
+          </div>
+        </div>
+
+        <div class="player-games-list" id="player-games-list">
+          
+        </div>
+      </section>
+      
+      <!-- Lineup Performance -->
+<section class="dashboard-card">
+  <div class="card-heading">
+    <div>
+      <p class="card-label">Lineup Performance</p>
+      <h2>Record by Lineup</h2>
+    </div>
+  </div>
+
+  <div class="lineup-performance-list" id="lineup-performance-list">
+    <div class="empty-state">
+      <p>No lineups have been recorded yet.</p>
+    </div>
+  </div>
+
+  <a class="card-footer-link" href="teamlineup2025.html">
+    View Lineup Statistics
+    <span aria-hidden="true">→</span>
+  </a>
+</section>
+      
+      </main>
+
+    <!-- Bottom Tab Bar -->
+    <nav class="bottom-tab-bar" aria-label="Primary navigation">
+
+      <a class="tab-link" href="index.html">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 10.8 12 3l9 7.8v9.7a.5.5 0 0 1-.5.5h-5.7v-6.5H9.2V21H3.5a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        </span>
+        <span>Home</span>
+      </a>
+
+      <a class="tab-link" href="team-schedule2026.html">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M6 2v3M18 2v3M3.5 8.5h17M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
+            <path d="M7 12h2M11 12h2M15 12h2M7 16h2M11 16h2M15 16h2"/>
+          </svg>
+        </span>
+        <span>Team</span>
+      </a>
+
+      <a class="tab-link" href="mens-schedule2026.html">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 5h16v15H4zM8 2v5M16 2v5M4 9h16"/>
+            <path d="M8 13h3M13 13h3M8 17h3M13 17h3"/>
+          </svg>
+        </span>
+        <span>League</span>
+      </a>
+
+      <a
+        class="tab-link active"
+        href="team-stats2025.html"
+        aria-current="page"
+      >
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 20V10h4v10M10 20V4h4v16M15 20v-7h4v7M3 20h18"/>
+          </svg>
+        </span>
+        <span>Stats</span>
+      </a>
+
+    </nav>
+
+  </div>
+
+<script src="team-stats-data-2025.js?v=2"></script>
+
+<script>
+  const teamStats = teamStats2025;
+</script>
+
+<script src="team-stats.js"></script>
+<script src="register-service-worker.js"></script>
+</body>
+</html>
