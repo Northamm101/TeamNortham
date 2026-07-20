@@ -10,7 +10,7 @@ const teamStats2024 = {
     defaultLoss: 0
   },
 
-  roster: [],
-
-  games: []
+  games: [
+    // all 23 confirmed games here
+  ]
 };
