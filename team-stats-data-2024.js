@@ -2,6 +2,7 @@ const teamStats2024 = {
   season: "2024–25",
   teamNumber: 2,
   trackRockColors: false,
+  trackScores: false,
   roster: [],
 
   scoring: {
