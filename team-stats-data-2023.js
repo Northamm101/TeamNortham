@@ -189,6 +189,50 @@ games: [
     opponent: 9,
     result: "W",
     lineup: []
+  },
+  {
+    date: "2024-02-15",
+    displayDate: "February 15, 2024",
+    phase: "Playoffs",
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 1,
+    opponent: 3,
+    result: "L",
+    lineup: []
+  },
+  {
+    date: "2024-02-29",
+    displayDate: "February 29, 2024",
+    phase: "Playoffs",
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 1,
+    opponent: 2,
+    result: "W",
+    lineup: []
+  },
+  {
+    date: "2024-03-07",
+    displayDate: "March 7, 2024",
+    phase: "Playoffs",
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 2,
+    opponent: 5,
+    result: "W",
+    lineup: []
+  },
+  {
+    date: "2024-03-21",
+    displayDate: "March 21, 2024",
+    phase: "Playoffs",
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 1,
+    opponent: 8,
+    result: "L",
+    lineup: []
   }
 ]
 };
