@@ -1,6 +1,6 @@
 const teamStats2023 = {
   season: "2023–24",
-  teamNumber: 2,
+  teamNumber: 4,
   trackRockColors: false,
   trackScores: false,
   trackLineups: false,
