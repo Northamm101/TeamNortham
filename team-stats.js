@@ -725,13 +725,21 @@ function renderLineupGameRows(games) {
           </div>
 
           <div class="lineup-game-details">
-            <div>
-              <span>Score</span>
-              <strong>${score}${endsText}</strong>
-            </div>
+           ${
+  shouldTrackScores()
+    ? `
+      <div>
+        <span>Score</span>
+        <strong>
+          ${score}${endsText}
+        </strong>
+      </div>
+    `
+    : ""
+}
 
-            <div>
-              <span>Draw</span>
+<div>
+  <span>Draw</span>
               <strong>
                 ${
                   game.draw === "early"
@@ -1076,22 +1084,28 @@ function renderHeadToHeadStatistics(calculated) {
               </strong>
             </div>
 
-            <div>
-              <span>For / Against</span>
-              <strong>
-                ${headToHead.pointsFor} /
-                ${headToHead.pointsAgainst}
-              </strong>
-            </div>
+            ${
+  shouldTrackScores()
+    ? `
+      <div>
+        <span>For / Against</span>
+        <strong>
+          ${headToHead.pointsFor} /
+          ${headToHead.pointsAgainst}
+        </strong>
+      </div>
 
-            <div>
-              <span>Differential</span>
-              <strong>
-                ${formatSignedNumber(
-                  headToHead.differential
-                )}
-              </strong>
-            </div>
+      <div>
+        <span>Differential</span>
+        <strong>
+          ${formatSignedNumber(
+            headToHead.differential
+          )}
+        </strong>
+      </div>
+    `
+    : ""
+}
           </div>
 
           <section class="head-to-head-games-section">
