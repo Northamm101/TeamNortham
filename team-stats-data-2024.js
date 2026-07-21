@@ -10,7 +10,7 @@ const teamStats2024 = {
     defaultLoss: 0
   },
 
-  games: [games: [
+  games: [
     {
       date: "2024-10-03",
       displayDate: "October 3, 2024",
