@@ -1269,12 +1269,18 @@ function renderWeeklyResults() {
     : ""
 }
 
-            <div>
-              <dt>Lineup</dt>
-              <dd>
-                ${formatLineup(game.lineup)}
-              </dd>
-            </div>
+${
+  shouldTrackLineups()
+    ? `
+      <div>
+        <dt>Lineup</dt>
+        <dd>
+          ${formatLineup(game.lineup)}
+        </dd>
+      </div>
+    `
+    : ""
+}
 
             ${
               game.notes
