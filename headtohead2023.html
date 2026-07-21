@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="description"
+    content="Team Northam's 2023–24 head-to-head curling statistics."
+  >
+
+  <meta name="theme-color" content="#071f3d">
+  
+  <link rel="manifest" href="manifest.json">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Team Northam">
+
+<link rel="apple-touch-icon" href="team-northam-app-logo.jpg">
+
+  <title>2023-24 Head-to-Head Statistics | Team Northam</title>
+
+  <link rel="stylesheet" href="styles.css?v=22">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- Team Northam Header -->
+    <header class="site-header">
+      <a class="logo-link" href="index.html" aria-label="Team Northam home">
+        <img
+          class="team-logo"
+          src="team-northam-logo.jpg"
+          alt="Team Northam Lorette curling logo"
+        >
+      </a>
+    </header>
+
+    <main class="page-content stats-page">
+
+      <!-- Page Introduction -->
+      <section class="welcome-section stats-intro">
+        <p class="eyebrow">2023–24 Curling Season</p>
+        <h1>Head-to-Head Statistics</h1>
+
+        <p class="welcome-text">
+          Team Northam's season record and game history against every opponent.
+        </p>
+      </section>
+
+      <!-- Head-to-Head Cards -->
+      <section id="head-to-head-list">
+        <div class="empty-state">
+          <p>No head-to-head results have been recorded yet.</p>
+        </div>
+      </section>
+
+      <a class="card-footer-link" href="team-stats2023.html">
+        Back to Team Statistics
+        <span aria-hidden="true">←</span>
+      </a>
+
+    </main>
+
+    <!-- Bottom Tab Bar -->
+    <nav class="bottom-tab-bar" aria-label="Primary navigation">
+
+      <a class="tab-link" href="index.html">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 10.8 12 3l9 7.8v9.7a.5.5 0 0 1-.5.5h-5.7v-6.5H9.2V21H3.5a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        </span>
+        <span>Home</span>
+      </a>
+
+      <a class="tab-link" href="team-schedule2026.html">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M6 2v3M18 2v3M3.5 8.5h17M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
+            <path d="M7 12h2M11 12h2M15 12h2M7 16h2M11 16h2M15 16h2"/>
+          </svg>
+        </span>
+        <span>Team</span>
+      </a>
+
+      <a class="tab-link" href="mens-schedule2026.html">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 5h16v15H4zM8 2v5M16 2v5M4 9h16"/>
+            <path d="M8 13h3M13 13h3M8 17h3M13 17h3"/>
+          </svg>
+        </span>
+        <span>League</span>
+      </a>
+
+      <a
+        class="tab-link active"
+        href="team-stats2023.html"
+        aria-current="page"
+      >
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 20V10h4v10M10 20V4h4v16M15 20v-7h4v7M3 20h18"/>
+          </svg>
+        </span>
+        <span>Stats</span>
+      </a>
+
+    </nav>
+
+  </div>
+
+<script src="team-stats-data-2024.js?v=3"></script>
+
+<script>
+  const teamStats = teamStats2024;
+</script>
+
+<script src="team-stats.js?v=3"></script>
+
+<script src="register-service-worker.js"></script>
+</body>
+</html>
