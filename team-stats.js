@@ -1218,13 +1218,19 @@ function renderWeeklyResults() {
           </div>
 
           <div class="weekly-result-summary">
-            <div>
-              <span>Score</span>
-              <strong>${score}${endsText}</strong>
-            </div>
+  ${
+    shouldTrackScores()
+      ? `
+        <div>
+          <span>Score</span>
+          <strong>${score}${endsText}</strong>
+        </div>
+      `
+      : ""
+  }
 
-            <div>
-              <span>Draw</span>
+  <div>
+    <span>Draw</span>
               <strong>
                 ${
                   game.draw === "early"
