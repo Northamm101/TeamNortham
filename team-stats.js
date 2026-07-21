@@ -955,12 +955,18 @@ function renderHeadToHeadGameRows(games) {
           </div>
 
           <div class="head-to-head-game-details">
-            <div>
-              <span>Score</span>
-              <strong>
-                ${score}${endsText}
-              </strong>
-            </div>
+            ${
+  shouldTrackScores()
+    ? `
+      <div>
+        <span>Score</span>
+        <strong>
+          ${score}${endsText}
+        </strong>
+      </div>
+    `
+    : ""
+}
 
             <div>
               <span>Draw</span>
@@ -1265,11 +1271,7 @@ function renderWeeklyResults() {
           </div>
 
           <dl class="weekly-result-details">
-            <div>
-              <dt>Time</dt>
-              <dd>${game.time || "—"}</dd>
-            </div>
-
+            
             ${
   shouldTrackRockColors()
     ? `
