@@ -114,6 +114,10 @@ function shouldTrackScores() {
   return teamStats.trackScores !== false;
 }
 
+function shouldTrackLineups() {
+  return teamStats.trackLineups !== false;
+}
+
 function calculateStatistics() {
   const calculated = {
     overall: createEmptyRecord(),
