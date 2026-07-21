@@ -208,7 +208,7 @@ games: [
     draw: "late",
     time: "9:15 PM",
     sheet: 1,
-    opponent: A5,
+    opponent: A4,
     result: "W",
     lineup: []
   },
@@ -230,7 +230,7 @@ games: [
     draw: "early",
     time: "7:00 PM",
     sheet: 1,
-    opponent: A4,
+    opponent: A5,
     result: "L",
     lineup: []
   }
