@@ -236,7 +236,8 @@ const teamStats2024 = {
       time: "7:00 PM",
       draw: "early",
       sheet: 1,
-      opponent: 5,
+      opponent: "A2",
+      headToHeadOpponent: 5,
       result: "L",
       phase: "Playoffs",
       lineup: []
@@ -248,7 +249,8 @@ const teamStats2024 = {
       time: "9:15 PM",
       draw: "late",
       sheet: 1,
-      opponent: 7,
+      opponent: "A4",
+      headToHeadOpponent: 7,
       result: "W",
       phase: "Playoffs",
       lineup: []
@@ -260,7 +262,8 @@ const teamStats2024 = {
       time: "9:15 PM",
       draw: "late",
       sheet: 2,
-      opponent: 1,
+      opponent: "A1",
+      headToHeadOpponent: 1,
       result: "T",
       phase: "Playoffs",
       lineup: []
@@ -272,7 +275,8 @@ const teamStats2024 = {
       time: "7:00 PM",
       draw: "early",
       sheet: 3,
-      opponent: 3,
+      opponent: "A3",
+      headToHeadOpponent: 3,
       result: "L",
       phase: "Playoffs",
       lineup: []
@@ -284,7 +288,8 @@ const teamStats2024 = {
       time: "7:00 PM",
       draw: "early",
       sheet: 2,
-      opponent: 12,
+      opponent: "A5",
+      headToHeadOpponent: 12,
       result: "W",
       phase: "Playoffs",
       lineup: []
