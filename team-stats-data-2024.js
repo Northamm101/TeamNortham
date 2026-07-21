@@ -3,6 +3,7 @@ const teamStats2024 = {
   teamNumber: 2,
   trackRockColors: false,
   trackScores: false,
+  trackLineups: false,
   roster: [],
 
   scoring: {
