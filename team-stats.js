@@ -110,6 +110,10 @@ function shouldTrackRockColors() {
   return teamStats.trackRockColors !== false;
 }
 
+function shouldTrackScores() {
+  return teamStats.trackScores !== false;
+}
+
 function calculateStatistics() {
   const calculated = {
     overall: createEmptyRecord(),
