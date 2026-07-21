@@ -197,7 +197,8 @@ games: [
     draw: "late",
     time: "9:15 PM",
     sheet: 1,
-    opponent: A1,
+    opponent: "A1",
+    headToHeadOpponent: 3,
     result: "L",
     lineup: []
   },
@@ -208,7 +209,8 @@ games: [
     draw: "late",
     time: "9:15 PM",
     sheet: 1,
-    opponent: A5,
+    opponent: "A5",
+    headToHeadOpponent: 2,
     result: "W",
     lineup: []
   },
@@ -219,7 +221,8 @@ games: [
     draw: "early",
     time: "7:00 PM",
     sheet: 2,
-    opponent: A2,
+    opponent: "A2",
+    headToHeadOpponent: 5,
     result: "W",
     lineup: []
   },
@@ -230,7 +233,8 @@ games: [
     draw: "early",
     time: "7:00 PM",
     sheet: 1,
-    opponent: A4,
+    opponent: "A4",
+    headToHeadOpponent: 8,
     result: "L",
     lineup: []
   }
