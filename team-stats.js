@@ -281,10 +281,15 @@ lineupRecord.games.push({
 });
     }
 
-    const opponentNumber = Number(game.opponent);
+  const headToHeadOpponent =
+  game.headToHeadOpponent ?? game.opponent;
 
-    const currentTeamNumber =
-  Number(teamStats.teamNumber);
+  const opponentNumber = Number(
+  headToHeadOpponent
+  );
+
+  const currentTeamNumber =
+    Number(teamStats.teamNumber);
 
 if (
   Number.isInteger(opponentNumber) &&
