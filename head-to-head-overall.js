@@ -175,6 +175,11 @@ sheetRecords: {
   3: createHistoricalEmptyRecord()
 },
 
+rockRecords: {
+  yellow: createHistoricalEmptyRecord(),
+  red: createHistoricalEmptyRecord()
+},
+
 scoredGames: 0,
 pointsFor: 0,
 pointsAgainst: 0,
@@ -249,6 +254,24 @@ if (opponentRecord.drawRecords[game.draw]) {
 if (opponentRecord.sheetRecords[game.sheet]) {
   addHistoricalResult(
     opponentRecord.sheetRecords[game.sheet],
+    game.result
+  );
+}
+
+const normalizedRockColor =
+  typeof game.rockColor === "string"
+    ? game.rockColor.trim().toLowerCase()
+    : "";
+
+if (
+  opponentRecord.rockRecords[
+    normalizedRockColor
+  ]
+) {
+  addHistoricalResult(
+    opponentRecord.rockRecords[
+      normalizedRockColor
+    ],
     game.result
   );
 }
@@ -443,7 +466,43 @@ function renderHistoricalOpponentCard(
             </strong>
           </div>
         </div>
-      </section>
+            </section>
+
+      ${
+        getHistoricalGamesPlayed(
+          opponentRecord.rockRecords.yellow
+        ) +
+          getHistoricalGamesPlayed(
+            opponentRecord.rockRecords.red
+          ) >
+        0
+          ? `
+            <section class="lineup-breakdown-section">
+              <h3>Rock Performance</h3>
+
+              <div class="lineup-two-column-grid">
+                <div>
+                  <span>Yellow Rocks</span>
+                  <strong>
+                    ${formatHistoricalRecord(
+                      opponentRecord.rockRecords.yellow
+                    )}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Red Rocks</span>
+                  <strong>
+                    ${formatHistoricalRecord(
+                      opponentRecord.rockRecords.red
+                    )}
+                  </strong>
+                </div>
+              </div>
+            </section>
+          `
+          : ""
+      }
 
       ${
         opponentRecord.scoredGames > 0
