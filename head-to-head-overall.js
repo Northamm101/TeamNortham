@@ -133,11 +133,25 @@ function createHistoricalOpponentRecords() {
       records[opponent.name] = {
         opponent,
         overall: createHistoricalEmptyRecord(),
-        regularSeason:
-          createHistoricalEmptyRecord(),
-        playoffs:
-          createHistoricalEmptyRecord(),
-        games: []
+
+regularSeason:
+  createHistoricalEmptyRecord(),
+
+playoffs:
+  createHistoricalEmptyRecord(),
+
+drawRecords: {
+  early: createHistoricalEmptyRecord(),
+  late: createHistoricalEmptyRecord()
+},
+
+sheetRecords: {
+  1: createHistoricalEmptyRecord(),
+  2: createHistoricalEmptyRecord(),
+  3: createHistoricalEmptyRecord()
+},
+
+games: []
       };
     }
   );
@@ -185,18 +199,32 @@ function calculateHistoricalOpponentRecords() {
         );
 
         if (isPlayoff) {
-          addHistoricalResult(
-            opponentRecord.playoffs,
-            game.result
-          );
-        } else {
-          addHistoricalResult(
-            opponentRecord.regularSeason,
-            game.result
-          );
-        }
+  addHistoricalResult(
+    opponentRecord.playoffs,
+    game.result
+  );
+} else {
+  addHistoricalResult(
+    opponentRecord.regularSeason,
+    game.result
+  );
+}
 
-        opponentRecord.games.push({
+if (opponentRecord.drawRecords[game.draw]) {
+  addHistoricalResult(
+    opponentRecord.drawRecords[game.draw],
+    game.result
+  );
+}
+
+if (opponentRecord.sheetRecords[game.sheet]) {
+  addHistoricalResult(
+    opponentRecord.sheetRecords[game.sheet],
+    game.result
+  );
+}
+
+opponentRecord.games.push({
           ...game,
           seasonKey: seasonEntry.key,
           seasonLabel: seasonEntry.label,
@@ -304,7 +332,7 @@ function renderHistoricalOpponentCard(
           </strong>
         </div>
 
-        <div>
+                <div>
           <span>Playoffs</span>
           <strong>
             ${formatHistoricalRecord(
@@ -313,6 +341,63 @@ function renderHistoricalOpponentCard(
           </strong>
         </div>
       </div>
+
+      <section class="lineup-breakdown-section">
+        <h3>Draw Performance</h3>
+
+        <div class="lineup-two-column-grid">
+          <div>
+            <span>Early Draw</span>
+            <strong>
+              ${formatHistoricalRecord(
+                opponentRecord.drawRecords.early
+              )}
+            </strong>
+          </div>
+
+          <div>
+            <span>Late Draw</span>
+            <strong>
+              ${formatHistoricalRecord(
+                opponentRecord.drawRecords.late
+              )}
+            </strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="lineup-breakdown-section">
+        <h3>Sheet Performance</h3>
+
+        <div class="lineup-sheet-grid">
+          <div>
+            <span>Sheet 1</span>
+            <strong>
+              ${formatHistoricalRecord(
+                opponentRecord.sheetRecords[1]
+              )}
+            </strong>
+          </div>
+
+          <div>
+            <span>Sheet 2</span>
+            <strong>
+              ${formatHistoricalRecord(
+                opponentRecord.sheetRecords[2]
+              )}
+            </strong>
+          </div>
+
+          <div>
+            <span>Sheet 3</span>
+            <strong>
+              ${formatHistoricalRecord(
+                opponentRecord.sheetRecords[3]
+              )}
+            </strong>
+          </div>
+        </div>
+      </section>
     </article>
   `;
 }
