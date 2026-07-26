@@ -77,6 +77,30 @@ function formatHistoricalWinPercentage(record) {
   return `${percentage.toFixed(1)}%`;
 }
 
+function formatHistoricalSignedNumber(number) {
+  if (number > 0) {
+    return `+${number}`;
+  }
+
+  return `${number}`;
+}
+
+function calculateHistoricalAverageDifferential(
+  opponentRecord
+) {
+  if (opponentRecord.scoredGames === 0) {
+    return "—";
+  }
+
+  const average =
+    opponentRecord.differential /
+    opponentRecord.scoredGames;
+
+  return average > 0
+    ? `+${average.toFixed(2)}`
+    : average.toFixed(2);
+}
+
 function isCurrentHistoricalOpponent(opponent) {
   const currentSeason =
     opponent.seasons[
@@ -151,6 +175,11 @@ sheetRecords: {
   3: createHistoricalEmptyRecord()
 },
 
+scoredGames: 0,
+pointsFor: 0,
+pointsAgainst: 0,
+differential: 0,
+
 games: []
       };
     }
@@ -222,6 +251,23 @@ if (opponentRecord.sheetRecords[game.sheet]) {
     opponentRecord.sheetRecords[game.sheet],
     game.result
   );
+}
+
+if (
+  typeof game.teamScore === "number" &&
+  typeof game.opponentScore === "number"
+) {
+  opponentRecord.scoredGames += 1;
+
+  opponentRecord.pointsFor +=
+    game.teamScore;
+
+  opponentRecord.pointsAgainst +=
+    game.opponentScore;
+
+  opponentRecord.differential +=
+    game.teamScore -
+    game.opponentScore;
 }
 
 opponentRecord.games.push({
@@ -332,7 +378,7 @@ function renderHistoricalOpponentCard(
           </strong>
         </div>
 
-                <div>
+        <div>
           <span>Playoffs</span>
           <strong>
             ${formatHistoricalRecord(
@@ -398,6 +444,51 @@ function renderHistoricalOpponentCard(
           </div>
         </div>
       </section>
+
+      ${
+        opponentRecord.scoredGames > 0
+          ? `
+            <section class="lineup-breakdown-section">
+              <h3>Score Performance</h3>
+
+              <div class="head-to-head-summary-grid">
+                <div>
+                  <span>Scored Games</span>
+                  <strong>
+                    ${opponentRecord.scoredGames}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>For / Against</span>
+                  <strong>
+                    ${opponentRecord.pointsFor} /
+                    ${opponentRecord.pointsAgainst}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Differential</span>
+                  <strong>
+                    ${formatHistoricalSignedNumber(
+                      opponentRecord.differential
+                    )}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Average Differential</span>
+                  <strong>
+                    ${calculateHistoricalAverageDifferential(
+                      opponentRecord
+                    )}
+                  </strong>
+                </div>
+              </div>
+            </section>
+          `
+          : ""
+      }
     </article>
   `;
 }
