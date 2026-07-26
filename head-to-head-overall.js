@@ -101,6 +101,78 @@ function calculateHistoricalAverageDifferential(
     : average.toFixed(2);
 }
 
+const historicalRegularPlayerNames =
+  new Set(
+    Array.isArray(teamStats.roster)
+      ? teamStats.roster.map(
+          (player) => player.name
+        )
+      : []
+  );
+
+function formatHistoricalLineupName(lineup) {
+  return lineup
+    .map((playerName) =>
+      historicalRegularPlayerNames.has(
+        playerName
+      )
+        ? playerName
+        : `${playerName} (Spare)`
+    )
+    .join(" – ");
+}
+
+function calculateHistoricalLineupWinPercentage(
+  lineupRecord
+) {
+  if (lineupRecord.gamesPlayed === 0) {
+    return 0;
+  }
+
+  return (
+    lineupRecord.record.wins +
+    lineupRecord.record.ties * 0.5
+  ) / lineupRecord.gamesPlayed;
+}
+
+function sortHistoricalLineupRecords(
+  lineupRecords
+) {
+  return [...lineupRecords].sort(
+    (lineupA, lineupB) => {
+      if (
+        lineupB.gamesPlayed !==
+        lineupA.gamesPlayed
+      ) {
+        return (
+          lineupB.gamesPlayed -
+          lineupA.gamesPlayed
+        );
+      }
+
+      const percentageDifference =
+        calculateHistoricalLineupWinPercentage(
+          lineupB
+        ) -
+        calculateHistoricalLineupWinPercentage(
+          lineupA
+        );
+
+      if (percentageDifference !== 0) {
+        return percentageDifference;
+      }
+
+      return formatHistoricalLineupName(
+        lineupA.lineup
+      ).localeCompare(
+        formatHistoricalLineupName(
+          lineupB.lineup
+        )
+      );
+    }
+  );
+}
+
 function isCurrentHistoricalOpponent(opponent) {
   const currentSeason =
     opponent.seasons[
@@ -179,6 +251,8 @@ rockRecords: {
   yellow: createHistoricalEmptyRecord(),
   red: createHistoricalEmptyRecord()
 },
+
+lineupRecords: {},
 
 scoredGames: 0,
 pointsFor: 0,
@@ -276,6 +350,41 @@ if (
   );
 }
 
+if (
+  Array.isArray(game.lineup) &&
+  game.lineup.length > 0
+) {
+  const lineupKey =
+    game.lineup.join("|");
+
+  if (
+    !opponentRecord.lineupRecords[
+      lineupKey
+    ]
+  ) {
+    opponentRecord.lineupRecords[
+      lineupKey
+    ] = {
+      lineup: [...game.lineup],
+      record:
+        createHistoricalEmptyRecord(),
+      gamesPlayed: 0
+    };
+  }
+
+  const lineupRecord =
+    opponentRecord.lineupRecords[
+      lineupKey
+    ];
+
+  addHistoricalResult(
+    lineupRecord.record,
+    game.result
+  );
+
+  lineupRecord.gamesPlayed += 1;
+}
+        
 if (
   typeof game.teamScore === "number" &&
   typeof game.opponentScore === "number"
@@ -504,9 +613,62 @@ function renderHistoricalOpponentCard(
           : ""
       }
 
+            ${
+        Object.keys(
+          opponentRecord.lineupRecords
+        ).length > 0
+          ? `
+            <section class="lineup-breakdown-section">
+              <h3>Lineup Performance</h3>
+
+              <div class="lineup-performance-list">
+                ${sortHistoricalLineupRecords(
+                  Object.values(
+                    opponentRecord.lineupRecords
+                  )
+                )
+                  .map(
+                    (lineupRecord) => `
+                      <div class="lineup-performance-row">
+                        <div>
+                          <span class="lineup-performance-name">
+                            ${formatHistoricalLineupName(
+                              lineupRecord.lineup
+                            )}
+                          </span>
+
+                          <small>
+                            ${lineupRecord.gamesPlayed}
+                            ${
+                              lineupRecord.gamesPlayed === 1
+                                ? "game"
+                                : "games"
+                            }
+                            ·
+                            ${formatHistoricalWinPercentage(
+                              lineupRecord.record
+                            )}
+                          </small>
+                        </div>
+
+                        <strong>
+                          ${formatHistoricalRecord(
+                            lineupRecord.record
+                          )}
+                        </strong>
+                      </div>
+                    `
+                  )
+                  .join("")}
+              </div>
+            </section>
+          `
+          : ""
+      }
+
       ${
         opponentRecord.scoredGames > 0
-          ? `
+          ? ``
             <section class="lineup-breakdown-section">
               <h3>Score Performance</h3>
 
