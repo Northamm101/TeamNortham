@@ -451,6 +451,219 @@ function sortHistoricalOpponents(opponents) {
   );
 }
 
+function getHistoricalResultLabel(result) {
+  if (result === "W") {
+    return "Win";
+  }
+
+  if (result === "L") {
+    return "Loss";
+  }
+
+  if (result === "T") {
+    return "Tie";
+  }
+
+  return "Result";
+}
+
+function getHistoricalResultClass(result) {
+  if (result === "W") {
+    return "weekly-result-win";
+  }
+
+  if (result === "L") {
+    return "weekly-result-loss";
+  }
+
+  if (result === "T") {
+    return "weekly-result-tie";
+  }
+
+  return "";
+}
+
+function formatHistoricalOpponentReference(game) {
+  const opponentReference = game.opponent;
+
+  if (
+    typeof opponentReference === "number" ||
+    (
+      typeof opponentReference === "string" &&
+      /^\d+$/.test(opponentReference.trim())
+    )
+  ) {
+    return `Team ${opponentReference}`;
+  }
+
+  return opponentReference || "—";
+}
+
+function renderHistoricalGameRows(games) {
+  const gamesNewestFirst = [...games].sort(
+    (gameA, gameB) =>
+      new Date(`${gameB.date}T12:00:00`) -
+      new Date(`${gameA.date}T12:00:00`)
+  );
+
+  return gamesNewestFirst
+    .map((game) => {
+      const hasScore =
+        typeof game.teamScore === "number" &&
+        typeof game.opponentScore === "number";
+
+      const endsText =
+        Number.isInteger(game.ends)
+          ? ` (${game.ends}e)`
+          : "";
+
+      const hasDraw =
+        game.draw === "early" ||
+        game.draw === "late";
+
+      const hasSheet =
+        game.sheet !== undefined &&
+        game.sheet !== null &&
+        game.sheet !== "";
+
+      const rockColor =
+        typeof game.rockColor === "string"
+          ? game.rockColor.trim()
+          : "";
+
+      const hasLineup =
+        Array.isArray(game.lineup) &&
+        game.lineup.length > 0;
+
+      const notes =
+        typeof game.notes === "string"
+          ? game.notes.trim()
+          : "";
+
+      return `
+        <div class="head-to-head-game-row">
+          <div class="head-to-head-game-heading">
+            <div>
+              <span>
+                ${game.displayDate || game.date}
+              </span>
+
+              <strong>
+                ${game.seasonLabel} · ${game.phase}
+              </strong>
+            </div>
+
+            <span class="lineup-game-result ${getHistoricalResultClass(
+              game.result
+            )}">
+              ${getHistoricalResultLabel(
+                game.result
+              )}
+            </span>
+          </div>
+
+          <div class="head-to-head-game-details">
+            <div>
+              <span>Opponent</span>
+              <strong>
+                ${formatHistoricalOpponentReference(
+                  game
+                )}
+              </strong>
+            </div>
+
+            ${
+              hasScore
+                ? `
+                  <div>
+                    <span>Score</span>
+                    <strong>
+                      ${game.teamScore}-${game.opponentScore}${endsText}
+                    </strong>
+                  </div>
+                `
+                : ""
+            }
+
+            ${
+              hasDraw
+                ? `
+                  <div>
+                    <span>Draw</span>
+                    <strong>
+                      ${
+                        game.draw === "early"
+                          ? "Early"
+                          : "Late"
+                      }
+                    </strong>
+                  </div>
+                `
+                : ""
+            }
+
+            ${
+              hasSheet
+                ? `
+                  <div>
+                    <span>Sheet</span>
+                    <strong>${game.sheet}</strong>
+                  </div>
+                `
+                : ""
+            }
+
+            ${
+              rockColor
+                ? `
+                  <div>
+                    <span>Rocks</span>
+                    <strong>${rockColor}</strong>
+                  </div>
+                `
+                : ""
+            }
+          </div>
+
+          ${
+            hasLineup || notes
+              ? `
+                <dl class="weekly-result-details">
+                  ${
+                    hasLineup
+                      ? `
+                        <div>
+                          <dt>Lineup</dt>
+                          <dd>
+                            ${formatHistoricalLineupName(
+                              game.lineup
+                            )}
+                          </dd>
+                        </div>
+                      `
+                      : ""
+                  }
+
+                  ${
+                    notes
+                      ? `
+                        <div>
+                          <dt>Notes</dt>
+                          <dd>${notes}</dd>
+                        </div>
+                      `
+                      : ""
+                  }
+                </dl>
+              `
+              : ""
+          }
+        </div>
+      `;
+    })
+    .join("");
+}
+
 function renderHistoricalOpponentCard(
   opponentRecord
 ) {
@@ -708,8 +921,18 @@ function renderHistoricalOpponentCard(
               </div>
             </section>
           `
-          : ""
+            : ""
       }
+
+      <section class="head-to-head-games-section">
+        <h3>Games Played</h3>
+
+        <div class="head-to-head-games-list">
+          ${renderHistoricalGameRows(
+            opponentRecord.games
+          )}
+        </div>
+      </section>
     </article>
   `;
 }
