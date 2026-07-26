@@ -668,7 +668,7 @@ function renderHistoricalOpponentCard(
 
       ${
         opponentRecord.scoredGames > 0
-          ? ``
+          ? `
             <section class="lineup-breakdown-section">
               <h3>Score Performance</h3>
 
