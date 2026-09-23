@@ -729,7 +729,7 @@ function renderLineupGameRows(games) {
             </span>
           </div>
 
-          <div class="lineup-game-details">
+          <div class="lineup-game-details${shouldTrackRockColors() ? " lineup-game-details-with-rocks" : ""}">
            ${
   shouldTrackScores()
     ? `
