@@ -3269,3 +3269,26 @@ textarea {
   display: grid;
   gap: 2px;
 }
+
+/* =========================================================
+   2026–27 LINEUP GAME DETAILS — FOUR ACROSS
+   ========================================================= */
+
+@media (max-width: 520px) {
+  .lineup-game-details.lineup-game-details-with-rocks {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 6px;
+  }
+
+  .lineup-game-details.lineup-game-details-with-rocks > div {
+    padding: 9px 3px;
+  }
+
+  .lineup-game-details.lineup-game-details-with-rocks span {
+    font-size: 0.56rem;
+  }
+
+  .lineup-game-details.lineup-game-details-with-rocks strong {
+    font-size: 0.7rem;
+  }
+}
