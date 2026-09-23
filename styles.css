@@ -2710,6 +2710,10 @@ textarea {
   font-weight: 900;
 }
 
+.head-to-head-game-row .weekly-result-details {
+  margin-top: 8px;
+}
+
 @media (max-width: 360px) {
   .head-to-head-card h2 {
     max-width: 180px;
