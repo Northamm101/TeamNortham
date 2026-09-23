@@ -3292,3 +3292,18 @@ textarea {
     font-size: 0.7rem;
   }
 }
+
+/* =========================================================
+   2025–26 LINEUP GAME DETAILS — THREE ACROSS
+   ========================================================= */
+
+@media (max-width: 520px) {
+  .lineup-game-details:not(.lineup-game-details-with-rocks) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 7px;
+  }
+
+  .lineup-game-details:not(.lineup-game-details-with-rocks) > div {
+    padding: 9px 5px;
+  }
+}
