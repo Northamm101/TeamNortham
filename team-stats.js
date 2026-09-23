@@ -1246,7 +1246,7 @@ function renderWeeklyResults() {
             </span>
           </div>
 
-          <div class="weekly-result-summary">
+          <div class="weekly-result-summary${shouldTrackRockColors() ? " weekly-result-summary-with-rocks" : ""}">
   ${
     shouldTrackScores()
       ? `
@@ -1269,26 +1269,26 @@ function renderWeeklyResults() {
               </strong>
             </div>
 
-            <div>
+                        <div>
               <span>Sheet</span>
               <strong>${game.sheet}</strong>
             </div>
+
+            ${
+              shouldTrackRockColors()
+                ? `
+                  <div>
+                    <span>Rocks</span>
+                    <strong>
+                      ${game.rockColor || "—"}
+                    </strong>
+                  </div>
+                `
+                : ""
+            }
           </div>
 
           <dl class="weekly-result-details">
-            
-            ${
-  shouldTrackRockColors()
-    ? `
-      <div>
-        <dt>Rock Colour</dt>
-        <dd>
-          ${game.rockColor || "Not entered"}
-        </dd>
-      </div>
-    `
-    : ""
-}
 
 ${
   shouldTrackLineups()
