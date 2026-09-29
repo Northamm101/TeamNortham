@@ -22,7 +22,7 @@ function createStanding(teamNumber) {
 function createAllStandings() {
   const standings = {};
 
-  for (let teamNumber = 1; teamNumber <= 12; teamNumber += 1) {
+  for (let teamNumber = 1; teamNumber <= 11; teamNumber += 1) {
     standings[teamNumber] = createStanding(teamNumber);
   }
 
