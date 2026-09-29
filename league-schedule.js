@@ -178,9 +178,21 @@ const fiftyFiftyMarkup = week.fiftyFiftyTeam
   `;
 
   const specialGameNotes =
-    createSpecialGameNotes(week);
+  createSpecialGameNotes(week);
 
-  return `
+const byeMarkup =
+  week.byeTeam
+    ? `
+      <div class="fifty-fifty-banner compact-fifty-fifty no-fifty-fifty">
+        <span>
+          Bye:
+          <strong>Team ${week.byeTeam}</strong>
+        </span>
+      </div>
+    `
+    : "";
+
+return `
     <article class="schedule-card">
       <div class="schedule-card-header">
         <div>
@@ -196,7 +208,9 @@ const fiftyFiftyMarkup = week.fiftyFiftyTeam
 
       ${fiftyFiftyMarkup}
 
-      ${createDrawSection(
+${byeMarkup}
+
+${createDrawSection(
         "Early Draw",
         week.earlyTime,
         week.earlyGames,
