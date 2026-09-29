@@ -19,14 +19,20 @@ function getWinnipegDateTimeKey() {
   });
 
   return Number(
-    `${values.year}${values.month}${values.day}${values.hour}${values.minute}`
+    `${values.year}` +
+    `${values.month}` +
+    `${values.day}` +
+    `${values.hour}` +
+    `${values.minute}`
   );
 }
 
 function getGameStartKey(game) {
-  const [year, month, day] = game.date.split("-").map(Number);
+  const [year, month, day] =
+    game.date.split("-").map(Number);
 
-  const timeMatch = game.time.match(/(\d+):(\d+)\s(AM|PM)/i);
+  const timeMatch =
+    game.time.match(/(\d+):(\d+)\s(AM|PM)/i);
 
   if (!timeMatch) {
     return 0;
@@ -53,23 +59,82 @@ function getGameStartKey(game) {
   );
 }
 
+function buildTeamNorthamSchedule() {
+  const games = [];
+
+  leagueSchedule.forEach((week) => {
+    if (week.playoffPlaceholder) {
+      return;
+    }
+
+    const earlyGames = (week.earlyGames || []).map(
+      (game) => ({
+        ...game,
+        time: week.earlyTime
+      })
+    );
+
+    const lateGames = (week.lateGames || []).map(
+      (game) => ({
+        ...game,
+        time: week.lateTime
+      })
+    );
+
+    const teamGame = [
+      ...earlyGames,
+      ...lateGames
+    ].find(
+      (game) =>
+        game.teamA === teamNorthamNumber ||
+        game.teamB === teamNorthamNumber
+    );
+
+    if (!teamGame) {
+      return;
+    }
+
+    const opponentNumber =
+      teamGame.teamA === teamNorthamNumber
+        ? teamGame.teamB
+        : teamGame.teamA;
+
+    games.push({
+      date: week.date,
+      displayDate: week.displayDate,
+      time: teamGame.time,
+      sheet: teamGame.sheet,
+      opponent: `Team ${opponentNumber}`,
+      season: "Regular Season"
+    });
+  });
+
+  return games;
+}
+
 function renderNextGameAvailability(nextGame) {
-  const availabilitySection = document.getElementById(
-    "next-game-availability"
-  );
+  const availabilitySection =
+    document.getElementById(
+      "next-game-availability"
+    );
 
-  const availabilityList = document.getElementById(
-    "next-game-availability-list"
-  );
+  const availabilityList =
+    document.getElementById(
+      "next-game-availability-list"
+    );
 
-  if (!availabilitySection || !availabilityList) {
+  if (
+    !availabilitySection ||
+    !availabilityList
+  ) {
     return;
   }
 
   const availabilityEntry =
     typeof playerAvailability !== "undefined"
       ? playerAvailability.find(
-          (entry) => entry.date === nextGame.date
+          (entry) =>
+            entry.date === nextGame.date
         )
       : null;
 
@@ -79,13 +144,19 @@ function renderNextGameAvailability(nextGame) {
     return;
   }
 
-    const availabilityLines = [];
+  const availabilityLines = [];
 
-  const spares = availabilityEntry.spares || [];
-  const unavailable = availabilityEntry.unavailable || [];
+  const spares =
+    availabilityEntry.spares || [];
+
+  const unavailable =
+    availabilityEntry.unavailable || [];
+
   const availableIfNeeded =
     availabilityEntry.availableIfNeeded || [];
-  const lastResort = availabilityEntry.lastResort || [];
+
+  const lastResort =
+    availabilityEntry.lastResort || [];
 
   spares.forEach((player) => {
     availabilityLines.push(
@@ -119,25 +190,54 @@ function renderNextGameAvailability(nextGame) {
     return;
   }
 
-  availabilityList.innerHTML = availabilityLines.join("");
+  availabilityList.innerHTML =
+    availabilityLines.join("");
+
   availabilitySection.hidden = false;
 }
 
 function updateNextGameCard() {
-  const currentKey = getWinnipegDateTimeKey();
+  const currentKey =
+    getWinnipegDateTimeKey();
 
-  const nextGame = teamNorthamSchedule.find(
-    (game) => getGameStartKey(game) > currentKey
-  );
+  const teamNorthamSchedule =
+    buildTeamNorthamSchedule();
 
-  const seasonBadge = document.getElementById("next-game-season");
-  const dateValue = document.getElementById("next-game-date");
-  const timeValue = document.getElementById("next-game-time");
-  const sheetValue = document.getElementById("next-game-sheet");
-  const opponentValue = document.getElementById("next-game-opponent");
-  const availabilitySection = document.getElementById(
-    "next-game-availability"
-  );
+  const nextGame =
+    teamNorthamSchedule.find(
+      (game) =>
+        getGameStartKey(game) > currentKey
+    );
+
+  const seasonBadge =
+    document.getElementById(
+      "next-game-season"
+    );
+
+  const dateValue =
+    document.getElementById(
+      "next-game-date"
+    );
+
+  const timeValue =
+    document.getElementById(
+      "next-game-time"
+    );
+
+  const sheetValue =
+    document.getElementById(
+      "next-game-sheet"
+    );
+
+  const opponentValue =
+    document.getElementById(
+      "next-game-opponent"
+    );
+
+  const availabilitySection =
+    document.getElementById(
+      "next-game-availability"
+    );
 
   if (
     !seasonBadge ||
@@ -150,8 +250,12 @@ function updateNextGameCard() {
   }
 
   if (!nextGame) {
-    seasonBadge.textContent = "Season Complete";
-    dateValue.textContent = "No upcoming games";
+    seasonBadge.textContent =
+      "Season Complete";
+
+    dateValue.textContent =
+      "No upcoming games";
+
     timeValue.textContent = "—";
     sheetValue.textContent = "—";
     opponentValue.textContent = "—";
@@ -163,21 +267,27 @@ function updateNextGameCard() {
     return;
   }
 
-  seasonBadge.textContent = nextGame.season;
-  dateValue.textContent = nextGame.displayDate;
-  timeValue.textContent = nextGame.time;
-  sheetValue.textContent = `Sheet ${nextGame.sheet}`;
-  opponentValue.textContent = nextGame.opponent;
+  seasonBadge.textContent =
+    nextGame.season;
+
+  dateValue.textContent =
+    nextGame.displayDate;
+
+  timeValue.textContent =
+    nextGame.time;
+
+  sheetValue.textContent =
+    `Sheet ${nextGame.sheet}`;
+
+  opponentValue.textContent =
+    nextGame.opponent;
 
   renderNextGameAvailability(nextGame);
 }
 
 updateNextGameCard();
 
-/*
-  Recheck once every minute.
-
-  This allows the card to advance automatically when a scheduled
-  Team Northam game begins, even if the app remains open.
-*/
-setInterval(updateNextGameCard, 60000);
+setInterval(
+  updateNextGameCard,
+  60000
+);
