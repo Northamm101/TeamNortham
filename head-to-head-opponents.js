@@ -64,7 +64,7 @@ const headToHeadOpponentData = {
         "2023": { regularSeason: 9, playoffs: "B2" },
         "2024": { regularSeason: 8, playoffs: "B1" },
         "2025": { regularSeason: 7, playoffs: "B3" },
-        "2026": { regularSeason: 11, playoffs: null }
+        "2026": { regularSeason: 10, playoffs: null }
       }
     },
 
@@ -97,7 +97,7 @@ const headToHeadOpponentData = {
         "2023": { regularSeason: 10, playoffs: "B5" },
         "2024": { regularSeason: 9, playoffs: "B2" },
         "2025": { regularSeason: 8, playoffs: "B5" },
-        "2026": { regularSeason: 8, playoffs: null }
+        "2026": { regularSeason: null, playoffs: null }
       }
     },
 
@@ -119,7 +119,7 @@ const headToHeadOpponentData = {
         "2023": { regularSeason: null, playoffs: null },
         "2024": { regularSeason: 10, playoffs: "B3" },
         "2025": { regularSeason: 9, playoffs: "B2" },
-        "2026": { regularSeason: 12, playoffs: null }
+        "2026": { regularSeason: 11, playoffs: null }
       }
     },
 
@@ -152,7 +152,7 @@ const headToHeadOpponentData = {
         "2023": { regularSeason: null, playoffs: null },
         "2024": { regularSeason: null, playoffs: null },
         "2025": { regularSeason: 11, playoffs: "B4" },
-        "2026": { regularSeason: 9, playoffs: null }
+        "2026": { regularSeason: 8, playoffs: null }
       }
     },
 
@@ -163,8 +163,20 @@ const headToHeadOpponentData = {
         "2023": { regularSeason: null, playoffs: null },
         "2024": { regularSeason: null, playoffs: null },
         "2025": { regularSeason: 12, playoffs: "B6" },
-        "2026": { regularSeason: 10, playoffs: null }
+        "2026": { regularSeason: null, playoffs: null }
       }
-    }
+    },
+
+{
+  name: "Opponent Ma",
+  seasons: {
+    "2022": { regularSeason: null, playoffs: null },
+    "2023": { regularSeason: null, playoffs: null },
+    "2024": { regularSeason: null, playoffs: null },
+    "2025": { regularSeason: null, playoffs: null },
+    "2026": { regularSeason: 9, playoffs: null }
+  }
+}
+    
   ]
 };
