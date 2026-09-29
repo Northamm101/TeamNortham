@@ -1,4 +1,4 @@
-const CACHE_NAME = "team-northam-v1";
+const CACHE_NAME = "team-northam-v2";
 
 const APP_FILES = [
   "./",
@@ -19,8 +19,6 @@ const APP_FILES = [
   "./league-schedule-data.js",
   "./league-schedule.js",
   "./league-standings.js",
-
-  "./schedule-data.js",
   "./next-game.js",
 
   "./team-schedule.js",
@@ -31,6 +29,8 @@ const APP_FILES = [
 
   "./weekly-results-data.js",
   "./weekly-results-sync.js",
+  "./weekly-results-validation.js",
+  "./weekly-results-validation-runner.js",
 
   "./player-availability-data.js",
   "./player-availability.js"
@@ -51,8 +51,13 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames
-          .filter((cacheName) => cacheName !== CACHE_NAME)
-          .map((cacheName) => caches.delete(cacheName))
+          .filter(
+            (cacheName) =>
+              cacheName !== CACHE_NAME
+          )
+          .map((cacheName) =>
+            caches.delete(cacheName)
+          )
       );
     })
   );
@@ -63,7 +68,9 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (
     event.request.method !== "GET" ||
-    !event.request.url.startsWith(self.location.origin)
+    !event.request.url.startsWith(
+      self.location.origin
+    )
   ) {
     return;
   }
@@ -71,26 +78,39 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        const responseCopy = response.clone();
+        const responseCopy =
+          response.clone();
 
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseCopy);
-        });
+        caches
+          .open(CACHE_NAME)
+          .then((cache) => {
+            cache.put(
+              event.request,
+              responseCopy
+            );
+          });
 
         return response;
       })
       .catch(() => {
-        return caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
+        return caches
+          .match(event.request)
+          .then((cachedResponse) => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
 
-          if (event.request.mode === "navigate") {
-            return caches.match("./index.html");
-          }
+            if (
+              event.request.mode ===
+              "navigate"
+            ) {
+              return caches.match(
+                "./index.html"
+              );
+            }
 
-          return Response.error();
-        });
+            return Response.error();
+          });
       })
   );
 });
