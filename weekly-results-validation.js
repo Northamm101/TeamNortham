@@ -5,7 +5,10 @@ function validateWeeklyResults() {
     typeof weeklyResults === "undefined" ||
     !Array.isArray(weeklyResults)
   ) {
-    errors.push("The weeklyResults array could not be found.");
+    errors.push(
+      "The weeklyResults array could not be found."
+    );
+
     return errors;
   }
 
@@ -23,13 +26,24 @@ function validateWeeklyResults() {
       );
     }
 
-    if (games.length !== 6) {
+    if (games.length !== 5) {
       errors.push(
-        `Week ${weekLabel}: Expected 6 league games but found ${games.length}.`
+        `Week ${weekLabel}: Expected 5 league games but found ${games.length}.`
+      );
+    }
+
+    if (
+      !Number.isInteger(week.byeTeam) ||
+      week.byeTeam < 1 ||
+      week.byeTeam > 11
+    ) {
+      errors.push(
+        `Week ${weekLabel}: Bye team must be a team number between 1 and 11.`
       );
     }
 
     const teamsUsed = [];
+
     const drawSheets = {
       early: [],
       late: []
@@ -64,22 +78,26 @@ function validateWeeklyResults() {
         game.draw === "early" ||
         game.draw === "late"
       ) {
-        drawSheets[game.draw].push(game.sheet);
+        drawSheets[game.draw].push(
+          game.sheet
+        );
       }
 
-      [game.teamA, game.teamB].forEach((teamNumber) => {
-        if (
-          !Number.isInteger(teamNumber) ||
-          teamNumber < 1 ||
-          teamNumber > 12
-        ) {
-          errors.push(
-            `${gameLabel}: Team numbers must be between 1 and 12.`
-          );
-        }
+      [game.teamA, game.teamB].forEach(
+        (teamNumber) => {
+          if (
+            !Number.isInteger(teamNumber) ||
+            teamNumber < 1 ||
+            teamNumber > 11
+          ) {
+            errors.push(
+              `${gameLabel}: Team numbers must be between 1 and 11.`
+            );
+          }
 
-        teamsUsed.push(teamNumber);
-      });
+          teamsUsed.push(teamNumber);
+        }
+      );
 
       if (game.teamA === game.teamB) {
         errors.push(
@@ -96,14 +114,19 @@ function validateWeeklyResults() {
 
       if (
         game.resultType &&
-        !validResultTypes.includes(game.resultType)
+        !validResultTypes.includes(
+          game.resultType
+        )
       ) {
         errors.push(
           `${gameLabel}: Invalid resultType "${game.resultType}".`
         );
       }
 
-      if (game.resultType === "tie" && game.winner !== null) {
+      if (
+        game.resultType === "tie" &&
+        game.winner !== null
+      ) {
         errors.push(
           `${gameLabel}: A tied game must have winner: null.`
         );
@@ -119,7 +142,9 @@ function validateWeeklyResults() {
         );
       }
 
-      if (game.resultType === "default") {
+      if (
+        game.resultType === "default"
+      ) {
         if (
           game.winner !== game.teamA &&
           game.winner !== game.teamB
@@ -138,7 +163,10 @@ function validateWeeklyResults() {
           );
         }
 
-        if (game.winner === game.forfeitingTeam) {
+        if (
+          game.winner ===
+          game.forfeitingTeam
+        ) {
           errors.push(
             `${gameLabel}: Winner and forfeiting team cannot be the same.`
           );
@@ -155,50 +183,125 @@ function validateWeeklyResults() {
       }
     });
 
-    ["early", "late"].forEach((draw) => {
-      const sheets = drawSheets[draw];
+    const earlySheets =
+      drawSheets.early;
 
-      const uniqueSheets =
-        new Set(sheets);
+    const uniqueEarlySheets =
+      new Set(earlySheets);
 
-      if (
-        sheets.length !== 3 ||
-        uniqueSheets.size !== 3
-      ) {
-        errors.push(
-          `Week ${weekLabel}: The ${draw} draw must use Sheets 1, 2, and 3 exactly once.`
-        );
-      }
-    });
+    if (
+      earlySheets.length !== 3 ||
+      uniqueEarlySheets.size !== 3 ||
+      !uniqueEarlySheets.has(1) ||
+      !uniqueEarlySheets.has(2) ||
+      !uniqueEarlySheets.has(3)
+    ) {
+      errors.push(
+        `Week ${weekLabel}: The early draw must use Sheets 1, 2, and 3 exactly once.`
+      );
+    }
 
-    const validTeamsUsed = teamsUsed.filter(
-      (teamNumber) =>
-        Number.isInteger(teamNumber) &&
-        teamNumber >= 1 &&
-        teamNumber <= 12
-    );
+    const lateSheets =
+      drawSheets.late;
+
+    const uniqueLateSheets =
+      new Set(lateSheets);
+
+    if (
+      lateSheets.length !== 2 ||
+      uniqueLateSheets.size !== 2 ||
+      !uniqueLateSheets.has(1) ||
+      !uniqueLateSheets.has(2)
+    ) {
+      errors.push(
+        `Week ${weekLabel}: The late draw must use Sheets 1 and 2 exactly once.`
+      );
+    }
+
+    const validTeamsUsed =
+      teamsUsed.filter(
+        (teamNumber) =>
+          Number.isInteger(teamNumber) &&
+          teamNumber >= 1 &&
+          teamNumber <= 11
+      );
 
     const uniqueTeamsUsed =
       new Set(validTeamsUsed);
 
     if (
-      validTeamsUsed.length === 12 &&
-      uniqueTeamsUsed.size !== 12
+      validTeamsUsed.length === 10 &&
+      uniqueTeamsUsed.size !== 10
     ) {
       errors.push(
         `Week ${weekLabel}: One or more teams appear more than once.`
       );
     }
 
-    const teamSevenGames = games.filter(
-      (game) =>
-        game.teamA === 7 ||
-        game.teamB === 7
-    );
+    if (
+      Number.isInteger(week.byeTeam) &&
+      uniqueTeamsUsed.has(week.byeTeam)
+    ) {
+      errors.push(
+        `Week ${weekLabel}: The bye team cannot also appear in a game.`
+      );
+    }
+
+    if (
+      validTeamsUsed.length === 10 &&
+      uniqueTeamsUsed.size === 10 &&
+      Number.isInteger(week.byeTeam)
+    ) {
+      const missingTeams = [];
+
+      for (
+        let teamNumber = 1;
+        teamNumber <= 11;
+        teamNumber += 1
+      ) {
+        if (
+          !uniqueTeamsUsed.has(teamNumber)
+        ) {
+          missingTeams.push(teamNumber);
+        }
+      }
+
+      if (
+        missingTeams.length !== 1 ||
+        missingTeams[0] !== week.byeTeam
+      ) {
+        errors.push(
+          `Week ${weekLabel}: Bye team does not match the team missing from the five games.`
+        );
+      }
+    }
+
+    const teamSevenGames =
+      games.filter(
+        (game) =>
+          game.teamA === 7 ||
+          game.teamB === 7
+      );
+
+    if (week.byeTeam === 7) {
+      if (teamSevenGames.length !== 0) {
+        errors.push(
+          `Week ${weekLabel}: Team 7 is listed as the bye team and must not appear in a game.`
+        );
+      }
+
+      if (week.teamNortham) {
+        errors.push(
+          `Week ${weekLabel}: Team Northam game details should not be entered during a Team 7 bye week.`
+        );
+      }
+
+      return;
+    }
 
     if (teamSevenGames.length !== 1) {
       errors.push(
-        `Week ${weekLabel}: Team 7 must appear exactly once.`
+        `Week ${weekLabel}: Team 7 must appear exactly once unless Team 7 has the bye.`
       );
     }
 
@@ -223,8 +326,9 @@ function validateWeeklyResults() {
         : teamSevenGame.teamA;
 
     if (
-      Number(week.teamNortham.opponent) !==
-      expectedOpponent
+      Number(
+        week.teamNortham.opponent
+      ) !== expectedOpponent
     ) {
       errors.push(
         `Week ${weekLabel}: Team Northam opponent does not match the league schedule result.`
@@ -260,7 +364,8 @@ function validateWeeklyResults() {
 
     if (
       expectedResult &&
-      week.teamNortham.result !== expectedResult
+      week.teamNortham.result !==
+        expectedResult
     ) {
       errors.push(
         `Week ${weekLabel}: Team Northam result does not match the league winner.`
@@ -268,7 +373,9 @@ function validateWeeklyResults() {
     }
 
     if (
-      !Array.isArray(week.teamNortham.lineup) ||
+      !Array.isArray(
+        week.teamNortham.lineup
+      ) ||
       week.teamNortham.lineup.length < 3 ||
       week.teamNortham.lineup.length > 4
     ) {
@@ -278,10 +385,14 @@ function validateWeeklyResults() {
     }
 
     if (
-      Array.isArray(week.teamNortham.lineup)
+      Array.isArray(
+        week.teamNortham.lineup
+      )
     ) {
       const uniqueLineup =
-        new Set(week.teamNortham.lineup);
+        new Set(
+          week.teamNortham.lineup
+        );
 
       if (
         uniqueLineup.size !==
