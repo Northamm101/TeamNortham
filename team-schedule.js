@@ -32,14 +32,19 @@ const teamScheduleMonthInformation = {
 };
 
 function findTeamNorthamGame(week) {
+  if (week.playoffPlaceholder) {
+    return null;
+  }
+
   const allGames = [
-    ...week.earlyGames.map((game) => ({
+    ...(week.earlyGames || []).map((game) => ({
       ...game,
       drawName: "Early Draw",
       drawTime: week.earlyTime,
       drawType: "early"
     })),
-    ...week.lateGames.map((game) => ({
+
+    ...(week.lateGames || []).map((game) => ({
       ...game,
       drawName: "Late Draw",
       drawTime: week.lateTime,
@@ -77,10 +82,14 @@ function createTeamScheduleAvailabilityMarkup(date) {
   }
 
   const spares = availabilityEntry.spares || [];
-  const unavailable = availabilityEntry.unavailable || [];
+  const unavailable =
+    availabilityEntry.unavailable || [];
+
   const availableIfNeeded =
     availabilityEntry.availableIfNeeded || [];
-  const lastResort = availabilityEntry.lastResort || [];
+
+  const lastResort =
+    availabilityEntry.lastResort || [];
 
   const availabilityLines = [];
 
@@ -116,7 +125,10 @@ function createTeamScheduleAvailabilityMarkup(date) {
 
   return `
     <div class="team-schedule-availability">
-      <p class="detail-label">Player Availability</p>
+      <p class="detail-label">
+        Player Availability
+      </p>
+
       <div class="team-schedule-availability-list">
         ${availabilityLines.join("")}
       </div>
@@ -124,14 +136,7 @@ function createTeamScheduleAvailabilityMarkup(date) {
   `;
 }
 
-function createTeamScheduleCard(week, weekNumber) {
-  const game = findTeamNorthamGame(week);
-
-  if (!game) {
-    return "";
-  }
-
-  const opponentNumber = getOpponentNumber(game);
+function getTeamScheduleDateInformation(week) {
   const dateParts = week.date.split("-");
   const monthNumber = dateParts[1];
   const dayNumber = dateParts[2];
@@ -141,12 +146,36 @@ function createTeamScheduleCard(week, weekNumber) {
       .slice(0, 3)
       .toUpperCase() || "";
 
+  return {
+    monthName,
+    dayNumber
+  };
+}
+
+function createTeamScheduleCard(
+  week,
+  weekNumber
+) {
+  const game = findTeamNorthamGame(week);
+
+  if (!game) {
+    return "";
+  }
+
+  const opponentNumber =
+    getOpponentNumber(game);
+
+  const {
+    monthName,
+    dayNumber
+  } = getTeamScheduleDateInformation(week);
+
   const winnerText =
-  game.resultType === "tie"
-    ? "Tie"
-    : game.winner
-      ? `Team ${game.winner}`
-      : "—";
+    game.resultType === "tie"
+      ? "Tie"
+      : game.winner
+        ? `Team ${game.winner}`
+        : "—";
 
   const resultClass =
     game.winner === null
@@ -161,33 +190,43 @@ function createTeamScheduleCard(week, weekNumber) {
       : "late-draw-badge";
 
   const fiftyFiftyHighlightClass =
-  week.fiftyFiftyTeam === teamNorthamNumber
-    ? " team-northam-fifty-fifty"
-    : "";
+    week.fiftyFiftyTeam === teamNorthamNumber
+      ? " team-northam-fifty-fifty"
+      : "";
 
-const fiftyFiftyMarkup = week.fiftyFiftyTeam
-  ? `
-    <div class="fifty-fifty-banner compact-fifty-fifty${fiftyFiftyHighlightClass}">
-      <span>
-        50/50 Team:
-        <strong>Team ${week.fiftyFiftyTeam}</strong>
-      </span>
-    </div>
-  `
-  : `
-    <div class="fifty-fifty-banner compact-fifty-fifty no-fifty-fifty">
-      <span>No 50/50 this week</span>
-    </div>
-  `;
+  const fiftyFiftyMarkup =
+    week.fiftyFiftyTeam
+      ? `
+        <div class="fifty-fifty-banner compact-fifty-fifty${fiftyFiftyHighlightClass}">
+          <span>
+            50/50 Team:
+            <strong>
+              Team ${week.fiftyFiftyTeam}
+            </strong>
+          </span>
+        </div>
+      `
+      : `
+        <div class="fifty-fifty-banner compact-fifty-fifty no-fifty-fifty">
+          <span>
+            No 50/50 this week
+          </span>
+        </div>
+      `;
 
   const availabilityMarkup =
-    createTeamScheduleAvailabilityMarkup(week.date);
-  
+    createTeamScheduleAvailabilityMarkup(
+      week.date
+    );
+
   return `
     <article class="schedule-card team-game-card${resultClass}">
       <div class="schedule-card-header">
         <div>
-          <p class="schedule-week-label">Week ${weekNumber}</p>
+          <p class="schedule-week-label">
+            Week ${weekNumber}
+          </p>
+
           <h2>${week.displayDate}</h2>
         </div>
 
@@ -202,29 +241,42 @@ const fiftyFiftyMarkup = week.fiftyFiftyTeam
       <section class="draw-section">
         <div class="draw-heading">
           <div>
-            <span class="draw-label">${game.drawName}</span>
+            <span class="draw-label">
+              ${game.drawName}
+            </span>
+
             <h3>${game.drawTime}</h3>
           </div>
 
           <span class="draw-badge ${badgeClass}">
-            ${game.drawType === "early" ? "Early" : "Late"}
+            ${
+              game.drawType === "early"
+                ? "Early"
+                : "Late"
+            }
           </span>
         </div>
 
         <div class="team-game-details">
           <div class="team-game-detail">
             <span>Opponent</span>
-            <strong>Team ${opponentNumber}</strong>
+            <strong>
+              Team ${opponentNumber}
+            </strong>
           </div>
 
           <div class="team-game-detail">
             <span>Sheet</span>
-            <strong>Sheet ${game.sheet}</strong>
+            <strong>
+              Sheet ${game.sheet}
+            </strong>
           </div>
 
           <div class="team-game-detail">
             <span>Winner</span>
-            <strong>${winnerText}</strong>
+            <strong>
+              ${winnerText}
+            </strong>
           </div>
         </div>
       </section>
@@ -239,9 +291,118 @@ const fiftyFiftyMarkup = week.fiftyFiftyTeam
   `;
 }
 
+function createTeamByeCard(
+  week,
+  weekNumber
+) {
+  const {
+    monthName,
+    dayNumber
+  } = getTeamScheduleDateInformation(week);
+
+  const fiftyFiftyHighlightClass =
+    week.fiftyFiftyTeam === teamNorthamNumber
+      ? " team-northam-fifty-fifty"
+      : "";
+
+  const fiftyFiftyMarkup =
+    week.fiftyFiftyTeam
+      ? `
+        <div class="fifty-fifty-banner compact-fifty-fifty${fiftyFiftyHighlightClass}">
+          <span>
+            50/50 Team:
+            <strong>
+              Team ${week.fiftyFiftyTeam}
+            </strong>
+          </span>
+        </div>
+      `
+      : `
+        <div class="fifty-fifty-banner compact-fifty-fifty no-fifty-fifty">
+          <span>
+            No 50/50 this week
+          </span>
+        </div>
+      `;
+
+  return `
+    <article class="schedule-card">
+      <div class="schedule-card-header">
+        <div>
+          <p class="schedule-week-label">
+            Week ${weekNumber}
+          </p>
+
+          <h2>${week.displayDate}</h2>
+        </div>
+
+        <div class="date-badge" aria-hidden="true">
+          <span>${monthName}</span>
+          <strong>${dayNumber}</strong>
+        </div>
+      </div>
+
+      ${fiftyFiftyMarkup}
+
+      <div class="fifty-fifty-banner compact-fifty-fifty team-northam-fifty-fifty">
+        <span>
+          <strong>
+            TEAM NORTHAM — BYE WEEK
+          </strong>
+        </span>
+      </div>
+
+      <a class="back-to-top-link" href="#top">
+        Back to top
+        <span aria-hidden="true">↑</span>
+      </a>
+    </article>
+  `;
+}
+
+function createTeamPlayoffPlaceholderCard(week) {
+  const {
+    monthName,
+    dayNumber
+  } = getTeamScheduleDateInformation(week);
+
+  return `
+    <article class="schedule-card">
+      <div class="schedule-card-header">
+        <div>
+          <p class="schedule-week-label">
+            Playoffs
+          </p>
+
+          <h2>${week.displayDate}</h2>
+        </div>
+
+        <div class="date-badge" aria-hidden="true">
+          <span>${monthName}</span>
+          <strong>${dayNumber}</strong>
+        </div>
+      </div>
+
+      <div class="schedule-placeholder">
+        <p>
+          Team Northam playoff schedule
+          will be added here.
+        </p>
+      </div>
+
+      <a class="back-to-top-link" href="#top">
+        Back to top
+        <span aria-hidden="true">↑</span>
+      </a>
+    </article>
+  `;
+}
+
 function renderTeamSchedule() {
   const scheduleContainer =
-    document.getElementById("team-schedule-container");
+    document.getElementById(
+      "team-schedule-container"
+    );
 
   if (!scheduleContainer) {
     return;
@@ -249,23 +410,49 @@ function renderTeamSchedule() {
 
   const groupedSchedule = {};
 
-  leagueSchedule.forEach((week, index) => {
-    const game = findTeamNorthamGame(week);
+  let regularSeasonWeekNumber = 0;
 
-    if (!game) {
-      return;
-    }
-
-    const monthNumber = week.date.split("-")[1];
+  leagueSchedule.forEach((week) => {
+    const monthNumber =
+      week.date.split("-")[1];
 
     if (!groupedSchedule[monthNumber]) {
       groupedSchedule[monthNumber] = [];
     }
 
-    groupedSchedule[monthNumber].push({
-      ...week,
-      weekNumber: index + 1
-    });
+    if (week.playoffPlaceholder) {
+      groupedSchedule[monthNumber].push({
+        ...week,
+        cardType: "playoff",
+        weekNumber: null
+      });
+
+      return;
+    }
+
+    regularSeasonWeekNumber += 1;
+
+    const game = findTeamNorthamGame(week);
+
+    if (game) {
+      groupedSchedule[monthNumber].push({
+        ...week,
+        cardType: "game",
+        weekNumber: regularSeasonWeekNumber
+      });
+
+      return;
+    }
+
+    if (
+      week.byeTeam === teamNorthamNumber
+    ) {
+      groupedSchedule[monthNumber].push({
+        ...week,
+        cardType: "bye",
+        weekNumber: regularSeasonWeekNumber
+      });
+    }
   });
 
   const monthOrder = [
@@ -277,15 +464,41 @@ function renderTeamSchedule() {
     "03"
   ];
 
-  scheduleContainer.innerHTML = monthOrder
-    .map((monthNumber) => {
-      const month = teamScheduleMonthInformation[monthNumber];
-      const weeks = groupedSchedule[monthNumber] || [];
+  scheduleContainer.innerHTML =
+    monthOrder
+      .map((monthNumber) => {
+        const month =
+          teamScheduleMonthInformation[
+            monthNumber
+          ];
 
-      if (weeks.length === 0) {
+        const weeks =
+          groupedSchedule[monthNumber] || [];
+
+        if (weeks.length === 0) {
+          return `
+            <section
+              class="schedule-month empty-schedule-month"
+              id="${month.id}"
+            >
+              <div class="month-heading">
+                <span>${month.name}</span>
+                <strong>${month.year}</strong>
+              </div>
+
+              <div class="schedule-placeholder">
+                <p>
+                  Team schedule will be
+                  added here.
+                </p>
+              </div>
+            </section>
+          `;
+        }
+
         return `
           <section
-            class="schedule-month empty-schedule-month"
+            class="schedule-month"
             id="${month.id}"
           >
             <div class="month-heading">
@@ -293,32 +506,35 @@ function renderTeamSchedule() {
               <strong>${month.year}</strong>
             </div>
 
-            <div class="schedule-placeholder">
-              <p>Team schedule will be added here.</p>
-            </div>
+            ${weeks
+              .map((week) => {
+                if (
+                  week.cardType === "playoff"
+                ) {
+                  return createTeamPlayoffPlaceholderCard(
+                    week
+                  );
+                }
+
+                if (
+                  week.cardType === "bye"
+                ) {
+                  return createTeamByeCard(
+                    week,
+                    week.weekNumber
+                  );
+                }
+
+                return createTeamScheduleCard(
+                  week,
+                  week.weekNumber
+                );
+              })
+              .join("")}
           </section>
         `;
-      }
-
-      return `
-        <section class="schedule-month" id="${month.id}">
-          <div class="month-heading">
-            <span>${month.name}</span>
-            <strong>${month.year}</strong>
-          </div>
-
-          ${weeks
-            .map((week) =>
-              createTeamScheduleCard(
-                week,
-                week.weekNumber
-              )
-            )
-            .join("")}
-        </section>
-      `;
-    })
-    .join("");
+      })
+      .join("");
 }
 
 applyWeeklyResultsToLeagueSchedule();
