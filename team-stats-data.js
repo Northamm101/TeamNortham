@@ -23,20 +23,20 @@ const teamStats = {
     Example:
 
     {
-      date: "2026-10-01",
-      displayDate: "October 1, 2026",
-      opponent: 3,
-      result: "W",
-      teamScore: 8,
-      opponentScore: 5,
-      ends: 7,
-      draw: "late",
-      time: "9:15 PM",
-      sheet: 1,
-      rockColor: "Red",
-      lineup: ["Jason", "Jeff", "Tom", "Mike"],
-      notes: ""
-    }
+  date: "2026-10-01",
+  displayDate: "October 1, 2026",
+  opponent: 6,
+  result: "W",
+  teamScore: 8,
+  opponentScore: 5,
+  ends: 7,
+  draw: "early",
+  time: "7:00 PM",
+  sheet: 1,
+  rockColor: "Red",
+  lineup: ["Jason", "Jeff", "Tom", "Mike"],
+  notes: ""
+}
   */
 
   games: []
