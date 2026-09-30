@@ -3307,3 +3307,116 @@ textarea {
     padding: 9px 5px;
   }
 }
+
+/* =========================================================
+   MEN'S LEAGUE SCHEDULE — COMPACT WEEK CARDS
+   ========================================================= */
+
+@media (max-width: 619px) {
+
+  .mens-schedule-page .schedule-page {
+    padding-top: 10px;
+  }
+
+  .mens-schedule-page .schedule-card {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .mens-schedule-page .schedule-card-header {
+    margin-bottom: 9px;
+    gap: 10px;
+  }
+
+  .mens-schedule-page .schedule-week-label {
+    margin-bottom: 2px;
+    font-size: 0.62rem;
+  }
+
+  .mens-schedule-page .schedule-card-header h2 {
+    font-size: 1.35rem;
+  }
+
+  .mens-schedule-page .date-badge {
+    flex-basis: 52px;
+    width: 52px;
+    min-height: 55px;
+  }
+
+  .mens-schedule-page .date-badge span {
+    padding: 4px;
+    font-size: 0.58rem;
+  }
+
+  .mens-schedule-page .date-badge strong {
+    font-size: 1.25rem;
+  }
+
+  .mens-schedule-page .fifty-fifty-banner {
+    min-height: 40px;
+    margin-bottom: 9px;
+    padding: 7px 11px;
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+
+  .mens-schedule-page .fifty-fifty-banner span {
+    font-size: 0.64rem;
+  }
+
+  .mens-schedule-page .fifty-fifty-banner strong {
+    font-size: 0.76rem;
+  }
+
+  .mens-schedule-page .draw-section {
+    margin-top: 9px;
+    padding-top: 9px;
+  }
+
+  .mens-schedule-page .draw-heading {
+    margin-bottom: 7px;
+  }
+
+  .mens-schedule-page .draw-label {
+    margin-bottom: 1px;
+    font-size: 0.6rem;
+  }
+
+  .mens-schedule-page .draw-heading h3 {
+    font-size: 0.98rem;
+  }
+
+  .mens-schedule-page .draw-badge {
+    padding: 5px 9px;
+    font-size: 0.6rem;
+  }
+
+  .mens-schedule-page .schedule-table th,
+  .mens-schedule-page .schedule-table td {
+    padding: 6px 4px;
+  }
+
+  .mens-schedule-page .schedule-table th {
+    font-size: 0.56rem;
+  }
+
+  .mens-schedule-page .schedule-table td {
+    font-size: 0.67rem;
+    line-height: 1.15;
+  }
+
+  .mens-schedule-page .sheet-cell {
+    font-size: 0.8rem !important;
+  }
+
+  .mens-schedule-page .back-to-top-link {
+    margin-top: 8px;
+    font-size: 0.68rem;
+  }
+
+  .mens-schedule-page .back-to-top-link span {
+    width: 22px;
+    height: 22px;
+    font-size: 0.7rem;
+  }
+}
