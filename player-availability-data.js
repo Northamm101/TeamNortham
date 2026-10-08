@@ -14,7 +14,7 @@ const playerAvailability = [
     unavailable: ["Dallas", "Jeff"],
     availableIfNeeded: [],
     lastResort: [],
-    spares: []
+    spares: ["Richard"]
   },
 
   {
