@@ -144,5 +144,78 @@ const weeklyResults = [
       ],
       notes: "We all struggled to make shots."
     }
+  },
+
+  {
+  week: 3,
+  date: "2026-10-15",
+  displayDate: "October 15, 2026",
+  phase: "regular",
+  byeTeam: 11,
+
+  games: [
+    {
+      draw: "early",
+      sheet: 1,
+      teamA: 3,
+      teamB: 6,
+      winner: null,
+      resultType: "tie"
+    },
+
+    {
+      draw: "early",
+      sheet: 2,
+      teamA: 4,
+      teamB: 2,
+      winner: 2,
+      resultType: "win"
+    },
+
+    {
+      draw: "early",
+      sheet: 3,
+      teamA: 9,
+      teamB: 1,
+      winner: 1,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 1,
+      teamA: 8,
+      teamB: 5,
+      winner: 8,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 2,
+      teamA: 10,
+      teamB: 7,
+      winner: 7,
+      resultType: "win"
+    }
+  ],
+
+  teamNortham: {
+    opponent: 10,
+    result: "W",
+    teamScore: 8,
+    opponentScore: 4,
+    ends: 7,
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 2,
+    rockColor: "Yellow",
+    lineup: [
+      "Jason",
+      "Tom",
+      "Mike"
+    ],
+    notes: "The three of us played well."
   }
+}
 ];
