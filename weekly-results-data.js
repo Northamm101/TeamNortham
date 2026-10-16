@@ -168,7 +168,7 @@ const weeklyResults = [
       sheet: 2,
       teamA: 4,
       teamB: 2,
-      winner: 2,
+      winner: 4,
       resultType: "win"
     },
 
