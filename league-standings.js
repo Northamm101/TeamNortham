@@ -185,83 +185,245 @@ function sortTiedStandings(
     return tiedStandings;
   }
 
-  const headToHeadStandings =
-    calculateHeadToHeadStandings(
-      tiedStandings,
-      completedGames
+  /*
+    First tiebreaker:
+    fewer Games Played ranks higher.
+  */
+  const standingsByGamesPlayed = {};
+
+  tiedStandings.forEach((standing) => {
+    const gamesPlayed =
+      standing.gamesPlayed;
+
+    if (
+      !standingsByGamesPlayed[
+        gamesPlayed
+      ]
+    ) {
+      standingsByGamesPlayed[
+        gamesPlayed
+      ] = [];
+    }
+
+    standingsByGamesPlayed[
+      gamesPlayed
+    ].push(standing);
+  });
+
+  const gamesPlayedTotals =
+    Object.keys(standingsByGamesPlayed)
+      .map(Number)
+      .sort(
+        (gamesA, gamesB) =>
+          gamesA - gamesB
+      );
+
+  return gamesPlayedTotals.flatMap(
+    (gamesPlayed) => {
+      const sameGamesPlayed =
+        standingsByGamesPlayed[
+          gamesPlayed
+        ];
+
+      if (
+        sameGamesPlayed.length <= 1
+      ) {
+        return sameGamesPlayed;
+      }
+
+      return sortByHeadToHead(
+        sameGamesPlayed,
+        completedGames
+      );
+    }
+  );
+}
+
+function sortByHeadToHead(
+  tiedStandings,
+  completedGames
+) {
+  const tiedTeamNumbers =
+    new Set(
+      tiedStandings.map(
+        (standing) =>
+          standing.team
+      )
     );
 
-  const totalHeadToHeadGames =
-    Object.values(headToHeadStandings)
-      .reduce(
-        (total, standing) =>
-          total + standing.gamesPlayed,
-        0
-      ) / 2;
+  /*
+    Build a directed graph.
+
+    If Team A beat Team B:
+    A points toward B.
+
+    That lets us follow chains such as:
+
+    7 beat 10
+    10 beat 8
+    8 beat 5
+
+    giving:
+
+    7, 10, 8, 5
+  */
+  const defeatedTeams = {};
+  const indegree = {};
+
+  tiedStandings.forEach(
+    (standing) => {
+      defeatedTeams[
+        standing.team
+      ] = new Set();
+
+      indegree[
+        standing.team
+      ] = 0;
+    }
+  );
+
+  completedGames.forEach((game) => {
+    if (
+      !tiedTeamNumbers.has(
+        game.teamA
+      ) ||
+      !tiedTeamNumbers.has(
+        game.teamB
+      )
+    ) {
+      return;
+    }
+
+    /*
+      Ties do not establish
+      head-to-head superiority.
+    */
+    if (
+      game.resultType === "tie" ||
+      !game.winner
+    ) {
+      return;
+    }
+
+    const winner =
+      game.winner;
+
+    const loser =
+      winner === game.teamA
+        ? game.teamB
+        : game.teamA;
+
+    if (
+      !defeatedTeams[
+        winner
+      ].has(loser)
+    ) {
+      defeatedTeams[
+        winner
+      ].add(loser);
+
+      indegree[loser] += 1;
+    }
+  });
 
   /*
-    If none of the tied teams have played one another,
-    use Games Played and then Wins.
+    Topological sorting follows
+    established head-to-head chains.
+
+    Numerical team order is used
+    whenever the available results
+    do not distinguish teams.
   */
-  if (totalHeadToHeadGames === 0) {
-    return [...tiedStandings].sort(
-      (standingA, standingB) => {
-        if (
-          standingB.gamesPlayed !==
-          standingA.gamesPlayed
-        ) {
-          return (
-            standingB.gamesPlayed -
-            standingA.gamesPlayed
-          );
-        }
+  const remainingTeams =
+    new Set(
+      tiedStandings.map(
+        (standing) =>
+          standing.team
+      )
+    );
 
-        if (
-          standingB.wins !== standingA.wins
-        ) {
-          return (
-            standingB.wins -
-            standingA.wins
-          );
-        }
+  const orderedTeams = [];
 
-        return standingA.team - standingB.team;
+  while (
+    remainingTeams.size > 0
+  ) {
+    const availableTeams =
+      [...remainingTeams]
+        .filter(
+          (teamNumber) =>
+            indegree[
+              teamNumber
+            ] === 0
+        )
+        .sort(
+          (teamA, teamB) =>
+            teamA - teamB
+        );
+
+    /*
+      If there is no team with
+      zero incoming losses, the
+      remaining group contains a
+      circular head-to-head tie.
+
+      Example:
+      A beat B
+      B beat C
+      C beat A
+
+      Keep that unresolved group
+      in numerical team order.
+    */
+    if (
+      availableTeams.length === 0
+    ) {
+      orderedTeams.push(
+        ...[...remainingTeams].sort(
+          (teamA, teamB) =>
+            teamA - teamB
+        )
+      );
+
+      break;
+    }
+
+    const nextTeam =
+      availableTeams[0];
+
+    orderedTeams.push(
+      nextTeam
+    );
+
+    remainingTeams.delete(
+      nextTeam
+    );
+
+    defeatedTeams[
+      nextTeam
+    ].forEach(
+      (defeatedTeam) => {
+        indegree[
+          defeatedTeam
+        ] -= 1;
       }
     );
   }
 
-  /*
-    When tied teams have played one another,
-    rank them using the mini head-to-head table.
-  */
-  return [...tiedStandings].sort(
-    (standingA, standingB) => {
-      const headToHeadA =
-        headToHeadStandings[standingA.team];
+  const standingsByTeam = {};
 
-      const headToHeadB =
-        headToHeadStandings[standingB.team];
-
-      if (
-        headToHeadB.points !==
-        headToHeadA.points
-      ) {
-        return (
-          headToHeadB.points -
-          headToHeadA.points
-        );
-      }
-
-      /*
-        Teams that remain tied after head-to-head
-        stay in numerical order for display only.
-
-        The team number is not an official tiebreaker.
-        A draw-to-the-button may later determine the
-        A-Side/B-Side cutoff.
-      */
-      return standingA.team - standingB.team;
+  tiedStandings.forEach(
+    (standing) => {
+      standingsByTeam[
+        standing.team
+      ] = standing;
     }
+  );
+
+  return orderedTeams.map(
+    (teamNumber) =>
+      standingsByTeam[
+        teamNumber
+      ]
   );
 }
 
