@@ -217,5 +217,79 @@ const weeklyResults = [
     ],
     notes: "The three of us played well."
   }
-}
+},
+  
+{
+  week: 4,
+  date: "2026-10-22",
+  displayDate: "October 22, 2026",
+  phase: "regular",
+  byeTeam: 4,
+
+  games: [
+    {
+      draw: "early",
+      sheet: 1,
+      teamA: 11,
+      teamB: 3,
+      winner: 3,
+      resultType: "win"
+    },
+
+    {
+      draw: "early",
+      sheet: 2,
+      teamA: 10,
+      teamB: 5,
+      winner: 10,
+      resultType: "win"
+    },
+
+    {
+      draw: "early",
+      sheet: 3,
+      teamA: 1,
+      teamB: 6,
+      winner: 1,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 1,
+      teamA: 7,
+      teamB: 8,
+      winner: 7,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 2,
+      teamA: 2,
+      teamB: 9,
+      winner: 2,
+      resultType: "win"
+    }
+  ],
+
+  teamNortham: {
+    opponent: 8,
+    result: "W",
+    teamScore: 8,
+    opponentScore: 6,
+    ends: 8,
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 1,
+    rockColor: "Red",
+    lineup: [
+      "Dallas",
+      "Jeff",
+      "Tom",
+      "Mike"
+    ],
+    notes: "Fairly even game, went back and forth."
+  }
+}  
 ];
