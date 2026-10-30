@@ -291,5 +291,79 @@ const weeklyResults = [
     ],
     notes: "Fairly even game, went back and forth."
   }
+},  
+
+{
+  week: 5,
+  date: "2026-10-29",
+  displayDate: "October 29, 2026",
+  phase: "regular",
+  byeTeam: 9,
+
+  games: [
+    {
+      draw: "early",
+      sheet: 1,
+      teamA: 8,
+      teamB: 4,
+      winner: 4,
+      resultType: "win"
+    },
+
+    {
+      draw: "early",
+      sheet: 2,
+      teamA: 3,
+      teamB: 2,
+      winner: 3,
+      resultType: "win"
+    },
+
+    {
+      draw: "early",
+      sheet: 3,
+      teamA: 11,
+      teamB: 5,
+      winner: 5,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 1,
+      teamA: 6,
+      teamB: 10,
+      winner: 6,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 2,
+      teamA: 1,
+      teamB: 7,
+      winner: 1,
+      resultType: "win"
+    }
+  ],
+
+  teamNortham: {
+    opponent: 1,
+    result: "L",
+    teamScore: 2,
+    opponentScore: 8,
+    ends: 6,
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 2,
+    rockColor: "Yellow",
+    lineup: [
+      "Jason",
+      "Jeff",
+      "Tom",
+      "Mike"
+    ],
+    notes: "Gave up 4 in the first, otherwise close game."
+  }
 }  
 ];
