@@ -25,6 +25,15 @@ const playerAvailability = [
     lastResort: [],
     spares: []
   },
+
+  {
+  date: "2026-11-05",
+  displayDate: "November 5, 2026",
+  unavailable: ["Jeff"],
+  availableIfNeeded: [],
+  lastResort: [],
+  spares: []
+},
   
   {
     date: "2026-11-12",
@@ -38,7 +47,7 @@ const playerAvailability = [
   {
     date: "2026-11-19",
     displayDate: "November 19, 2026",
-    unavailable: ["Tom"],
+    unavailable: ["Tom", "Jason"],
     availableIfNeeded: [],
     lastResort: [],
     spares: []
