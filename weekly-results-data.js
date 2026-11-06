@@ -365,5 +365,79 @@ const weeklyResults = [
     ],
     notes: "Gave up 4 in the first, otherwise close game."
   }
-}  
+},
+
+  {
+  week: 6,
+  date: "2026-11-05",
+  displayDate: "November 5, 2026",
+  phase: "regular",
+  byeTeam: 3,
+
+  games: [
+    {
+      draw: "early",
+      sheet: 1,
+      teamA: 7,
+      teamB: 9,
+      winner: 9,
+      resultType: "win"
+    },
+
+    {
+      draw: "early",
+      sheet: 2,
+      teamA: 1,
+      teamB: 4,
+      winner: 4,
+      resultType: "win"
+    },
+
+    {
+      draw: "early",
+      sheet: 3,
+      teamA: 10,
+      teamB: 6,
+      winner: 6,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 1,
+      teamA: 8,
+      teamB: 11,
+      winner: 11,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 2,
+      teamA: 2,
+      teamB: 5,
+      winner: 5,
+      resultType: "win"
+    }
+  ],
+
+  teamNortham: {
+    opponent: 9,
+    result: "L",
+    teamScore: 3,
+    opponentScore: 6,
+    ends: 7,
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 1,
+    rockColor: "Red",
+    lineup: [
+      "Dallas",
+      "Jason",
+      "Tom",
+      "Mike"
+    ],
+    notes: "Other team played well, made it tough for us."
+  }
+}
 ];
