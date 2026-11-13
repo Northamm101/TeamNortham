@@ -439,5 +439,79 @@ const weeklyResults = [
     ],
     notes: "Other team played well, made it tough for us."
   }
+},
+
+  {
+  week: 7,
+  date: "2026-11-12",
+  displayDate: "November 12, 2026",
+  phase: "regular",
+  byeTeam: 11,
+
+  games: [
+    {
+      draw: "early",
+      sheet: 1,
+      teamA: 6,
+      teamB: 9,
+      winner: null,
+      resultType: "tie"
+    },
+
+    {
+      draw: "early",
+      sheet: 2,
+      teamA: 5,
+      teamB: 3,
+      winner: 3,
+      resultType: "win"
+    },
+
+    {
+      draw: "early",
+      sheet: 3,
+      teamA: 8,
+      teamB: 1,
+      winner: 1,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 1,
+      teamA: 2,
+      teamB: 7,
+      winner: 2,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 2,
+      teamA: 10,
+      teamB: 4,
+      winner: 4,
+      resultType: "win"
+    }
+  ],
+
+  teamNortham: {
+    opponent: 2,
+    result: "L",
+    teamScore: 6,
+    opponentScore: 7,
+    ends: 7,
+    draw: "late",
+    time: "9:15 PM",
+    sheet: 1,
+    rockColor: "Red",
+    lineup: [
+      "Jason",
+      "Jeff",
+      "Tom",
+      "Mike"
+    ],
+    notes: "Slow start, but we played better as the game went on."
+  }
 }
 ];
