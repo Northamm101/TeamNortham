@@ -50,7 +50,7 @@ const playerAvailability = [
     unavailable: ["Tom", "Jason"],
     availableIfNeeded: [],
     lastResort: [],
-    spares: [Cory]
+    spares: ["Cory"]
   },
 
   {
