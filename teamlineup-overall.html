@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="description"
+    content="Team Northam's overall lineup statistics across recorded seasons."
+  >
+
+  <meta name="theme-color" content="#071f3d">
+
+  <link rel="manifest" href="manifest.json">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Team Northam">
+
+  <link
+    rel="apple-touch-icon"
+    href="team-northam-app-logo.jpg"
+  >
+
+  <title>Overall Lineup Record | Team Northam</title>
+
+  <link rel="stylesheet" href="styles.css?v=23">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+  <!-- Team Northam Header -->
+  <header class="site-header">
+    <a
+      class="logo-link"
+      href="index.html"
+      aria-label="Team Northam home"
+    >
+      <img
+        class="team-logo"
+        src="team-northam-logo.jpg"
+        alt="Team Northam Lorette curling logo"
+      >
+    </a>
+  </header>
+
+  <main class="page-content stats-page">
+
+    <!-- Page Introduction -->
+    <section class="welcome-section stats-intro">
+
+      <p class="eyebrow">
+        Team Northam • 2025–26 Onward
+      </p>
+
+      <h1>Overall Lineup Record</h1>
+
+      <p class="welcome-text">
+        Combined records and performance breakdowns
+        for every recorded Team Northam lineup.
+      </p>
+
+    </section>
+
+    <!-- Lineup Statistics -->
+    <section id="overall-lineup-statistics-list">
+
+      <div class="empty-state">
+        <p>Loading overall lineup statistics...</p>
+      </div>
+
+    </section>
+
+    <!-- Return to Overall Statistics -->
+    <a
+      class="card-footer-link"
+      href="team-stats-overall.html"
+    >
+      Back to Overall Statistics
+      <span aria-hidden="true">←</span>
+    </a>
+
+  </main>
+
+  <!-- Bottom Tab Bar -->
+  <nav
+    class="bottom-tab-bar"
+    aria-label="Primary navigation"
+  >
+
+    <a class="tab-link" href="index.html">
+      <span class="tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 10.8 12 3l9 7.8v9.7a.5.5 0 0 1-.5.5h-5.7v-6.5H9.2V21H3.5a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+      </span>
+      <span>Home</span>
+    </a>
+
+    <a
+      class="tab-link"
+      href="team-schedule2026.html"
+    >
+      <span class="tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 2v3M18 2v3M3.5 8.5h17M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z"/>
+          <path d="M7 12h2M11 12h2M15 12h2M7 16h2M11 16h2M15 16h2"/>
+        </svg>
+      </span>
+      <span>Team</span>
+    </a>
+
+    <a
+      class="tab-link"
+      href="mens-schedule2026.html"
+    >
+      <span class="tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 5h16v15H4zM8 2v5M16 2v5M4 9h16"/>
+        </svg>
+      </span>
+      <span>League</span>
+    </a>
+
+    <a
+      class="tab-link active"
+      href="team-stats-overall.html"
+      aria-current="page"
+    >
+      <span class="tab-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 20V10h4v10M10 20V4h4v16M15 20v-7h4v7M3 20h18"/>
+        </svg>
+      </span>
+      <span>Stats</span>
+    </a>
+
+  </nav>
+
+</div>
+
+<!-- Historical Season Data -->
+<script src="team-stats-data-2022.js"></script>
+<script src="team-stats-data-2023.js"></script>
+<script src="team-stats-data-2024.js"></script>
+<script src="team-stats-data-2025.js?v=2"></script>
+
+<!-- Current Season Data -->
+<script src="team-stats-data.js"></script>
+<script src="weekly-results-data.js"></script>
+<script src="weekly-results-sync.js"></script>
+
+<script>
+  applyWeeklyResultsToTeamStats();
+</script>
+
+<!-- Overall Calculations -->
+<script src="team-stats-overall.js"></script>
+
+<!-- Overall Lineup Rendering -->
+<script>
+
+(function () {
+  "use strict";
+
+  const container = document.getElementById(
+    "overall-lineup-statistics-list"
+  );
+
+  const overall = window.TeamNorthamOverall;
+
+  if (!container || !overall) {
+    return;
+  }
+
+  const {
+    sortedLineups,
+    formatRecord,
+    lineupName,
+    normalizePhase,
+    escapeHTML
+  } = overall;
+
+  const lineups = sortedLineups();
+
+  /* ---------- Format Helpers ---------- */
+
+  function signedNumber(number) {
+    if (number > 0) {
+      return `+${number}`;
+    }
+
+    return String(number);
+  }
+
+  function averageDifferential(lineup) {
+    if (!lineup.scoredGames) {
+      return "—";
+    }
+
+    const average =
+      lineup.differential / lineup.scoredGames;
+
+    return average > 0
+      ? `+${average.toFixed(2)}`
+      : average.toFixed(2);
+  }
+
+  function resultLabel(result) {
+    if (result === "W") return "Win";
+    if (result === "L") return "Loss";
+    if (result === "T") return "Tie";
+
+    return "Result";
+  }
+
+  function resultClass(result) {
+    if (result === "W") return "weekly-result-win";
+    if (result === "L") return "weekly-result-loss";
+    if (result === "T") return "weekly-result-tie";
+
+    return "";
+  }
+
+  function recordBox(label, record) {
+    return `
+      <div>
+        <span>${escapeHTML(label)}</span>
+        <strong>${formatRecord(record)}</strong>
+      </div>
+    `;
+  }
+
+  /* ---------- Individual Game Rows ---------- */
+
+  function renderGames(games) {
+    const sortedGames = [...games].sort(
+      (a, b) => b.date.localeCompare(a.date)
+    );
+
+    return sortedGames.map((game) => {
+
+      const hasScore =
+        typeof game.teamScore === "number" &&
+        typeof game.opponentScore === "number";
+
+      const score = hasScore
+        ? `${game.teamScore}-${game.opponentScore}`
+        : "—";
+
+      const endsText = Number.isInteger(game.ends)
+        ? ` (${game.ends}e)`
+        : "";
+
+      const draw =
+        game.draw === "early" ? "Early" :
+        game.draw === "late" ? "Late" : "—";
+
+      const phase =
+        normalizePhase(game.phase) === "playoffs"
+          ? "Playoffs"
+          : "Regular Season";
+
+      const opponent = game.opponent == null
+        ? "Unknown"
+        : String(game.opponent);
+
+      const rockColor =
+        game.rockColor || "—";
+
+      const showRocks =
+        rockColor !== "—";
+
+      return `
+        <div class="lineup-game-row">
+
+          <div class="lineup-game-heading">
+            <div>
+              <span>
+                ${escapeHTML(game.season)} •
+                ${escapeHTML(
+                  game.displayDate || game.date
+                )}
+              </span>
+
+              <strong>
+                vs Team ${escapeHTML(opponent)}
+              </strong>
+
+              <span>${phase}</span>
+            </div>
+
+            <span class="lineup-game-result ${resultClass(game.result)}">
+              ${resultLabel(game.result)}
+            </span>
+          </div>
+
+          <div class="lineup-game-details ${showRocks ? "lineup-game-details-with-rocks" : ""}">
+
+            <div>
+              <span>Score</span>
+              <strong>${score}${endsText}</strong>
+            </div>
+
+            <div>
+              <span>Draw</span>
+              <strong>${draw}</strong>
+            </div>
+
+            <div>
+              <span>Sheet</span>
+              <strong>${escapeHTML(
+                game.sheet ?? "—"
+              )}</strong>
+            </div>
+
+            ${showRocks ? `
+              <div>
+                <span>Rocks</span>
+                <strong>
+                  ${escapeHTML(rockColor)}
+                </strong>
+              </div>
+            ` : ""}
+
+          </div>
+
+        </div>
+      `;
+    }).join("");
+  }
+
+  /* ---------- Render Full Lineup Cards ---------- */
+
+  if (lineups.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <p>No recorded lineups are available yet.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML = lineups.map(
+    (lineup, index) => {
+
+      const record = lineup.records.overall;
+
+      return `
+        <article class="dashboard-card lineup-statistics-card">
+
+          <div class="card-heading">
+            <div>
+              <p class="card-label">
+                Lineup ${index + 1}
+              </p>
+
+              <h2>
+                ${escapeHTML(
+                  lineupName(lineup.lineup)
+                )}
+              </h2>
+            </div>
+
+            <span class="lineup-record-bubble">
+              ${formatRecord(record)}
+            </span>
+          </div>
+
+          <!-- Main Summary -->
+          <div class="lineup-summary-grid">
+
+            <div>
+              <span>Games</span>
+              <strong>${record.gamesPlayed}</strong>
+            </div>
+
+            <div>
+              <span>Points</span>
+              <strong>${record.points}</strong>
+            </div>
+
+            <div>
+              <span>For / Against</span>
+              <strong>
+                ${lineup.scoredGames
+                  ? `${lineup.pointsFor} / ${lineup.pointsAgainst}`
+                  : "—"}
+              </strong>
+            </div>
+
+            <div>
+              <span>Average Diff.</span>
+              <strong>
+                ${averageDifferential(lineup)}
+              </strong>
+            </div>
+
+          </div>
+
+          <!-- Season Phase Records -->
+          <section class="lineup-breakdown-section">
+            <h3>Season Performance</h3>
+
+            <div class="lineup-sheet-grid">
+
+              ${recordBox(
+                "Overall",
+                lineup.records.overall
+              )}
+
+              ${recordBox(
+                "Regular",
+                lineup.records.regular
+              )}
+
+              ${recordBox(
+                "Playoffs",
+                lineup.records.playoffs
+              )}
+
+            </div>
+          </section>
+
+          <!-- Draw Performance -->
+          <section class="lineup-breakdown-section">
+            <h3>Draw Performance</h3>
+
+            <div class="lineup-two-column-grid">
+
+              ${recordBox(
+                "Early Draw",
+                lineup.draws.early.overall
+              )}
+
+              ${recordBox(
+                "Late Draw",
+                lineup.draws.late.overall
+              )}
+
+            </div>
+          </section>
+
+          <!-- Sheet Performance -->
+          <section class="lineup-breakdown-section">
+            <h3>Sheet Performance</h3>
+
+            <div class="lineup-sheet-grid">
+
+              ${[1, 2, 3].map((sheet) => {
+                return recordBox(
+                  `Sheet ${sheet}`,
+                  lineup.sheets[sheet].overall
+                );
+              }).join("")}
+
+            </div>
+          </section>
+
+          <!-- Individual Games -->
+          <section class="lineup-breakdown-section">
+            <h3>Games Played</h3>
+
+            <div class="lineup-games-list">
+              ${renderGames(lineup.games)}
+            </div>
+          </section>
+
+        </article>
+      `;
+    }
+  ).join("");
+
+})();
+
+</script>
+
+<script src="register-service-worker.js"></script>
+
+</body>
+</html>
