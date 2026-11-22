@@ -173,7 +173,7 @@ const teamStats2022 = {
       displayDate: "February 9, 2023",
       phase: "Regular Season",
       draw: "early",
-      time: "9:15 PM",
+      time: "7:00 PM",
       sheet: 2,
       opponent: 1,
       result: "W",
