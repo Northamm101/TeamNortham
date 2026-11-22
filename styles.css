@@ -3636,3 +3636,8 @@ textarea {
   }
 }
 
+/* Overall Statistics — Games and Points on separate lines */
+
+.overall-phase-box small + small {
+  margin-top: 3px;
+}
