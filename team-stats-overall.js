@@ -371,13 +371,15 @@
               <strong>${formatRecord(record)}</strong>
 
               ${showPoints ? `
-                <small>
-                  ${record.gamesPlayed} games ·
-                  ${record.points} points
-                </small>
-              ` : `
-                <small>${record.gamesPlayed} games</small>
-              `}
+  <small>
+    ${record.gamesPlayed} games
+  </small>
+  <small>
+    ${record.points} points
+  </small>
+` : `
+  <small>${record.gamesPlayed} games</small>
+`}
             </div>
           `;
         }).join("")}
