@@ -587,5 +587,80 @@ const weeklyResults = [
     ],
     notes: "Close game, came down to last shot."
   }
+},
+
+
+{
+  week: 9,
+  date: "2026-11-26",
+  displayDate: "November 26, 2026",
+  phase: "regular",
+  byeTeam: 10,
+
+  games: [
+    {
+      draw: "early",
+      sheet: 1,
+      teamA: 11,
+      teamB: 2,
+      winner: 2,
+      resultType: "win"
+    },
+
+    {
+      draw: "early",
+      sheet: 2,
+      teamA: 4,
+      teamB: 9,
+      winner: 4,
+      resultType: "win"
+    },
+
+    {
+      draw: "early",
+      sheet: 3,
+      teamA: 5,
+      teamB: 7,
+      winner: 7,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 1,
+      teamA: 1,
+      teamB: 3,
+      winner: 1,
+      resultType: "win"
+    },
+
+    {
+      draw: "late",
+      sheet: 2,
+      teamA: 6,
+      teamB: 8,
+      winner: 6,
+      resultType: "win"
+    }
+  ],
+
+  teamNortham: {
+    opponent: 5,
+    result: "W",
+    teamScore: 10,
+    opponentScore: 7,
+    ends: 8,
+    draw: "early",
+    time: "7:00 PM",
+    sheet: 3,
+    rockColor: "Red",
+    lineup: [
+      "Cory",
+      "Jason",
+      "Jeff",
+      "Tom"
+    ],
+    notes: "Good close game."
+  }
 }
 ];
